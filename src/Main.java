@@ -11,7 +11,7 @@ public class Main extends Application
     {
       Parent root = FXMLLoader.load(getClass().getResource("View/LoginUI.fxml"));
       primaryStage.setTitle("WCLibrary");
-      primaryStage.setScene(new Scene(root, 1050,600));
+      primaryStage.setScene(new Scene(root, 600,300));
       primaryStage.show();
 
     }
