@@ -7,9 +7,33 @@ import javafx.scene.layout.AnchorPane;
 public class NavigationCtrl {
 
     @FXML
-    private Button click;
+    private Button addBillBtn;
+
+    @FXML
+    private Button addItemBtn;
+
+    @FXML
+    private Button checkinBtn;
+
+    @FXML
+    private Button checkoutBtn;
+
+    @FXML
+    private Button logoutBtn;
 
     @FXML
     private AnchorPane navUI;
+
+    @FXML
+    private Button newAccountBtn;
+
+    @FXML
+    private Button payBillBtn;
+
+    @FXML
+    private Button removeItemBtn;
+
+    @FXML
+    private Button searchBtn;
 
 }
