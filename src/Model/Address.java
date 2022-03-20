@@ -15,7 +15,7 @@ public class Address
     //attributes
     //variables
 
-    private int number;                      // the house number
+    private String number;                      // the house number
     private String name;                     // the street
     private String type;                     // the type of street
     private String city;                     // the city
@@ -30,7 +30,7 @@ public class Address
      */
     public Address()
     {
-        this.number = 0;
+        this.number = "";
         this.name = "N/A";
         this.type = "Unknown";
         this.secondAdd = "N/A";
@@ -50,7 +50,7 @@ public class Address
      * @param zip The ZIP code of the Person.
      * @param state The state the Person lives in.
      */
-    public Address(int number, String name, String type, String secondAdd, String city, String zip, String state)
+    public Address(String number, String name, String type, String secondAdd, String city, String zip, String state)
     {
         this.city = city;
         setNumber(number);
@@ -77,7 +77,7 @@ public class Address
      * The setNumber method sets the street number to an int value the user inputs.
      * @param number The number input by the user.
      */
-    public void setNumber(int number)
+    public void setNumber(String number)
     {
         this.number = number;
     }
@@ -167,7 +167,7 @@ public class Address
         return city;
     }
 
-    public int getNumber()
+    public String getNumber()
     {
         return number;
     }

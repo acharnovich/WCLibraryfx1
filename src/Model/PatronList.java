@@ -9,9 +9,11 @@ public class PatronList
 
 
 
-    public PatronList()
+    public PatronList(Patron temp)
     {
         patronimport = new ArrayList<Patron>();
+    Patron test1 = new Patron();
+    patronimport.add(temp);
 
 
 

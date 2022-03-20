@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.*;
 import View.FxLoader;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AccountCtrl {
 
@@ -50,8 +54,12 @@ public class AccountCtrl {
         @FXML
         private Label birthLbl;
 
-        @FXML
-        private TextField birthTxt;
+    @FXML
+    private TextField yearTxt;
+    @FXML
+    private TextField monthTxt;
+    @FXML
+    private TextField dayTxt;
 
         @FXML
         private Label cardLbl;
@@ -68,8 +76,8 @@ public class AccountCtrl {
         @FXML
         private Button createAccountBtn;
 
-        @FXML
-        private Label emailTxt;
+    @FXML
+    private TextField emailText;
 
         @FXML
         private Label idLbl;
@@ -86,8 +94,16 @@ public class AccountCtrl {
         @FXML
         private Label phoneNumLbl;
 
-        @FXML
-        private TextField phoneTxt;
+    @FXML
+    private TextField countryTxt;
+    @FXML
+    private TextField localTxt;
+    @FXML
+    private TextField lastFourTxt;
+    @FXML
+    private TextField areaTxt;
+
+
 
         @FXML
         private Button secAddressBtn;
@@ -133,9 +149,20 @@ public class AccountCtrl {
         Pane content = object.getPage("NewPatronUI");
         radioBPane.setRight(content);
 
-
-
     });
+    }
+    @FXML
+    public void createPatronAccount(javafx.event.ActionEvent actionEvent)
+    {
+        createAccountBtn.setOnMouseClicked(mouseEvent -> {
+
+            Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(),monthTxt.getText(),dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(),typeTxt.getText(),cityTxt.getText(),stateTxt.getText(),
+                    zipTxt.getText(), aptTxt.getText()),new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()),Integer.valueOf(areaTxt.getText()),Integer.valueOf(localTxt.getText()),Integer.valueOf(lastFourTxt.getText())))), emailText.getText(),cardTxt.getText(),0);
+            PatronList patronList = new PatronList(tempPatron);
+            System.out.println(patronList.getPatronimport().get(0).toString());
+        });
+
+
     }
 
 
