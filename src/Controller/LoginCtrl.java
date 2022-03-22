@@ -50,6 +50,8 @@ public class LoginCtrl
         {
 
             {
+
+
                 // attempt to authenticate user credentials
                 if (stafflist.authenticate(userid.getText(), pin.getText()) == true)
                 {

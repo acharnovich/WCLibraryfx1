@@ -1,0 +1,152 @@
+[
+  {
+    "staffId": "tsmith",
+    "pin": "4321",
+    "position": "Staff",
+    "status": "Employed",
+    "startDate": {
+      "month": "12",
+      "day": "12",
+      "year": "2012"
+    },
+    "yearsOfService": 10,
+    "name": "Ted Smith",
+    "dateofBirth": {
+      "month": "11",
+      "day": "11",
+      "year": "1990"
+    },
+    "address": {
+      "number": "310",
+      "name": "Newcomber",
+      "type": "St.",
+      "city": "Coloumbus",
+      "state": "PA",
+      "zip": "12434",
+      "secondAdd": "N/A"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 1,
+        "areaCode": 345,
+        "threeLocal": 234,
+        "lastFour": 2434
+      }
+    ],
+    "email": "tsmith@gmail.com"
+  },
+  {
+    "staffId": "ajones",
+    "pin": "1234",
+    "position": "Library Staff",
+    "status": "Employed",
+    "startDate": {
+      "month": "11",
+      "day": "15",
+      "year": "2020"
+    },
+    "yearsOfService": 2,
+    "name": "Andy Jones",
+    "dateofBirth": {
+      "month": "02",
+      "day": "10",
+      "year": "1997"
+    },
+    "address": {
+      "number": "245",
+      "name": "Fake",
+      "type": "St.",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "zip": "15206",
+      "secondAdd": "N/A"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 17,
+        "areaCode": 232,
+        "threeLocal": 232,
+        "lastFour": 2239
+      },
+      {
+        "countryCode": 1,
+        "areaCode": 219891,
+        "threeLocal": 234,
+        "lastFour": 2342
+      }
+    ],
+    "email": "test@gmail.com"
+  },
+  {
+    "staffId": "kdoe",
+    "pin": "0000",
+    "position": "Staff",
+    "status": "Employed",
+    "startDate": {
+      "month": "04",
+      "day": "01",
+      "year": "2017"
+    },
+    "yearsOfService": 5,
+    "name": "Kate Does",
+    "dateofBirth": {
+      "month": "10",
+      "day": "24",
+      "year": "1985"
+    },
+    "address": {
+      "number": "299",
+      "name": "Atkin",
+      "type": "Ave.",
+      "city": "Pittsburgh",
+      "state": "PA",
+      "zip": "15208",
+      "secondAdd": "Apt 22"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 1,
+        "areaCode": 214,
+        "threeLocal": 550,
+        "lastFour": 4290
+      }
+    ],
+    "email": "jdoe@gmail.com"
+  },
+  {
+    "staffId": "hello",
+    "pin": "1111",
+    "position": "bigs",
+    "status": "employed",
+    "startDate": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "yearsOfService": 25,
+    "name": "jweinrf",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1999"
+    },
+    "address": {
+      "number": "234",
+      "name": "Bigs",
+      "type": "St.",
+      "city": "Apt 8",
+      "state": "efwef",
+      "zip": "23232",
+      "secondAdd": "pa"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 0,
+        "areaCode": 0,
+        "threeLocal": 0,
+        "lastFour": 0
+      }
+    ],
+    "email": "gerg"
+  }
+]
