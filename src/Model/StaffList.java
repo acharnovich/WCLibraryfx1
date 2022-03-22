@@ -49,8 +49,8 @@ public class StaffList
     {
         try
         {
-            // create Gson instanc
-
+            // create Gson instance
+            Gson gson = new Gson();
             // create a reader
             Reader reader = Files.newBufferedReader(Paths.get("test.json"));
 
@@ -59,7 +59,6 @@ public class StaffList
             {
             }.getType());
 
-            // print users
 
             for (int i = 0; i <= users.size(); i++)
             {
@@ -73,7 +72,6 @@ public class StaffList
         {
             ex.printStackTrace();
         }
-
 
         this.staffimport.add(new LibraryStaff(temp.getName(), new NormalDate(temp.getDateofBirth().getYear(), temp.getDateofBirth().getMonth(), temp.getDateofBirth().getDay()), new Address(temp.getAddress().getNumber(), temp.getAddress().getName(), temp.getAddress().getType(), temp.getAddress().getCity(), temp.getAddress().getState(),
                 temp.getAddress().getZip(), temp.getAddress().getSecondAdd()), new ArrayList<>(Arrays.asList(new PhoneNumber())), temp.getEmail(),
@@ -117,9 +115,6 @@ public class StaffList
                     return true;
                 }
             }
-            // print users
-            users.forEach(System.out::println);
-
             // close reader
             reader.close();
 

@@ -114,30 +114,30 @@
     "email": "jdoe@gmail.com"
   },
   {
-    "staffId": "hello",
-    "pin": "1111",
-    "position": "bigs",
+    "staffId": "test1",
+    "pin": "1234",
+    "position": "staff",
     "status": "employed",
     "startDate": {
-      "month": "02",
-      "day": "02",
-      "year": "1997"
+      "month": "01",
+      "day": "01",
+      "year": "2020"
     },
-    "yearsOfService": 25,
-    "name": "jweinrf",
+    "yearsOfService": 2,
+    "name": "test",
     "dateofBirth": {
       "month": "02",
       "day": "02",
       "year": "1999"
     },
     "address": {
-      "number": "234",
-      "name": "Bigs",
+      "number": "123",
+      "name": "Test",
       "type": "St.",
       "city": "Apt 8",
-      "state": "efwef",
-      "zip": "23232",
-      "secondAdd": "pa"
+      "state": "Test",
+      "zip": "15206",
+      "secondAdd": "TT"
     },
     "phoneNumber": [
       {
@@ -147,150 +147,6 @@
         "lastFour": 0
       }
     ],
-    "email": "gerg"
-  },
-  {
-    "staffId": "test",
-    "pin": "2222",
-    "position": "fvdfv",
-    "status": "fvdfv",
-    "startDate": {
-      "month": "02",
-      "day": "02",
-      "year": "2005"
-    },
-    "yearsOfService": 17,
-    "name": "test",
-    "dateofBirth": {
-      "month": "02",
-      "day": "",
-      "year": "2000"
-    },
-    "address": {
-      "number": "234",
-      "name": "Buf",
-      "type": "St.",
-      "city": "apt8",
-      "state": "new salem",
-      "zip": "15468",
-      "secondAdd": "pa"
-    },
-    "phoneNumber": [
-      {
-        "countryCode": 0,
-        "areaCode": 0,
-        "threeLocal": 0,
-        "lastFour": 0
-      }
-    ],
-    "email": "WEFWE"
-  },
-  {
-    "staffId": "boop",
-    "pin": "9999",
-    "position": "sdw",
-    "status": "boji",
-    "startDate": {
-      "month": "02",
-      "day": "02",
-      "year": "2000"
-    },
-    "yearsOfService": 22,
-    "name": "big boop",
-    "dateofBirth": {
-      "month": "",
-      "day": "",
-      "year": ""
-    },
-    "address": {
-      "number": "2312",
-      "name": "Ewf",
-      "type": "St.",
-      "city": "Apt 8",
-      "state": "Newdsad",
-      "zip": "13453",
-      "secondAdd": "Pa"
-    },
-    "phoneNumber": [
-      {
-        "countryCode": 0,
-        "areaCode": 0,
-        "threeLocal": 0,
-        "lastFour": 0
-      }
-    ],
-    "email": "erfer"
-  },
-  {
-    "staffId": "boop",
-    "pin": "9999",
-    "position": "sdw",
-    "status": "boji",
-    "startDate": {
-      "month": "02",
-      "day": "02",
-      "year": "2000"
-    },
-    "yearsOfService": 22,
-    "name": "big boop",
-    "dateofBirth": {
-      "month": "02",
-      "day": "02",
-      "year": "1995"
-    },
-    "address": {
-      "number": "2312",
-      "name": "Ewf",
-      "type": "St.",
-      "city": "Apt 8",
-      "state": "Newdsad",
-      "zip": "13453",
-      "secondAdd": "Pa"
-    },
-    "phoneNumber": [
-      {
-        "countryCode": 0,
-        "areaCode": 0,
-        "threeLocal": 0,
-        "lastFour": 0
-      }
-    ],
-    "email": "erfer"
-  },
-  {
-    "staffId": "boop",
-    "pin": "9999",
-    "position": "sdw",
-    "status": "boji",
-    "startDate": {
-      "month": "02",
-      "day": "02",
-      "year": "2000"
-    },
-    "yearsOfService": 22,
-    "name": "big boop",
-    "dateofBirth": {
-      "month": "02",
-      "day": "02",
-      "year": "1995"
-    },
-    "address": {
-      "number": "2312",
-      "name": "Ewf",
-      "type": "St.",
-      "city": "Apt 8",
-      "state": "Newdsad",
-      "zip": "13453",
-      "secondAdd": "Pa"
-    },
-    "phoneNumber": [
-      {
-        "countryCode": 0,
-        "areaCode": 0,
-        "threeLocal": 0,
-        "lastFour": 0
-      }
-    ],
-    "email": "erfer"
+    "email": "test@wc.com"
   }
 ]
