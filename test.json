@@ -112,41 +112,5 @@
       }
     ],
     "email": "jdoe@gmail.com"
-  },
-  {
-    "staffId": "test1",
-    "pin": "1234",
-    "position": "staff",
-    "status": "employed",
-    "startDate": {
-      "month": "01",
-      "day": "01",
-      "year": "2020"
-    },
-    "yearsOfService": 2,
-    "name": "test",
-    "dateofBirth": {
-      "month": "02",
-      "day": "02",
-      "year": "1999"
-    },
-    "address": {
-      "number": "123",
-      "name": "Test",
-      "type": "St.",
-      "city": "Apt 8",
-      "state": "Test",
-      "zip": "15206",
-      "secondAdd": "TT"
-    },
-    "phoneNumber": [
-      {
-        "countryCode": 0,
-        "areaCode": 0,
-        "threeLocal": 0,
-        "lastFour": 0
-      }
-    ],
-    "email": "test@wc.com"
   }
 ]

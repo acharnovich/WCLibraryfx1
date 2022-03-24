@@ -60,7 +60,7 @@ public class StaffList
             }.getType());
 
 
-            for (int i = 0; i <= users.size(); i++)
+            for (int i = 0; i <= users.size() - 1; i++)
             {
                 staffimport.add(users.get(i));
             }
