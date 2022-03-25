@@ -3,6 +3,7 @@
 *.iml
 WCLibraryfx.iml
 <<<<<<< HEAD
+<<<<<<< HEAD
 .idea/libraries/gson_2_9_0.xml
 .idea/libraries/lib.xml
 WCLibraryfx.iml
@@ -14,3 +15,5 @@ WCLibraryfx.iml
 >>>>>>> parent of 8e0fcbf (hi)
 =======
 >>>>>>> parent of 1bc0cea (hi)
+=======
+>>>>>>> parent of 8e0fcbf (hi)
