@@ -31,6 +31,7 @@ public class Patron extends Person implements Search
 
     public void setPatronCardNum(String patronCardNum)
     {
+
         this.patronCardNum = patronCardNum;
     }
 

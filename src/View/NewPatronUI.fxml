@@ -7,19 +7,17 @@
 
 <AnchorPane fx:id="patronFillable" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountCtrl">
    <children>
-      <TextField fx:id="idTxt" layoutX="58.0" layoutY="26.0" />
-      <TextField fx:id="countryTxt" layoutX="261.0" layoutY="27.0" prefHeight="26.0" prefWidth="25.0" />
-      <TextField fx:id="nameTxt" layoutX="58.0" layoutY="64.0" />
-      <Label fx:id="nameLbl" layoutX="20.0" layoutY="69.0" text="Name:" />
-      <Label fx:id="idLbl" layoutX="43.0" layoutY="31.0" text="ID:" />
-      <TextField fx:id="cardTxt" layoutX="261.0" layoutY="92.0" />
+      <TextField fx:id="countryTxt" layoutX="261.0" layoutY="27.0" prefHeight="26.0" prefWidth="25.0" promptText="1" />
+      <TextField fx:id="nameTxt" layoutX="58.0" layoutY="27.0" />
+      <Label fx:id="nameLbl" layoutX="20.0" layoutY="31.0" text="Name:" />
+      <TextField fx:id="cardTxt" layoutX="58.0" layoutY="106.0" promptText="0000000" />
       <TextField fx:id="streetNumTxt" layoutX="58.0" layoutY="200.0" />
-      <TextField fx:id="yearTxt" layoutX="58.0" layoutY="104.0" prefHeight="26.0" prefWidth="53.0" />
-      <TextField fx:id="emailText" layoutX="58.0" layoutY="143.0" />
-      <Label fx:id="birthLbl" layoutX="2.0" layoutY="109.0" text="BirthDate:" />
+      <TextField fx:id="yearTxt" layoutX="66.0" layoutY="71.0" prefHeight="26.0" prefWidth="53.0" promptText="YYYY" />
+      <TextField fx:id="emailText" layoutX="58.0" layoutY="143.0" promptText="\@gmail.com" />
+      <Label fx:id="birthLbl" layoutX="11.0" layoutY="75.0" text="BirthDate:" />
       <Label fx:id="emailLbl" layoutX="22.0" layoutY="148.0" text="Email:" />
       <Label fx:id="phoneNumLbl" layoutX="221.0" layoutY="31.0" text="Phone:" />
-      <Label fx:id="cardLbl" layoutX="221.0" layoutY="96.0" text="Card#:" />
+      <Label fx:id="cardLbl" layoutX="19.0" layoutY="110.0" text="Card#:" />
       <Label fx:id="addressLbl" layoutX="14.0" layoutY="175.0" text="Address:" />
       <Label fx:id="streetNumLbl" layoutX="6.0" layoutY="205.0" text="Street #:" />
       <Button fx:id="secAddressBtn" layoutX="438.0" layoutY="27.0" mnemonicParsing="false" onAction="#patronAddPhoneNumber" text="+" />
@@ -33,19 +31,20 @@
       <Label fx:id="zipLbl" layoutX="491.0" layoutY="241.0" text="Zip:" />
       <TextField fx:id="stateTxt" layoutX="447.0" layoutY="236.0" prefHeight="26.0" prefWidth="36.0" />
       <TextField fx:id="zipTxt" layoutX="523.0" layoutY="237.0" prefHeight="26.0" prefWidth="69.0" />
-      <Button fx:id="secondAddressBtn" layoutX="113.0" layoutY="266.0" mnemonicParsing="false" text="+" />
-      <Label fx:id="secondAddressLbl" layoutX="10.0" layoutY="270.0" text="Second Address:" />
+      <Button fx:id="secondAddressBtn" layoutX="113.0" layoutY="266.0" mnemonicParsing="false" text="+" visible="false" />
+      <Label fx:id="secondAddressLbl" layoutX="10.0" layoutY="270.0" text="Second Address:" visible="false" />
       <Button fx:id="createAccountBtn" layoutX="223.0" layoutY="292.0" mnemonicParsing="false" onAction="#createPatronAccount" prefHeight="43.0" prefWidth="151.0" text="Create Patron Account" />
       <TextField fx:id="streetNameTxt" layoutX="287.0" layoutY="201.0" />
       <Label fx:id="streetNameLbl" layoutX="225.0" layoutY="205.0" text="St. Name:" />
-      <TextField fx:id="monthTxt" layoutX="113.0" layoutY="105.0" prefHeight="26.0" prefWidth="55.0" />
-      <TextField fx:id="dayTxt" layoutX="168.0" layoutY="105.0" prefHeight="26.0" prefWidth="49.0" />
-      <TextField fx:id="areaTxt" layoutX="287.0" layoutY="27.0" prefHeight="26.0" prefWidth="43.0" />
-      <TextField fx:id="localTxt" layoutX="330.0" layoutY="27.0" prefHeight="26.0" prefWidth="43.0" />
-      <TextField fx:id="lastFourTxt" layoutX="373.0" layoutY="27.0" prefHeight="26.0" prefWidth="61.0" />
-      <TextField fx:id="countryTxt2" layoutX="261.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="25.0" visible="false" />
-      <TextField fx:id="areaTxt2" layoutX="287.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="43.0" visible="false" />
-      <TextField fx:id="localTxt2" layoutX="330.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="43.0" visible="false" />
-      <TextField fx:id="lastFourTxt2" layoutX="373.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="61.0" visible="false" />
+      <TextField fx:id="monthTxt" layoutX="119.0" layoutY="71.0" prefHeight="26.0" prefWidth="55.0" promptText="MM" />
+      <TextField fx:id="dayTxt" layoutX="174.0" layoutY="71.0" prefHeight="26.0" prefWidth="49.0" promptText="DD" />
+      <TextField fx:id="areaTxt" layoutX="287.0" layoutY="27.0" prefHeight="26.0" prefWidth="43.0" promptText="111" />
+      <TextField fx:id="localTxt" layoutX="330.0" layoutY="27.0" prefHeight="26.0" prefWidth="43.0" promptText="111" />
+      <TextField fx:id="lastFourTxt" layoutX="373.0" layoutY="27.0" prefHeight="26.0" prefWidth="61.0" promptText="1111" />
+      <TextField fx:id="countryTxt2" layoutX="261.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="25.0" promptText="1" visible="false" />
+      <TextField fx:id="areaTxt2" layoutX="287.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="43.0" promptText="111" visible="false" />
+      <TextField fx:id="localTxt2" layoutX="330.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="43.0" promptText="111" visible="false" />
+      <TextField fx:id="lastFourTxt2" layoutX="373.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="61.0" promptText="1111" visible="false" />
+      <Button fx:id="verifyBtn" layoutX="224.0" layoutY="144.0" mnemonicParsing="false" onAction="#verifyEmail" text="Verify" />
    </children>
 </AnchorPane>
