@@ -30,6 +30,6 @@
       <TextField fx:id="bookAuthorsTextField" layoutX="84.0" layoutY="175.0" prefHeight="26.0" prefWidth="595.0" text="If multiple, separate with commas." />
       <Label fx:id="bookDescriptionLabel" layoutX="18.0" layoutY="214.0" text="Description:" />
       <TextArea fx:id="bookDescriptionTextArea" layoutX="18.0" layoutY="238.0" prefHeight="146.0" prefWidth="659.0" />
-      <Button fx:id="bookAddNewItemButton" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
+      <Button fx:id="bookAddNewItemButton" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleAddNewBookClick" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
    </children>
 </AnchorPane>

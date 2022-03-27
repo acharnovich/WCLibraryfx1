@@ -57,7 +57,7 @@ public class AudioBook extends Item {
      * @param lenInput   The length of the audiobook in hours and minutes.
      * @param genInput   The genre or genres of the audiobook.
      */
-    public AudioBook(int IDInput, String titleInput, int yearInput, String dateInput, String descInput,
+    public AudioBook(int IDInput, String titleInput, int yearInput, NormalDate dateInput, String descInput,
                      String statInput, String pubInput, ArrayList<Collaborator> authInput, ArrayList<Collaborator> narrInput,
                      String prodInput, String lenInput, String genInput) {
         setItemID(IDInput);

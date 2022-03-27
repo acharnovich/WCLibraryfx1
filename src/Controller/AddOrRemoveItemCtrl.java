@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,11 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import static javafx.collections.FXCollections.observableArrayList;
-
-public class AddOrRemoveItemCtrl
-{
+public class AddOrRemoveItemCtrl {
     // FXML components
     @FXML
     private AnchorPane addItemUI;
@@ -259,10 +258,10 @@ public class AddOrRemoveItemCtrl
     // other attributes
     private String itemType;
     private String movieType;
-    private Object actionEvent;
+    private ItemList itemList = new ItemList();
 
-    public void handleAddBookClick(javafx.event.ActionEvent actionEvent)
-    {
+
+    public void handleAddBookClick(javafx.event.ActionEvent actionEvent) {
         addBookRadioButton.setOnMouseClicked(mouseEvent -> {
 
             addAudioBookRadioButton.setSelected(false);
@@ -273,8 +272,7 @@ public class AddOrRemoveItemCtrl
         });
     }
 
-    public void handleAddAudioBookClick(javafx.event.ActionEvent actionEvent)
-    {
+    public void handleAddAudioBookClick(javafx.event.ActionEvent actionEvent) {
         addAudioBookRadioButton.setOnMouseClicked(mouseEvent -> {
 
             addBookRadioButton.setSelected(false);
@@ -284,8 +282,7 @@ public class AddOrRemoveItemCtrl
         });
     }
 
-    public void handleAddMovieClick(javafx.event.ActionEvent actionEvent)
-    {
+    public void handleAddMovieClick(javafx.event.ActionEvent actionEvent) {
         addMovieRadioButton.setOnMouseClicked(mouseEvent -> {
 
             addAudioBookRadioButton.setSelected(false);
@@ -295,8 +292,7 @@ public class AddOrRemoveItemCtrl
         });
     }
 
-    public void handleDVDTypeClick (javafx.event.ActionEvent actionEvent)
-    {
+    public void handleDVDTypeClick(javafx.event.ActionEvent actionEvent) {
         movieDVDTypeRadioButton.setOnMouseClicked(mouseEvent -> {
 
             movieBluRayTypeRadioButton.setSelected(false);
@@ -305,8 +301,7 @@ public class AddOrRemoveItemCtrl
         });
     }
 
-    public void handleBluClick(javafx.event.ActionEvent actionEvent)
-    {
+    public void handleBluClick(javafx.event.ActionEvent actionEvent) {
         movieBluRayTypeRadioButton.setOnMouseClicked(mouseEvent -> {
 
             movieDVDTypeRadioButton.setSelected(false);
@@ -315,12 +310,10 @@ public class AddOrRemoveItemCtrl
         });
     }
 
-    public void handleContinueClick(javafx.event.ActionEvent actionEvent)
-    {
+    public void handleContinueClick(javafx.event.ActionEvent actionEvent) {
         addItemContinueButton.setOnMouseClicked(mouseEvent -> {
 
-            if (itemType == "Book")
-            {
+            if (itemType == "Book") {
                 Parent part = null;
                 try {
                     part = FXMLLoader.load(getClass().getResource("/View/NewBookDetailsUI.fxml"));
@@ -332,24 +325,20 @@ public class AddOrRemoveItemCtrl
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else if (itemType == "AudioBook")
-            {
-                    Parent part = null;
-                    try {
-                        part = FXMLLoader.load(getClass().getResource("/View/NewAudioBookDetailsUI.fxml"));
-                        Stage stage = new Stage();
-                        Scene scene = new Scene(part);
-                        stage.setScene(scene);
-                        stage.show();
+            } else if (itemType == "AudioBook") {
+                Parent part = null;
+                try {
+                    part = FXMLLoader.load(getClass().getResource("/View/NewAudioBookDetailsUI.fxml"));
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(part);
+                    stage.setScene(scene);
+                    stage.show();
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-            }
-            else
-            {
+            } else {
                 Parent part = null;
                 try {
                     part = FXMLLoader.load(getClass().getResource("/View/NewMovieDetailsUI.fxml"));
@@ -359,8 +348,6 @@ public class AddOrRemoveItemCtrl
                     stage.show();
 
 
-
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -368,5 +355,62 @@ public class AddOrRemoveItemCtrl
 
         });
     }
+
+    public void handleAddNewBookClick(javafx.event.ActionEvent actionEvent) {
+        bookAddNewItemButton.setOnMouseClicked(mouseEvent -> {
+
+            ArrayList<Collaborator> authors = new ArrayList<>(); // list of authors for this book, as an arraylist
+            Book temp;                                           // temporary book to be created
+
+            authors = getCollaborators(bookAuthorsTextField.getText());
+
+
+            // create the Book
+            temp = new Book(Integer.parseInt(bookItemIDTextField.getText()), bookTitleTextField.getText(),
+                    Integer.parseInt(bookYearPublishedTextField.getText()),
+                    new NormalDate(bookDatePublishedYearTextField.getText(), bookDatePublishedMonthTextField.getText(),
+                            bookDatePublishedDayTextField.getText()), bookDescriptionTextArea.getText(), "Checked In",
+                    bookPublisherTextField.getText(), authors, bookLengthTextField.getText(), bookGenresTextField.getText());
+
+            // send to LoadBook
+            itemList.LoadBook(temp);
+
+        });
+    }
+
+    ;
+
+    public ArrayList<Collaborator> getCollaborators(String input) {
+        ArrayList<String> people = new ArrayList<>();
+        int x;
+        String firstName;
+        String lastName;
+        Collaborator collabTemp;
+        ArrayList<Collaborator> finalList = new ArrayList<>();
+
+
+        String str = input;
+        String[] newStrings = str.split("[,]", 0);
+        for (String myStr : newStrings) {
+            people.add(myStr);
+        }
+
+
+        for (x = 0; x < people.size(); x++)
+        {
+            String temp = people.get(x);
+            String[] nameSplit = temp.split(" ");
+
+            firstName = nameSplit[0];
+            lastName = nameSplit[1];
+
+            collabTemp = new Collaborator(firstName, lastName, new ArrayList<Item>(), 1);
+            finalList.add(collabTemp);
+
+        }
+
+        return finalList;
+    }
+
 
 }

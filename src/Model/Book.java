@@ -52,7 +52,7 @@ public class Book extends Item
      * @param lenInput The length of the book in pages.
      * @param genInput The genre or genres of the book.
      */
-    public Book(int IDInput, String titleInput, int yearInput, String dateInput, String descInput,
+    public Book(int IDInput, String titleInput, int yearInput, NormalDate dateInput, String descInput,
                 String statInput, String pubInput, ArrayList<Collaborator> authInput, String lenInput, String genInput)
     {
         setItemID(IDInput);

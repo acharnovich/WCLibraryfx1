@@ -58,7 +58,7 @@ public class Movie extends Item
      * @param runInput The runtime of the movie in hours and minutes.
      * @param genInput The genre or genres of the movie. Limit to 3.
      */
-    public Movie(int IDInput, String titleInput, int yearInput, String dateInput, String descInput,
+    public Movie(int IDInput, String titleInput, int yearInput, NormalDate dateInput, String descInput,
                  String statInput, String prodInput, String distInput, ArrayList<Collaborator> actInput, String typeInput,
                  String runInput, String genInput)
     {

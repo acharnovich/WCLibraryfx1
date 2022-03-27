@@ -22,7 +22,7 @@ public abstract class Item {
     private int itemID;                         // the item's ID number
     private String title;                       // the title of the item
     private int yearPublished;                  // the year the item was published - PLACEHOLDER FOR NORMALDATE
-    private String datePublished;               // String of the date the item was published - PLACEHOLDER FOR NORMALDATE
+    private NormalDate datePublished;           // String of the date the item was published
     private String description;                 // the description of the item
     private String itemStatus;                  // the status of the item ("Checked out", "Checked In",
                                                 // or "Archived")
@@ -49,7 +49,7 @@ public abstract class Item {
         yearPublished = yearInput;
     }
 
-    public void setDatePublished(String dateInput)
+    public void setDatePublished(NormalDate dateInput)
     {
         datePublished = dateInput;
     }
@@ -80,7 +80,7 @@ public abstract class Item {
         return yearPublished;
     }
 
-    public String getDatePublished()
+    public NormalDate getDatePublished()
     {
         return datePublished;
     }
