@@ -29,7 +29,7 @@
       <TextField fx:id="audioBookAuthorsTextField" layoutX="74.0" layoutY="175.0" prefHeight="26.0" prefWidth="246.0" text="If multiple, separate with commas." />
       <Label fx:id="audioBookDescriptionLabel" layoutX="18.0" layoutY="214.0" text="Description:" />
       <TextArea fx:id="audioBookDescriptionTextArea" layoutX="18.0" layoutY="238.0" prefHeight="146.0" prefWidth="659.0" />
-      <Button fx:id="audioBookAddNewItemButton" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
+      <Button fx:id="audioBookAddNewItemButton" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleAddNewAudioBookClick" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
       <TextField fx:id="audioBookProductionCompanyTextField" layoutX="140.0" layoutY="132.0" prefHeight="26.0" prefWidth="143.0" text="&quot;N/A&quot; if none" />
       <Label fx:id="audioBookGenresLabel" layoutX="294.0" layoutY="138.0" text="Genre(s):" />
       <Label fx:id="audioBookNarratorsLabel" layoutX="327.0" layoutY="179.0" text="Narrator(s):" />

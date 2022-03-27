@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -255,6 +256,9 @@ public class AddOrRemoveItemCtrl {
     @FXML
     private RadioButton movieBluRayTypeRadioButton;
 
+    @FXML
+    private Button movieAddNewItemButton;
+
     // other attributes
     private String itemType;
     private String movieType;
@@ -359,6 +363,9 @@ public class AddOrRemoveItemCtrl {
     public void handleAddNewBookClick(javafx.event.ActionEvent actionEvent) {
         bookAddNewItemButton.setOnMouseClicked(mouseEvent -> {
 
+            final Node source = (Node) actionEvent.getSource();
+            final Stage stage = (Stage) source.getScene().getWindow();
+
             ArrayList<Collaborator> authors = new ArrayList<>(); // list of authors for this book, as an arraylist
             Book temp;                                           // temporary book to be created
 
@@ -375,6 +382,64 @@ public class AddOrRemoveItemCtrl {
             // send to LoadBook
             itemList.LoadBook(temp);
 
+            stage.close();
+
+        });
+    }
+
+    public void handleAddNewAudioBookClick(javafx.event.ActionEvent actionEvent) {
+        audioBookAddNewItemButton.setOnMouseClicked(mouseEvent -> {
+
+            final Node source = (Node) actionEvent.getSource();
+            final Stage stage = (Stage) source.getScene().getWindow();
+
+            ArrayList<Collaborator> authors = new ArrayList<>();      // list of authors for this audiobook, as an arraylist
+            ArrayList<Collaborator> narrators = new ArrayList<>();    // list of authors for this audiobook, as an arraylist
+            AudioBook temp;                                           // temporary audiobook to be created
+
+            authors = getCollaborators(audioBookAuthorsTextField.getText());
+            narrators = getCollaborators(audioBookNarratorsTextField.getText());
+
+            // create the AudioBook
+            temp = new AudioBook(Integer.parseInt(audioBookItemIDTextField.getText()), audioBookTitleTextField.getText(),
+                                 Integer.parseInt(audioBookYearPublishedTextField.getText()),
+                                 new NormalDate(audioBookDatePublishedYearTextField.getText(), audioBookDatePublishedMonthTextField.getText(),
+                                 audioBookDatePublishedDayTextField.getText()), audioBookDescriptionTextArea.getText(), "Checked In",
+                                 audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
+                                 audioBookLengthTextField.getText(), audioBookGenresTextField.getText());
+
+            // send to LoadAudioBook
+            itemList.LoadAudiobook(temp);
+
+            stage.close();
+
+        });
+    }
+
+    public void handleAddNewMovieClick(javafx.event.ActionEvent actionEvent) {
+        movieAddNewItemButton.setOnMouseClicked(mouseEvent -> {
+
+            final Node source = (Node) actionEvent.getSource();
+            final Stage stage = (Stage) source.getScene().getWindow();
+
+            ArrayList<Collaborator> actors = new ArrayList<>();      // list of actors for this movie, as an arraylist
+            Movie temp;                                              // temporary movie to be created
+
+            actors = getCollaborators(movieActorsTextField.getText());
+
+            // create the Movie
+            temp = new Movie(Integer.parseInt(movieItemIDTextField.getText()), movieTitleTextField.getText(),
+                             Integer.parseInt(movieYearPublishedTextField.getText()),
+                             new NormalDate(movieDatePublishedYearTextField.getText(), movieDatePublishedMonthTextField.getText(),
+                             movieDatePublishedDayTextField.getText()), movieDescriptionTextArea.getText(), "Checked In",
+                             movieProductionCompanyTextField.getText(), movieDistributorTextField.getText(), actors,
+                             movieType, movieRuntimeTextField.getText(), movieGenresTextField.getText());
+
+            // send to LoadMovie
+            itemList.LoadMovie(temp);
+
+            stage.close();
+
         });
     }
 
@@ -390,7 +455,7 @@ public class AddOrRemoveItemCtrl {
 
 
         String str = input;
-        String[] newStrings = str.split("[,]", 0);
+        String[] newStrings = str.split(", ", 0);
         for (String myStr : newStrings) {
             people.add(myStr);
         }

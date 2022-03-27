@@ -7,7 +7,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="429.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddOrRemoveItemCtrl">
    <children>
       <Label fx:id="newMovieDetailsLabel" layoutX="16.0" layoutY="15.0" text="Enter details for new movie to be added:" />
@@ -31,7 +30,7 @@
       <TextField fx:id="movieGenresTextField" layoutX="258.0" layoutY="167.0" prefHeight="26.0" prefWidth="417.0" text="e.g. &quot;Comedy, Romance&quot;" />
       <Label fx:id="movieDescriptionLabel" layoutX="14.0" layoutY="241.0" text="Description:" />
       <TextArea fx:id="movieDescriptionTextArea" layoutX="14.0" layoutY="265.0" prefHeight="114.0" prefWidth="659.0" />
-      <Button fx:id="movieAddNewItemButton" layoutX="291.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
+      <Button fx:id="movieAddNewItemButton" layoutX="291.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleAddNewMovieClick" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
       <Label fx:id="movieGenresLabel" layoutX="206.0" layoutY="172.0" text="Genre(s):" />
       <Label fx:id="movieActorsLabel" layoutX="14.0" layoutY="213.0" text="Starring Actor(s):" />
       <TextField fx:id="movieActorsTextField" layoutX="109.0" layoutY="210.0" prefHeight="26.0" prefWidth="567.0" text="If multiple, separate with commas." />
