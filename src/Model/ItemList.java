@@ -20,7 +20,6 @@ import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ItemList {
 
@@ -66,7 +65,7 @@ public class ItemList {
      * @param temp A book to be added to the inventory list.
      * @return itemImport The inventory of items.
      */
-    public ArrayList<Item> LoadBook(Item temp)
+    public ArrayList<Item> LoadBook(Book temp)
     {
 
         try
@@ -77,7 +76,7 @@ public class ItemList {
             Reader reader = Files.newBufferedReader(Paths.get("inventory.json"));
 
             // convert JSON array to list of items
-            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Item>>()
+            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
             {
             }.getType());
 
@@ -111,7 +110,7 @@ public class ItemList {
      * @param temp An audiobook to be added to the inventory list.
      * @return itemImport The inventory of items.
      */
-    public ArrayList<Item> LoadAudiobook(Item temp)
+    public ArrayList<Item> LoadAudiobook(AudioBook temp)
     {
 
         try
@@ -122,7 +121,7 @@ public class ItemList {
             Reader reader = Files.newBufferedReader(Paths.get("inventory.json"));
 
             // convert JSON array to list of items
-            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Item>>()
+            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
             {
             }.getType());
 
@@ -151,11 +150,11 @@ public class ItemList {
     }
 
     /**
-     * The LoadAudioBook method is used to add AudioBooks to the inventory json file.
-     * @param temp An audiobook to be added to the inventory list.
+     * The LoadMovie method is used to add Movies to the inventory json file.
+     * @param temp A movie to be added to the inventory list.
      * @return itemImport The inventory of items.
      */
-    public ArrayList<Item> LoadMovie(Item temp)
+    public ArrayList<Item> LoadMovie(Movie temp)
     {
 
         try
@@ -166,7 +165,7 @@ public class ItemList {
             Reader reader = Files.newBufferedReader(Paths.get("inventory.json"));
 
             // convert JSON array to list of items
-            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Item>>()
+            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
             {
             }.getType());
 
