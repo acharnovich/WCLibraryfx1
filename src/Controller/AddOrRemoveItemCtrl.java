@@ -259,6 +259,24 @@ public class AddOrRemoveItemCtrl {
     @FXML
     private Button movieAddNewItemButton;
 
+    @FXML
+    private ToolBar archiveUIToolBar;
+
+    @FXML
+    private Button archiveSearchButton;
+
+    @FXML
+    private Label archiveInstructionsLabel;
+
+    @FXML
+    private Label archiveItemIDLabel;
+
+    @FXML
+    private TextField archiveItemIDTextField;
+
+    @FXML
+    private Button archiveSubmitButton;
+
     // other attributes
     private String itemType;
     private String movieType;
@@ -480,5 +498,15 @@ public class AddOrRemoveItemCtrl {
         return finalList;
     }
 
+    public void handleArchiveSubmitClick()
+    {
+        archiveSubmitButton.setOnMouseClicked(mouseEvent -> {
+
+            String numToSearchFor = archiveItemIDTextField.getText();
+
+            itemList.search(numToSearchFor);
+
+        });
+    }
 
 }

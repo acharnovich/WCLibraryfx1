@@ -24,7 +24,9 @@ import java.util.ArrayList;
 public class ItemList {
 
     private ArrayList<Collaborator> collabsImport;               // list of collaborators for items
-    private ArrayList<Item> itemImport;                          // list of current inventory
+    private ArrayList<Book> bookImport;                          // list of current inventory
+    private ArrayList<AudioBook> audioBookImport;                // list of current inventory
+    private ArrayList<Movie> movieImport;                        // list of current inventory
     private JsonObject jsonObject;
     private Gson gson;
     private LibraryStaff temp;
@@ -35,21 +37,23 @@ public class ItemList {
      */
     public ItemList()
     {
-        itemImport = new ArrayList<Item>();
+        bookImport = new ArrayList<Book>();
+        audioBookImport = new ArrayList<AudioBook>();
+        movieImport = new ArrayList<Movie>();
         collabsImport = new ArrayList<Collaborator>();
     }
 
     /**
-     * The saveToFileInventory method saves an ArrayList of Items to the inventory json file.
-     * @param invInput An ArrayList of Items to be added to the json file.
+     * The saveToFileBookInventory method saves an ArrayList of Books to the bookInventory json file.
+     * @param invInput An ArrayList of Books to be added to the json file.
      */
-    public void saveToFileInventory(ArrayList<Item> invInput)
+    public void saveToFileBookInventory(ArrayList<Book> invInput)
     {
 
         try
         {
             Gson gson = new Gson();
-            Writer writer = Files.newBufferedWriter(Paths.get("inventory.json"));
+            Writer writer = Files.newBufferedWriter(Paths.get("bookInventory.json"));
             gson.toJson(invInput, writer);
             writer.flush();
             writer.close();
@@ -61,11 +65,53 @@ public class ItemList {
     }
 
     /**
-     * The LoadBook method is used to add Books to the inventory json file.
-     * @param temp A book to be added to the inventory list.
-     * @return itemImport The inventory of items.
+     * The saveToFileAudioBookInventory method saves an ArrayList of AudioBooks to the audioBookInventory json file.
+     * @param invInput An ArrayList of AudioBooks to be added to the json file.
      */
-    public ArrayList<Item> LoadBook(Book temp)
+    public void saveToFileAudioBookInventory(ArrayList<AudioBook> invInput)
+    {
+
+        try
+        {
+            Gson gson = new Gson();
+            Writer writer = Files.newBufferedWriter(Paths.get("audioBookInventory.json"));
+            gson.toJson(invInput, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The saveToFileBookInventory method saves an ArrayList of Movies to the movieInventory json file.
+     * @param invInput An ArrayList of Movies to be added to the json file.
+     */
+    public void saveToFileMovieInventory(ArrayList<Movie> invInput)
+    {
+
+        try
+        {
+            Gson gson = new Gson();
+            Writer writer = Files.newBufferedWriter(Paths.get("movieInventory.json"));
+            gson.toJson(invInput, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * The LoadBook method is used to add Books to the bookInventory json file.
+     * @param temp A book to be added to the bookInventory list.
+     * @return bookImport The inventory of books.
+     */
+    public ArrayList<Book> LoadBook(Book temp)
     {
 
         try
@@ -73,17 +119,17 @@ public class ItemList {
             // create Gson instance
             Gson gson = new Gson();
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("inventory.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
 
             // convert JSON array to list of items
-            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
             {
             }.getType());
 
 
-            for (int i = 0; i <= items.size() - 1; i++)
+            for (int i = 0; i <= books.size() - 1; i++)
             {
-                itemImport.add(items.get(i));
+                bookImport.add(books.get(i));
             }
 
             // close reader
@@ -94,23 +140,23 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        this.itemImport.add(new Book(temp.getItemID(), temp.getTitle(), temp.getYearPublished(), temp.getDatePublished(),
+        this.bookImport.add(new Book(temp.getItemID(), temp.getTitle(), temp.getYearPublished(), temp.getDatePublished(),
                             temp.getDescription(), temp.getItemStatus(), temp.getPublisher(), temp.getAuthors(), temp.getLength(),
                             temp.getGenres()));
-        saveToFileInventory(this.itemImport);
+        saveToFileBookInventory(this.bookImport);
 
-        return itemImport;
+        return bookImport;
 
 
     }
 
 
     /**
-     * The LoadAudioBook method is used to add AudioBooks to the inventory json file.
-     * @param temp An audiobook to be added to the inventory list.
-     * @return itemImport The inventory of items.
+     * The LoadAudioBook method is used to add AudioBooks to the audioBookInventory json file.
+     * @param temp An audiobook to be added to the audioBookInventory list.
+     * @return audioBookImport The inventory of audiobooks.
      */
-    public ArrayList<Item> LoadAudiobook(AudioBook temp)
+    public ArrayList<AudioBook> LoadAudiobook(AudioBook temp)
     {
 
         try
@@ -118,17 +164,17 @@ public class ItemList {
             // create Gson instance
             Gson gson = new Gson();
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("inventory.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
 
             // convert JSON array to list of items
-            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
             {
             }.getType());
 
 
-            for (int i = 0; i <= items.size() - 1; i++)
+            for (int i = 0; i <= audios.size() - 1; i++)
             {
-                itemImport.add(items.get(i));
+                audioBookImport.add(audios.get(i));
             }
 
             // close reader
@@ -139,22 +185,22 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        this.itemImport.add(new AudioBook(temp.getItemID(), temp.getTitle(), temp.getYearPublished(), temp.getDatePublished(),
+        this.audioBookImport.add(new AudioBook(temp.getItemID(), temp.getTitle(), temp.getYearPublished(), temp.getDatePublished(),
                             temp.getDescription(), temp.getItemStatus(), temp.getPublisher(), temp.getAuthors(),
                             temp.getNarrators(), temp.getProductionCompany(), temp.getLength(), temp.getGenres()));
-        saveToFileInventory(this.itemImport);
+        saveToFileAudioBookInventory(this.audioBookImport);
 
-        return itemImport;
+        return audioBookImport;
 
 
     }
 
     /**
-     * The LoadMovie method is used to add Movies to the inventory json file.
-     * @param temp A movie to be added to the inventory list.
-     * @return itemImport The inventory of items.
+     * The LoadMovie method is used to add Movies to the movieInventory json file.
+     * @param temp A movie to be added to the movieInventory list.
+     * @return movieImport The inventory of movies.
      */
-    public ArrayList<Item> LoadMovie(Movie temp)
+    public ArrayList<Movie> LoadMovie(Movie temp)
     {
 
         try
@@ -162,17 +208,17 @@ public class ItemList {
             // create Gson instance
             Gson gson = new Gson();
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("inventory.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
 
             // convert JSON array to list of items
-            ArrayList<Item> items = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
             {
             }.getType());
 
 
-            for (int i = 0; i <= items.size() - 1; i++)
+            for (int i = 0; i <= movies.size() - 1; i++)
             {
-                itemImport.add(items.get(i));
+                movieImport.add(movies.get(i));
             }
 
             // close reader
@@ -183,21 +229,114 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        this.itemImport.add(new Movie(temp.getItemID(), temp.getTitle(), temp.getYearPublished(), temp.getDatePublished(),
+        this.movieImport.add(new Movie(temp.getItemID(), temp.getTitle(), temp.getYearPublished(), temp.getDatePublished(),
                             temp.getDescription(), temp.getItemStatus(), temp.getProductionCompany(), temp.getDistributor(),
                             temp.getActors(), temp.getType(), temp.getRuntime(), temp.getGenres()));
-        saveToFileInventory(this.itemImport);
+        saveToFileMovieInventory(this.movieImport);
 
-        return itemImport;
+        return movieImport;
 
 
+    }
+
+    public boolean search(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+                String tempID = Integer.toString(books.get(i).getItemID());
+
+                if (itemToSearchFor.contains(tempID))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+            }
+
+            // check through Movies
+            // create Gson instance
+            gson = new Gson();
+
+            // create a reader
+            reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+                String tempID = Integer.toString(movies.get(i).getItemID());
+
+                if (itemToSearchFor.contains(tempID))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+            }
+
+            // check through AudioBooks
+            // create Gson instance
+            gson = new Gson();
+
+            // create a reader
+            reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+                String tempID = Integer.toString(audios.get(i).getItemID());
+
+                if (itemToSearchFor.contains(tempID))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Doesn't exist.");
+        return false;
     }
 
     // Accessor method
-    public ArrayList<Item> getInventory()
+    public ArrayList<Book> getBookInventory()
     {
-        return itemImport;
+        return bookImport;
     }
-
+    public ArrayList<Movie> getMovieInventory()
+    {
+        return movieImport;
+    }
+    public ArrayList<AudioBook> getAudioBookInventory()
+    {
+        return audioBookImport;
+    }
 
 }
