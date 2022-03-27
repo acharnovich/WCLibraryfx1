@@ -1,0 +1,29 @@
+[{
+    "patronCardNum": "45345",
+    "age": 25,
+    "name": "Bob Jones",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "address": {
+      "number": "123",
+      "name": "Bob",
+      "type": "St.",
+      "city": "Apt 8",
+      "state": "Pittsburgh",
+      "zip": "15206",
+      "secondAdd": "PA"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 1,
+        "areaCode": 111,
+        "threeLocal": 111,
+        "lastFour": 1111
+      }
+    ],
+    "email": "bjones@gmail.com"
+  }
+]

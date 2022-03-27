@@ -2,16 +2,18 @@ package Controller;
 
 import Model.*;
 import View.FxLoader;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -79,11 +81,6 @@ public class AccountCtrl
     @FXML
     private TextField emailText;
 
-    @FXML
-    private Label idLbl;
-
-    @FXML
-    private TextField idTxt;
 
     @FXML
     private Label nameLbl;
@@ -179,11 +176,7 @@ public class AccountCtrl
     @FXML
     private TextField emailTextStaff;
 
-    @FXML
-    private Label idLblStaff;
 
-    @FXML
-    private TextField idTxtStaff;
 
     @FXML
     private TextField lastFourTxtStaf;
@@ -284,6 +277,35 @@ public class AccountCtrl
     @FXML
     private TextField zipTxtStaff;
 
+    @FXML
+    private TextField areaTxt2;
+
+    @FXML
+    private TextField countryTxt2;
+
+    @FXML
+    private TextField lastFourTxt2;
+
+    @FXML
+    private TextField localTxt2;
+
+
+    @FXML
+    private Button verifyBtn;
+
+    @FXML
+    private Label verifyLbl;
+
+    @FXML
+    private AnchorPane verifyPane;
+
+    @FXML
+    private TextField verifyTxt;
+
+    PatronList patronList;
+
+
+@FXML
     public void patronCreateAccount(javafx.event.ActionEvent actionEvent)
     {
         patronRBtn.setOnMouseClicked(mouseEvent ->
@@ -291,21 +313,55 @@ public class AccountCtrl
             staffRBtn.setSelected(false);
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewPatronUI");
-            radioBPane.setRight(content);
+            this.radioBPane.setRight(content);
+
 
         });
-    }
 
+    }
+@FXML
+public void  verifyEmail(){
+    verifyBtn.setOnMouseClicked(mouseEvent -> {
+        patronList = new PatronList();
+        if (patronList.verifyEmail(emailText.getText()) == false){
+            emailText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
+
+        } else{emailText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");}
+
+    });
+
+
+}
+
+@FXML
+    public void patronAddPhoneNumber(javafx.event.ActionEvent actionEvent){
+    secAddressBtn.setOnMouseClicked(mouseEvent -> {
+    countryTxt2.setVisible(true);
+        localTxt2.setVisible(true);
+        areaTxt2.setVisible(true);
+        lastFourTxt2.setVisible(true);
+    });
+    }
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
-
+            if (patronList.verifyEmail(emailText.getText()) == false){
+            if(countryTxt2.isVisible() == true){
             Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                    zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()),Integer.valueOf(areaTxt2.getText()),Integer.valueOf(localTxt2.getText()),Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
+            PatronList patronList = new PatronList();
+            patronList.LoadPatron(tempPatron);}
+            else{Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                     zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
-            PatronList patronList = new PatronList(tempPatron);
-            System.out.println(patronList.getPatronimport().get(0).toString());
+
+                patronList.LoadPatron(tempPatron);}}else {Alert accountExsists = new Alert(Alert.AlertType.ERROR);
+                accountExsists.setHeaderText("Email Exists");
+                accountExsists.setContentText("Account Exists! Please try a new email or search for Patron");
+                accountExsists.showAndWait();}
+
+
         });
 
 
@@ -316,24 +372,27 @@ public class AccountCtrl
     {
         staffRBtn.setOnMouseClicked(mouseEvent ->
         {
-           patronRBtn.setSelected(false);
+            patronRBtn.setSelected(false);
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewStaffUI");
             radioBPane.setRight(content);
+
+
         });
 
     }
 
     @FXML
-    public void createStaffAccount(javafx.event.ActionEvent actionEvent){
-        createAccountBtnStaff.setOnMouseClicked(mouseEvent -> {
+    public void createStaffAccount(javafx.event.ActionEvent actionEvent)
+    {
+        createAccountBtnStaff.setOnMouseClicked(mouseEvent ->
+        {
+
             LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(yearTxtStaff.getText(), monthTxtStaff.getText(), dayTxtStaff.getText()), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), cityTxtStaff.getText(), stateTxtStaff.getText(),
                     zipTxtStaff.getText(), aptTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
-                    staffIDTxt.getText(),pinTxt.getText(),positionTxt.getText(),statusTxt.getText(), new NormalDate(startYearTxt.getText(),startMonthTxt.getText(),startDayTxt.getText()), 0);
-           StaffList staffList = new StaffList();
-           staffList.LoadStaff(tempStaff);
-
-
+                    staffIDTxt.getText(), pinTxt.getText(), positionTxt.getText(), statusTxt.getText(), new NormalDate(startYearTxt.getText(), startMonthTxt.getText(), startDayTxt.getText()), 0);
+            StaffList staffList = new StaffList();
+            staffList.LoadStaff(tempStaff);
 
 
         });
