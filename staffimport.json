@@ -112,5 +112,113 @@
       }
     ],
     "email": "jdoe@gmail.com"
+  },
+  {
+    "staffId": "test10",
+    "pin": "1111",
+    "position": "efwef",
+    "status": "Staff",
+    "startDate": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "yearsOfService": 25,
+    "name": "wetwt",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "address": {
+      "number": "234",
+      "name": "Erger",
+      "type": "St.",
+      "city": "apt 8",
+      "state": "Pittw",
+      "zip": "15468",
+      "secondAdd": "PA"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 0,
+        "areaCode": 0,
+        "threeLocal": 0,
+        "lastFour": 0
+      }
+    ],
+    "email": "ergwerg"
+  },
+  {
+    "staffId": "test25",
+    "pin": "2222",
+    "position": "fgdrg",
+    "status": "dfsfege",
+    "startDate": {
+      "month": "02",
+      "day": "02",
+      "year": "2020"
+    },
+    "yearsOfService": 2,
+    "name": "sdgsdfgf",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1998"
+    },
+    "address": {
+      "number": "435",
+      "name": "Gerugi",
+      "type": "St.",
+      "city": "dfbd4",
+      "state": "wegw",
+      "zip": "15206",
+      "secondAdd": "weg"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 4,
+        "areaCode": 444,
+        "threeLocal": 444,
+        "lastFour": 2222
+      }
+    ],
+    "email": "fsdfsf"
+  },
+  {
+    "staffId": "wergwegr",
+    "pin": "1234",
+    "position": "ergerg",
+    "status": "fver",
+    "startDate": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "yearsOfService": 25,
+    "name": "rergwerg",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "address": {
+      "number": "435",
+      "name": "Rgerg",
+      "type": "St.",
+      "city": "rgre",
+      "state": "erger",
+      "zip": "15206",
+      "secondAdd": "pa"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 3,
+        "areaCode": 333,
+        "threeLocal": 333,
+        "lastFour": 3333
+      }
+    ],
+    "email": "ergerg"
   }
 ]

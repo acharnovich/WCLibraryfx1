@@ -1,0 +1,58 @@
+[
+  {
+    "patronCardNum": "45345",
+    "age": 25,
+    "name": "bsdhtb",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "address": {
+      "number": "454",
+      "name": "Ergerg",
+      "type": "St.",
+      "city": "reger",
+      "state": "NEw slad",
+      "zip": "15206",
+      "secondAdd": "pa"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 4,
+        "areaCode": 444,
+        "threeLocal": 444,
+        "lastFour": 4444
+      }
+    ],
+    "email": "ergerg"
+  },
+  {
+    "patronCardNum": "4234234",
+    "age": 25,
+    "name": "ththrth",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "address": {
+      "number": "434",
+      "name": "Erger",
+      "type": "St.",
+      "city": "apt 8",
+      "state": "efwef",
+      "zip": "15206",
+      "secondAdd": "pa"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 3,
+        "areaCode": 333,
+        "threeLocal": 333,
+        "lastFour": 3333
+      }
+    ],
+    "email": "rgerge"
+  }
+]

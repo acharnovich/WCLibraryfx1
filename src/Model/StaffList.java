@@ -27,13 +27,13 @@ public class StaffList
 
     }
 
-    public void saveToFileTest(ArrayList<LibraryStaff> staff)
+    public void saveToFileStaff(ArrayList<LibraryStaff> staff)
     {
 
         try
         {
             Gson gson = new Gson();
-            Writer writer = Files.newBufferedWriter(Paths.get("test.json"));
+            Writer writer = Files.newBufferedWriter(Paths.get("staffimport.json"));
             gson.toJson(staff, writer);
             writer.flush();
             writer.close();
@@ -52,7 +52,7 @@ public class StaffList
             // create Gson instance
             Gson gson = new Gson();
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("test.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
 
             // convert JSON array to list of users
             ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
@@ -74,10 +74,10 @@ public class StaffList
         }
 
         this.staffimport.add(new LibraryStaff(temp.getName(), new NormalDate(temp.getDateofBirth().getYear(), temp.getDateofBirth().getMonth(), temp.getDateofBirth().getDay()), new Address(temp.getAddress().getNumber(), temp.getAddress().getName(), temp.getAddress().getType(), temp.getAddress().getCity(), temp.getAddress().getState(),
-                temp.getAddress().getZip(), temp.getAddress().getSecondAdd()), new ArrayList<>(Arrays.asList(new PhoneNumber())), temp.getEmail(),
+                temp.getAddress().getZip(), temp.getAddress().getSecondAdd()), new ArrayList<>(Arrays.asList(temp.getPhoneNumber().toArray(new PhoneNumber[0]))), temp.getEmail(),
                 temp.getStaffId(), temp.getPin(), temp.getPosition(), temp.getStatus(), new NormalDate(temp.getStartDate().getYear(), temp.getStartDate().getMonth(), temp.getStartDate().getDay()), temp.getYearsOfService()));
 
-        saveToFileTest(this.staffimport);
+        saveToFileStaff(this.staffimport);
 
         return staffimport;
 
@@ -99,7 +99,7 @@ public class StaffList
             Gson gson = new Gson();
 
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("test.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
 
             // convert JSON array to list of users
             ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()

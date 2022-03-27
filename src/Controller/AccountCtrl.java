@@ -304,8 +304,8 @@ public class AccountCtrl
 
             Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                     zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
-            PatronList patronList = new PatronList(tempPatron);
-            System.out.println(patronList.getPatronimport().get(0).toString());
+            PatronList patronList = new PatronList();
+            patronList.LoadPatron(tempPatron);
         });
 
 
@@ -316,7 +316,7 @@ public class AccountCtrl
     {
         staffRBtn.setOnMouseClicked(mouseEvent ->
         {
-           patronRBtn.setSelected(false);
+            patronRBtn.setSelected(false);
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewStaffUI");
             radioBPane.setRight(content);
@@ -325,15 +325,15 @@ public class AccountCtrl
     }
 
     @FXML
-    public void createStaffAccount(javafx.event.ActionEvent actionEvent){
-        createAccountBtnStaff.setOnMouseClicked(mouseEvent -> {
+    public void createStaffAccount(javafx.event.ActionEvent actionEvent)
+    {
+        createAccountBtnStaff.setOnMouseClicked(mouseEvent ->
+        {
             LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(yearTxtStaff.getText(), monthTxtStaff.getText(), dayTxtStaff.getText()), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), cityTxtStaff.getText(), stateTxtStaff.getText(),
                     zipTxtStaff.getText(), aptTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
-                    staffIDTxt.getText(),pinTxt.getText(),positionTxt.getText(),statusTxt.getText(), new NormalDate(startYearTxt.getText(),startMonthTxt.getText(),startDayTxt.getText()), 0);
-           StaffList staffList = new StaffList();
-           staffList.LoadStaff(tempStaff);
-
-
+                    staffIDTxt.getText(), pinTxt.getText(), positionTxt.getText(), statusTxt.getText(), new NormalDate(startYearTxt.getText(), startMonthTxt.getText(), startDayTxt.getText()), 0);
+            StaffList staffList = new StaffList();
+            staffList.LoadStaff(tempStaff);
 
 
         });
