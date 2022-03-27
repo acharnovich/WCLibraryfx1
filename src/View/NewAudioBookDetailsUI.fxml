@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="436.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddOrRemoveItemCtrl">
+   <children>
+      <Label fx:id="newAudioBookDetailsLabel" layoutX="20.0" layoutY="20.0" text="Enter details for new audiobook to be added:" />
+      <TextField fx:id="audioBookItemIDTextField" layoutX="69.0" layoutY="47.0" prefHeight="18.0" prefWidth="134.0" />
+      <Label fx:id="audioBookItemIDLabel" layoutX="20.0" layoutY="52.0" text="Item ID:" />
+      <Label fx:id="audioBookTitleLabel" layoutX="223.0" layoutY="51.0" text="Title:" />
+      <TextField fx:id="audioBookTitleTextField" layoutX="254.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
+      <Label fx:id="audioBookYearPublishedLabel" layoutX="469.0" layoutY="51.0" text="Year Published:" />
+      <TextField fx:id="audioBookYearPublishedTextField" layoutX="556.0" layoutY="46.0" prefHeight="26.0" prefWidth="125.0" />
+      <Label fx:id="audioBookDatePublishedLabel" layoutX="20.0" layoutY="92.0" text="Date Published:" />
+      <TextField fx:id="audioBookDatePublishedYearTextField" layoutX="109.0" layoutY="87.0" prefHeight="26.0" prefWidth="42.0" text="YYYY" />
+      <TextField fx:id="audioBookDatePublishedMonthTextField" layoutX="156.0" layoutY="87.0" prefHeight="26.0" prefWidth="42.0" text="MM" />
+      <TextField fx:id="audioBookDatePublishedDayTextField" layoutX="204.0" layoutY="87.0" prefHeight="26.0" prefWidth="34.0" text="DD" />
+      <Label fx:id="audioBookPublisherLabel" layoutX="257.0" layoutY="92.0" text="Publisher:" />
+      <TextField fx:id="audioBookPublisherTextField" layoutX="320.0" layoutY="87.0" prefHeight="26.0" prefWidth="361.0" />
+      <Label fx:id="audioBookProductionCompanyLabel" layoutX="20.0" layoutY="138.0" text="Production Company:" />
+      <TextField fx:id="audioBookGenresTextField" layoutX="347.0" layoutY="133.0" prefHeight="26.0" prefWidth="156.0" text="e.g. &quot;Comedy, Non-fiction&quot;" />
+      <Label fx:id="audioBookLengthLabel" layoutX="518.0" layoutY="137.0" text="Length:" />
+      <TextField fx:id="audioBookLengthTextField" layoutX="565.0" layoutY="133.0" prefHeight="26.0" prefWidth="115.0" text="e.g. &quot;8h 9min&quot;" />
+      <Label fx:id="audioBookAuthorsLabel" layoutX="18.0" layoutY="180.0" text="Author(s):" />
+      <TextField fx:id="audioBookAuthorsTextField" layoutX="74.0" layoutY="175.0" prefHeight="26.0" prefWidth="246.0" text="If multiple, separate with commas." />
+      <Label fx:id="audioBookDescriptionLabel" layoutX="18.0" layoutY="214.0" text="Description:" />
+      <TextArea fx:id="audioBookDescriptionTextArea" layoutX="18.0" layoutY="238.0" prefHeight="146.0" prefWidth="659.0" />
+      <Button fx:id="audioBookAddNewItemButton" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
+      <TextField fx:id="audioBookProductionCompanyTextField" layoutX="140.0" layoutY="132.0" prefHeight="26.0" prefWidth="143.0" text="&quot;N/A&quot; if none" />
+      <Label fx:id="audioBookGenresLabel" layoutX="294.0" layoutY="138.0" text="Genre(s):" />
+      <Label fx:id="audioBookNarratorsLabel" layoutX="327.0" layoutY="179.0" text="Narrator(s):" />
+      <TextField fx:id="audioBookNarratorsTextField" layoutX="391.0" layoutY="175.0" prefHeight="26.0" prefWidth="290.0" text="If multiple, separate with commas." />
+   </children>
+</AnchorPane>

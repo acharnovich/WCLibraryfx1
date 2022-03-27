@@ -4,6 +4,7 @@ import Model.*;
 import View.FxLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -11,7 +12,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -57,6 +60,8 @@ public class NavigationCtrl {
 
     @FXML    private ButtonBar logoutBar;
 
+    private Stage primaryStage;
+
     private ItemList itemList;
     private StaffList staffList;
 
@@ -82,17 +87,20 @@ public class NavigationCtrl {
     public void handleAddItem(javafx.event.ActionEvent actionEvent)
     {
         addItemBtn.setOnMouseClicked(mouseEvent -> {
-            try
-            {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/NewItemUI.fxml"));
-                loader.setLocation(getClass().getResource("/View/NewItemUI.fxml"));
-                Scene scene = new Scene(loader.load());
+
+
+            Parent part = null;
+            try {
+                part = FXMLLoader.load(getClass().getResource("/View/NewItemUI.fxml"));
                 Stage stage = new Stage();
-                stage.setTitle("WCLibrary Add New Item");
+                Scene scene = new Scene(part);
                 stage.setScene(scene);
                 stage.show();
-            } catch (IOException e)
-            {}
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         });
     }
 }

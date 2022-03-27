@@ -37,6 +37,8 @@ public class LoginCtrl
     @FXML
     private ImageView wcLogo;
 
+    private Stage stage;
+
 
     public LoginCtrl()
     {
@@ -63,7 +65,7 @@ public class LoginCtrl
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/NavUI.fxml"));
                         loader.setLocation(getClass().getResource("/View/NavUI.fxml"));
                         Scene scene = new Scene(loader.load());
-                        Stage stage = new Stage();
+                        stage = new Stage();
                         stage.setTitle("WCLibrary Main Menu");
                         stage.setScene(scene);
                         stage.show();
@@ -78,7 +80,6 @@ public class LoginCtrl
         });
         // get the submit button from loginUI and add a mouse listener to it
         //loginUI.getSubmitButton().addMouseListener(new MouseAdapter()
-
 
     }
 
