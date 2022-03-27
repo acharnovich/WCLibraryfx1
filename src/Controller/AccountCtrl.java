@@ -345,6 +345,7 @@ public void  verifyEmail(){
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
+        patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
             if (patronList.verifyEmail(emailText.getText()) == false){
