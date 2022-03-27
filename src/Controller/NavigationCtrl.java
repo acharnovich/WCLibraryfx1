@@ -52,8 +52,7 @@ public class NavigationCtrl {
     @FXML
     private Button searchBtn;
 
-    @FXML
-    private ButtonBar logoutBar;
+    @FXML    private ButtonBar logoutBar;
 
     private ItemList itemList;
     private StaffList staffList;
