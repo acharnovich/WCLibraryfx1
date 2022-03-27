@@ -14,6 +14,8 @@
 
 package Model;
 
+import java.util.ArrayList;
+
 public abstract class Item {
 
     // fields
@@ -92,6 +94,26 @@ public abstract class Item {
     {
         return itemStatus;
     }
+
+    public abstract String getPublisher();
+
+    public abstract ArrayList<Collaborator> getAuthors();
+
+    public abstract String getLength();
+
+    public abstract String getGenres();
+
+    public abstract ArrayList<Collaborator> getNarrators();
+
+    public abstract String getProductionCompany();
+
+    public abstract String getDistributor();
+
+    public abstract ArrayList<Collaborator> getActors();
+
+    public abstract String getType();
+
+    public abstract String getRuntime();
 
 }
 

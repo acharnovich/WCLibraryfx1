@@ -1,5 +1,7 @@
 package Controller;
 
+import Model.ItemList;
+import Model.StaffList;
 import View.FxLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,6 +54,18 @@ public class NavigationCtrl {
 
     @FXML
     private ButtonBar logoutBar;
+
+    private ItemList itemList;
+    private StaffList staffList;
+
+    public NavigationCtrl()
+    {
+        itemList = new ItemList();
+        staffList = new StaffList();
+    }
+
+    private void importLists() {
+    }
 
     public void handleCreateAccount(javafx.event.ActionEvent actionEvent)
     { newAccountBtn.setOnMouseClicked(mouseEvent -> {

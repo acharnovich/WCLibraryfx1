@@ -7,7 +7,7 @@
  * ArrayList with a Collaborator ArrayList, and no longer makes use of the purgeTransaction method. All references
  * to fields from the Item superclasses now use getter and setter methods.
  *
- * @version 2.11 2022-03-05
+ * @version 2.2 2022-03-26
  */
 
 package Model;
@@ -109,4 +109,61 @@ public class Movie extends Item
         setItemStatus(statInput);
     }
 
+
+    // Overridden abstract getters
+    @Override
+    public String getGenres() {
+        return genre;
+    }
+
+    @Override
+    public String getProductionCompany() {
+        return productionCompany;
+    }
+
+    @Override
+    public String getDistributor()
+    {
+        return distributor;
+    }
+
+    @Override
+    public ArrayList<Collaborator> getActors()
+    {
+        return starringActors;
+    }
+
+    @Override
+    public String getType()
+    {
+        return type;
+    }
+
+    @Override
+    public String getRuntime()
+    {
+        return runtime;
+    }
+
+
+    // Overridden abstract getters that return null
+    @Override
+    public ArrayList<Collaborator> getNarrators() {
+        return null;
+    }
+
+    @Override
+    public String getPublisher() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Collaborator> getAuthors() {
+        return null;
+    }
+
+    @Override
+    public String getLength() {
+        return null;
+    }
 }
