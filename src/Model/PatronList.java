@@ -69,10 +69,12 @@ public class PatronList
         }
 
         this.patronimport.add(new Patron(temp.getName(), new NormalDate(temp.getDateofBirth().getYear(), temp.getDateofBirth().getMonth(), temp.getDateofBirth().getDay()), new Address(temp.getAddress().getNumber(), temp.getAddress().getName(), temp.getAddress().getType(), temp.getAddress().getCity(), temp.getAddress().getState(),
-                temp.getAddress().getZip(), temp.getAddress().getSecondAdd()), new ArrayList<>(Arrays.asList(temp.getPhoneNumber().toArray(new PhoneNumber[0]))), temp.getEmail(),
+                temp.getAddress().getZip(), temp.getAddress().getSecondAdd()), new ArrayList<PhoneNumber>(
+                        temp.getPhoneNumber()), temp.getEmail(),
                 temp.getPatronCardNum(), temp.getAge()));
 
         saveToFilePatron(this.patronimport);
+        System.out.println(temp);
 
         return patronimport;
 

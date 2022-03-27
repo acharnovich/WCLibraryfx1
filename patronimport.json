@@ -54,5 +54,39 @@
       }
     ],
     "email": "rgerge"
+  },
+  {
+    "patronCardNum": "1234567",
+    "age": 25,
+    "name": "ergerg",
+    "dateofBirth": {
+      "month": "02",
+      "day": "02",
+      "year": "1997"
+    },
+    "address": {
+      "number": "123",
+      "name": "Test",
+      "type": "St.",
+      "city": "Apt 8",
+      "state": "fsf",
+      "zip": "15206",
+      "secondAdd": "PA"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 1,
+        "areaCode": 111,
+        "threeLocal": 111,
+        "lastFour": 1111
+      },
+      {
+        "countryCode": 2,
+        "areaCode": 2,
+        "threeLocal": 222,
+        "lastFour": 2222
+      }
+    ],
+    "email": "sdfsdf"
   }
 ]

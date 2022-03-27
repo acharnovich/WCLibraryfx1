@@ -4,10 +4,7 @@ import Model.StaffList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -70,6 +67,11 @@ public class LoginCtrl
                     } catch (IOException e)
                     {}
 
+                }else {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("Login Failed");
+                    loginFailed.setContentText("Wrong user ID or Pin");
+                    loginFailed.showAndWait();
                 }
             }
 

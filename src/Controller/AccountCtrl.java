@@ -2,11 +2,9 @@ package Controller;
 
 import Model.*;
 import View.FxLoader;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -284,6 +282,21 @@ public class AccountCtrl
     @FXML
     private TextField zipTxtStaff;
 
+    @FXML
+    private TextField areaTxt2;
+
+    @FXML
+    private TextField countryTxt2;
+
+    @FXML
+    private TextField lastFourTxt2;
+
+    @FXML
+    private TextField localTxt2;
+    @FXML
+    private ChoiceBox<String> positionChoice;
+
+
     public void patronCreateAccount(javafx.event.ActionEvent actionEvent)
     {
         patronRBtn.setOnMouseClicked(mouseEvent ->
@@ -294,18 +307,33 @@ public class AccountCtrl
             radioBPane.setRight(content);
 
         });
-    }
 
+    }
+@FXML
+    public void patronAddPhoneNumber(javafx.event.ActionEvent actionEvent){
+    secAddressBtn.setOnMouseClicked(mouseEvent -> {
+    countryTxt2.setVisible(true);
+        localTxt2.setVisible(true);
+        areaTxt2.setVisible(true);
+        lastFourTxt2.setVisible(true);
+    });
+    }
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
-
+            if(countryTxt2.isVisible() == true){
             Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                    zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                    zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()),Integer.valueOf(areaTxt2.getText()),Integer.valueOf(localTxt2.getText()),Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
             PatronList patronList = new PatronList();
-            patronList.LoadPatron(tempPatron);
+            patronList.LoadPatron(tempPatron);}
+            else{Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                    zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                PatronList patronList = new PatronList();
+                patronList.LoadPatron(tempPatron);}
+
+
         });
 
 
@@ -320,6 +348,8 @@ public class AccountCtrl
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewStaffUI");
             radioBPane.setRight(content);
+
+
         });
 
     }
@@ -329,6 +359,7 @@ public class AccountCtrl
     {
         createAccountBtnStaff.setOnMouseClicked(mouseEvent ->
         {
+
             LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(yearTxtStaff.getText(), monthTxtStaff.getText(), dayTxtStaff.getText()), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), cityTxtStaff.getText(), stateTxtStaff.getText(),
                     zipTxtStaff.getText(), aptTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
                     staffIDTxt.getText(), pinTxt.getText(), positionTxt.getText(), statusTxt.getText(), new NormalDate(startYearTxt.getText(), startMonthTxt.getText(), startDayTxt.getText()), 0);
