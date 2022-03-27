@@ -325,6 +325,111 @@ public class ItemList {
         return false;
     }
 
+    public boolean archiveItem(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+                String tempID = Integer.toString(books.get(i).getItemID());
+
+                if (itemToSearchFor.contains(tempID))
+                {
+                    Book temp = new Book(books.get(i).getItemID(), books.get(i).getTitle(), books.get(i).getYearPublished(),
+                            books.get(i).getDatePublished(), books.get(i).getDescription(), "Archived",
+                            books.get(i).getPublisher(), books.get(i).getAuthors(), books.get(i).getLength(),
+                            books.get(i).getGenres());
+                    LoadBook(temp);
+                    System.out.println("Archived.");
+                    return true;
+                }
+            }
+
+            // check through Movies
+            // create Gson instance
+            gson = new Gson();
+
+            // create a reader
+            reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+                String tempID = Integer.toString(movies.get(i).getItemID());
+
+                if (itemToSearchFor.contains(tempID))
+                {
+                    Movie temp = new Movie(movies.get(i).getItemID(), movies.get(i).getTitle(), movies.get(i).getYearPublished(),
+                                           movies.get(i).getDatePublished(), movies.get(i).getDescription(),
+                                           "Archived.", movies.get(i).getProductionCompany(), movies.get(i).getDistributor(),
+                                           movies.get(i).getActors(), movies.get(i).getType(), movies.get(i).getRuntime(),
+                                           movies.get(i).getGenres());
+                    LoadMovie(temp);
+                    System.out.println("Archived.");
+
+                    return true;
+                }
+            }
+
+            // check through AudioBooks
+            // create Gson instance
+            gson = new Gson();
+
+            // create a reader
+            reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+                String tempID = Integer.toString(audios.get(i).getItemID());
+
+                if (itemToSearchFor.contains(tempID))
+                {
+                    AudioBook temp = new AudioBook(audios.get(i).getItemID(), audios.get(i).getTitle(),
+                                                   audios.get(i).getYearPublished(), audios.get(i).getDatePublished(),
+                                                   audios.get(i).getDescription(), "Archived", audios.get(i).getPublisher(),
+                                                   audios.get(i).getAuthors(), audios.get(i).getNarrators(),
+                                                   audios.get(i).getProductionCompany(), audios.get(i).getLength(),
+                                                   audios.get(i).getGenres());
+                    LoadAudiobook(temp);
+                    System.out.println("Archived.");
+                    return true;
+                }
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Doesn't exist.");
+        return false;
+    }
+
     // Accessor method
     public ArrayList<Book> getBookInventory()
     {
