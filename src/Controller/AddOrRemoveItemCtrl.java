@@ -324,6 +324,7 @@ public class AddOrRemoveItemCtrl {
                     Stage stage = new Stage();
                     Scene scene = new Scene(part);
                     stage.setScene(scene);
+                    stage.setTitle("Enter New Book Details");
                     stage.show();
 
                 } catch (IOException e) {
@@ -336,6 +337,7 @@ public class AddOrRemoveItemCtrl {
                     Stage stage = new Stage();
                     Scene scene = new Scene(part);
                     stage.setScene(scene);
+                    stage.setTitle("Enter New Audiobook Details");
                     stage.show();
 
                 } catch (IOException e) {
@@ -349,6 +351,7 @@ public class AddOrRemoveItemCtrl {
                     Stage stage = new Stage();
                     Scene scene = new Scene(part);
                     stage.setScene(scene);
+                    stage.setTitle("Enter New Movie Details");
                     stage.show();
 
 

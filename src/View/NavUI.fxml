@@ -14,7 +14,7 @@
               <items>
                 <Button fx:id="searchBtn" mnemonicParsing="false" text="Search" />
                   <Button fx:id="addItemBtn" mnemonicParsing="false" onAction="#handleAddItem" text="Add Item" />
-                  <Button fx:id="removeItemBtn" mnemonicParsing="false" text="Remove Item" />
+                  <Button fx:id="removeItemBtn" mnemonicParsing="false" onAction="#handleRemoveItemClick" text="Remove Item" />
                   <Button fx:id="newAccountBtn" mnemonicParsing="false" onAction="#handleCreateAccount" text="New Account" />
                   <Button fx:id="checkoutBtn" mnemonicParsing="false" text="Checkout" />
                   <Button fx:id="checkinBtn" mnemonicParsing="false" text="Checkin" />
