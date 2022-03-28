@@ -29,7 +29,6 @@ public class AccountCtrl
     @FXML
     private Button testbtn;
 
-
     @FXML
     private AnchorPane areePane;
 
@@ -398,6 +397,8 @@ public void  verifyEmail(){
 
         });
     }
+
+
 
 
 }

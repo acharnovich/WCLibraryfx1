@@ -12,7 +12,7 @@
          <top>
             <ToolBar fx:id="menuBar" prefHeight="50.0" prefWidth="897.0" BorderPane.alignment="CENTER">
               <items>
-                <Button fx:id="searchBtn" mnemonicParsing="false" text="Search" />
+                <Button fx:id="searchBtn" mnemonicParsing="false" onAction="#handleSearchClick" text="Search" />
                   <Button fx:id="addItemBtn" mnemonicParsing="false" onAction="#handleAddItem" text="Add Item" />
                   <Button fx:id="removeItemBtn" mnemonicParsing="false" onAction="#handleRemoveItemClick" text="Remove Item" />
                   <Button fx:id="newAccountBtn" mnemonicParsing="false" onAction="#handleCreateAccount" text="New Account" />

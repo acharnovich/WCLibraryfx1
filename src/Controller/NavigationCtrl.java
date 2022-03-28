@@ -84,6 +84,16 @@ public class NavigationCtrl {
         });
     }
 
+    public void handleSearchClick(javafx.event.ActionEvent actionEvent)
+    {
+        searchBtn.setOnMouseClicked(mouseEvent -> {
+            FxLoader object = new FxLoader();
+            Pane content = object.getPage("SearchUI");
+            navBorder.setLeft(content);
+
+        });
+    }
+
     public void handleAddItem(javafx.event.ActionEvent actionEvent)
     {
         addItemBtn.setOnMouseClicked(mouseEvent -> {
@@ -124,5 +134,10 @@ public class NavigationCtrl {
             }
 
         });
+    }
+
+    public BorderPane getNavBorder()
+    {
+        return navBorder;
     }
 }
