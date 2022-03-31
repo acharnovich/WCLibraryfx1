@@ -81,7 +81,7 @@ public abstract class Person
     public String toString()
     {
       
-        return "===Personal Information===\n" +
+        return "Personal Account Details:\n" +
                 "Name: " + name + "\n" +
                 "Birthday: " + dateofBirth + "\n" +
                 address.toString() + "\n"   + phoneNumber +

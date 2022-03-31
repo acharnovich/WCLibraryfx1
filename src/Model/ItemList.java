@@ -258,9 +258,9 @@ public class ItemList {
             for (int i = 0; i < books.size(); i++)
             {
 
-                String tempID = Integer.toString(books.get(i).getItemID());
 
-                if (itemToSearchFor.contains(tempID))
+
+                if (books.get(i).toString().contains(itemToSearchFor))
                 {
                     System.out.println("Exists.");
                     return true;

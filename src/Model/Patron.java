@@ -48,7 +48,7 @@ public class Patron extends Person implements Search
     @Override
     public String toString()
     {
-        return super.toString() + "Patron{" +
+        return super.toString() + "Patron Account Information:\n" +
                 "patronCardNum='" + patronCardNum + '\'' +
                 ", age=" + age +
                 '}';

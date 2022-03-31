@@ -1,5 +1,8 @@
 package Controller;
 
+import Model.ItemList;
+import Model.PatronList;
+import Model.StaffList;
 import View.FxLoader;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -7,12 +10,69 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 
 
 public class SearchCtrl {
+    @FXML
+    private Label ageLbl;
+
+    @FXML
+    private Label ageResults;
+
+    @FXML
+    private Label cardNumLbl;
+
+    @FXML
+    private Button checkoutsBtn;
+
+    @FXML
+    private Label dobLbl;
+
+    @FXML
+    private Label dobResults;
+
+    @FXML
+    private Button editBtn;
+
+    @FXML
+    private Label libraryCardNumResults;
+
+    @FXML
+    private Line menuLn;
+
+    @FXML
+    private Label nameLbl;
+
+    @FXML
+    private Label nameResults;
 
     @FXML
     private AnchorPane searchPersonAnchorPane;
+
+    @FXML
+    private RadioButton searchPersonByEmailRadioButton;
+
+    @FXML
+    private RadioButton searchPersonByNameRadioButton;
+
+    @FXML
+    private RadioButton searchPersonByPhone;
+
+    @FXML
+    private Button searchPersonExitButton;
+
+    @FXML
+    private Button searchPersonSearchButton;
+
+    @FXML
+    private TextField searchPersonTextField;
+
+    @FXML
+    private Button viewBillsBtn;
+
+
+
 
     @FXML
     private ScrollPane scrollPersonScrollPane;
@@ -44,8 +104,7 @@ public class SearchCtrl {
     @FXML
     private BorderPane searchRadioPane;
 
-    @FXML
-    private Button searchPersonExitButton;
+
 
     @FXML
     private Button searchItemExitButton;
@@ -53,17 +112,6 @@ public class SearchCtrl {
     @FXML
     private Button searchItemSearchButton;
 
-    @FXML
-    private Button searchPersonSearchButton;
-
-    @FXML
-    private RadioButton searchPersonByNameRadioButton;
-
-    @FXML
-    private RadioButton searchPersonByIDRadioButton;
-
-    @FXML
-    private RadioButton searchPersonByEmailRadioButton;
 
     @FXML
     private RadioButton searchItemByTitleRadioButton;
@@ -98,6 +146,8 @@ public class SearchCtrl {
             FxLoader object = new FxLoader();
             Pane content = object.getPage("SearchItem");
             this.searchRadioPane.setRight(content);
+            ItemList test = new ItemList();
+            test.search("Grand Central Publishing");
 
         });
 
@@ -109,7 +159,13 @@ public class SearchCtrl {
     {
         searchPersonSearchButton.setOnMouseClicked(mouseEvent ->
         {
-            System.out.println("Search is incomplete at this time.");
+            PatronList pList = new PatronList();
+            StaffList sList = new StaffList();
+            if(pList.found(searchPersonTextField.getText()) == true){
+                System.out.println("Person Found");
+              ageResults.setText(pList.search(searchPersonTextField.getText()));
+
+            }
         });
 
     }
@@ -129,7 +185,7 @@ public class SearchCtrl {
     {
         searchPersonByNameRadioButton.setOnMouseClicked(mouseEvent ->
         {
-            searchPersonByIDRadioButton.setSelected(false);
+            searchPersonByPhone.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By Name";
             System.out.println("Selected search person by name.");
@@ -137,9 +193,9 @@ public class SearchCtrl {
     }
 
     @FXML
-    public void handleSearchPersonIDRadioClick(javafx.event.ActionEvent actionEvent)
+    public void handleSearchPersonPhoneRadioClick(javafx.event.ActionEvent actionEvent)
     {
-        searchPersonByIDRadioButton.setOnMouseClicked(mouseEvent ->
+        searchPersonByPhone.setOnMouseClicked(mouseEvent ->
         {
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
@@ -154,7 +210,7 @@ public class SearchCtrl {
         searchPersonByEmailRadioButton.setOnMouseClicked(mouseEvent ->
         {
             searchPersonByNameRadioButton.setSelected(false);
-            searchPersonByIDRadioButton.setSelected(false);
+            searchPersonByPhone.setSelected(false);
             searchPersonType = "By Email";
             System.out.println("Selected search person by email.");
         });
