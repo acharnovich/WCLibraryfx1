@@ -41,10 +41,10 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <RadioButton fx:id="searchPersonByNameRadioButton" layoutX="17.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonNameRadioClick" text="Search by Name" />
-      <RadioButton fx:id="searchPersonByPhone" layoutX="146.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonPhoneRadioClick" text="Search by Phone" />
+      <RadioButton fx:id="searchPersonByNameRadioButton" layoutX="17.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonNameRadioClick" text="Search by Card # or ID" />
+      <RadioButton fx:id="searchPersonByPhone" layoutX="174.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonPhoneRadioClick" text="Search by Phone" />
       <RadioButton fx:id="searchPersonByEmailRadioButton" layoutX="297.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonEmailRadioClick" text="Search by Email Address" />
-      <Label fx:id="ageLbl" layoutX="8.0" layoutY="111.0" text="Account Information:" />
-      <Label fx:id="ageResults" layoutX="14.0" layoutY="128.0" text="Label" />
+      <Label fx:id="accountLbl" layoutX="8.0" layoutY="111.0" text="Account Information:" />
+      <Label fx:id="resultsLbl" layoutX="14.0" layoutY="128.0" />
    </children>
 </AnchorPane>

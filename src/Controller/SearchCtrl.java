@@ -119,6 +119,11 @@ public class SearchCtrl {
     @FXML
     private RadioButton searchItemByIDRadioButton;
 
+    @FXML
+    private Label resultsLbl;
+    @FXML
+    private Label accountLbl;
+
     // Other attributes
     String searchPersonType;
     String searchItemType;
@@ -159,13 +164,68 @@ public class SearchCtrl {
     {
         searchPersonSearchButton.setOnMouseClicked(mouseEvent ->
         {
-            PatronList pList = new PatronList();
-            StaffList sList = new StaffList();
-            if(pList.found(searchPersonTextField.getText()) == true){
-                System.out.println("Person Found");
-              ageResults.setText(pList.search(searchPersonTextField.getText()));
+            if(searchPersonByNameRadioButton.isSelected() == false && searchPersonByEmailRadioButton.isSelected() == false && searchPersonByPhone.isSelected() == false){Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                loginFailed.setHeaderText("Select a Search Field");
+                loginFailed.setContentText("Please select one of the search options before clicking search.");
+                loginFailed.showAndWait();
 
             }
+            PatronList pList = new PatronList();
+            StaffList sList = new StaffList();
+            if(searchPersonByEmailRadioButton.isSelected() == true){
+
+            if(pList.foundEmail(searchPersonTextField.getText()) == true){
+                System.out.println("Person Found");
+              resultsLbl.setText(pList.searchEmail(searchPersonTextField.getText()));
+
+            }
+                if(sList.foundEmail(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(sList.searchEmail(searchPersonTextField.getText()));
+
+                }else {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Account Found");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.showAndWait();
+                }
+            }{
+
+        }
+            if(searchPersonByNameRadioButton.isSelected() == true){
+                if(pList.foundCard(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(pList.searchCard(searchPersonTextField.getText()));
+
+                }
+                if(sList.foundUserID(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(sList.searchUserID(searchPersonTextField.getText()));
+
+                }else {Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Account Found");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.showAndWait();}
+            }{
+
+        }
+            if(searchPersonByPhone.isSelected() == true){
+                if(pList.foundPhone(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(pList.searchPhone(searchPersonTextField.getText()));
+
+                }
+                if(sList.foundPhone(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(sList.searchPhone(searchPersonTextField.getText()));
+
+                }else {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Account Found");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.showAndWait();
+                }}
+
         });
 
     }
@@ -185,6 +245,8 @@ public class SearchCtrl {
     {
         searchPersonByNameRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            searchPersonTextField.clear();
+            searchPersonTextField.setPromptText("John Doe");
             searchPersonByPhone.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By Name";
@@ -197,6 +259,8 @@ public class SearchCtrl {
     {
         searchPersonByPhone.setOnMouseClicked(mouseEvent ->
         {
+            searchPersonTextField.clear();
+            searchPersonTextField.setPromptText("0-000-000-0000");
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By ID";
@@ -209,6 +273,8 @@ public class SearchCtrl {
     {
         searchPersonByEmailRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            searchPersonTextField.clear();
+            searchPersonTextField.setPromptText("example@gmail.com or example@wclibrary.com");
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByPhone.setSelected(false);
             searchPersonType = "By Email";
