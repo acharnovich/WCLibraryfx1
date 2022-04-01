@@ -15,6 +15,8 @@ import javafx.scene.shape.Line;
 
 public class SearchCtrl {
     @FXML
+    private Label itemResultsLbl;
+    @FXML
     private Label ageLbl;
 
     @FXML
@@ -124,6 +126,9 @@ public class SearchCtrl {
     @FXML
     private Label accountLbl;
 
+    @FXML
+    private TextField searchItemTextField;
+
     // Other attributes
     String searchPersonType;
     String searchItemType;
@@ -152,8 +157,9 @@ public class SearchCtrl {
             Pane content = object.getPage("SearchItem");
             this.searchRadioPane.setRight(content);
             ItemList test = new ItemList();
-            test.search("Grand Central Publishing");
-
+            test.searchBook("Grand Central Publishing");
+            test.searchMovie("Grand Central Publishing");
+            test.searchAudio("Grand Central Publishing");
         });
 
     }
@@ -183,7 +189,8 @@ public class SearchCtrl {
                     System.out.println("Person Found");
                     resultsLbl.setText(sList.searchEmail(searchPersonTextField.getText()));
 
-                }else {
+                }if(pList.foundEmail(searchPersonTextField.getText()) == false && sList.foundEmail(searchPersonTextField.getText()) == false)
+                {
                     Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                     loginFailed.setHeaderText("No Account Found");
                     loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
@@ -202,7 +209,8 @@ public class SearchCtrl {
                     System.out.println("Person Found");
                     resultsLbl.setText(sList.searchUserID(searchPersonTextField.getText()));
 
-                }else {Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                }if(pList.foundCard(searchPersonTextField.getText()) == false && sList.foundUserID(searchPersonTextField.getText()) == false)
+                {Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                     loginFailed.setHeaderText("No Account Found");
                     loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
                     loginFailed.showAndWait();}
@@ -219,7 +227,9 @@ public class SearchCtrl {
                     System.out.println("Person Found");
                     resultsLbl.setText(sList.searchPhone(searchPersonTextField.getText()));
 
-                }else {
+                }
+                if(pList.foundPhone(searchPersonTextField.getText()) == false && sList.foundPhone(searchPersonTextField.getText()) == false)
+                {
                     Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                     loginFailed.setHeaderText("No Account Found");
                     loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
@@ -235,7 +245,68 @@ public class SearchCtrl {
     {
         searchItemSearchButton.setOnMouseClicked(mouseEvent ->
         {
-            System.out.println("Search is incomplete at this time.");
+            if(itemResultsLbl.getText() != null){
+                itemResultsLbl.setText("");
+            }
+            if(searchItemByIDRadioButton.isSelected() == false && searchItemByTitleRadioButton.isSelected() == false){Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                loginFailed.setHeaderText("Select a Search Field");
+                loginFailed.setContentText("Please select one of the search options before clicking search.");
+                loginFailed.showAndWait();
+
+            }
+            ItemList iList = new ItemList();
+            if(searchItemByIDRadioButton.isSelected() == true){
+
+                if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
+                    System.out.println("Item Found");
+                    if (iList.bookReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.bookReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.movieReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.movieReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.audioReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.audioReturn(searchItemTextField.getText()));
+                    }
+                }
+                else
+                {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Item Found");
+                    loginFailed.setContentText("No Item found. Try a different search criteria or add item to inventory.");
+                    loginFailed.showAndWait();
+                }
+            }
+            if(searchItemByTitleRadioButton.isSelected() == true){
+
+
+                if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
+                    System.out.println("Item Found");
+                    if (iList.bookReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.bookReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.movieReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.movieReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.audioReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.audioReturn(searchItemTextField.getText()));
+                    }
+                }
+                else
+                {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Item Found");
+                    loginFailed.setContentText("No Item found. Try a different search criteria or add item to inventory.");
+                    loginFailed.showAndWait();
+                }
+            }
+
         });
 
     }
@@ -287,6 +358,9 @@ public class SearchCtrl {
     {
         searchItemByTitleRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            itemResultsLbl.setText("");
+            searchItemTextField.clear();
+            searchItemTextField.setPromptText("Raiders of the Lost Ark");
             searchItemByIDRadioButton.setSelected(false);
             searchItemType = "By Title";
             System.out.println("Selected search item by title.");
@@ -298,6 +372,9 @@ public class SearchCtrl {
     {
         searchItemByIDRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            itemResultsLbl.setText("");
+            searchItemTextField.clear();
+            searchItemTextField.setPromptText("1234567");
             searchItemByTitleRadioButton.setSelected(false);
             searchItemType = "By ID";
             System.out.println("Selected search item by ID number.");

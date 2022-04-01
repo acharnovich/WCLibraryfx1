@@ -99,7 +99,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getEmail().contains(email))
+                if (users.get(i).getEmail().equals(email))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return true;
@@ -134,7 +134,7 @@ public class PatronList
            {
 
 
-               if (users.get(i).getEmail().contains(search))
+               if (users.get(i).getEmail().equals(search))
                {
                    System.out.println("EMAIL EXISTS!");
                    return true;
@@ -169,7 +169,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPatronCardNum().contains(search))
+                if (users.get(i).getPatronCardNum().equals(search))
                 {
                     System.out.println("Card Exists EXISTS!");
                     return true;
@@ -203,11 +203,13 @@ public class PatronList
             for (int i = 0; i < users.size(); i++)
             {
 
-
-                if (users.get(i).getPhoneNumber().toString().contains(search))
                 {
-                    System.out.println("Phone EXISTS!");
-                    return true;
+
+                    if (users.get(i).getPhoneNumber().toString().contains(search))
+                    {
+                        System.out.println("Phone EXISTS!");
+                        return true;
+                    }
                 }
             }
             // close reader
@@ -239,7 +241,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getEmail().contains(search))
+                if (users.get(i).getEmail().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return users.get(i).toString();
@@ -274,7 +276,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPatronCardNum().contains(search))
+                if (users.get(i).getPatronCardNum().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return users.get(i).toString();
@@ -309,11 +311,13 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPhoneNumber().toString().contains(search))
-                {
-                    System.out.println("EMAIL EXISTS!");
-                    return users.get(i).toString();
-                }
+                    if (users.get(i).getPhoneNumber().toString().contains(search))
+                    {
+                        System.out.println("EMAIL EXISTS!");
+                        return users.get(i).toString();
+                    }
+
+
             }
             // close reader
             reader.close();
