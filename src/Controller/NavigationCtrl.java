@@ -136,6 +136,27 @@ public class NavigationCtrl {
         });
     }
 
+    public void handleCheckoutClick(javafx.event.ActionEvent actionEvent)
+    {
+        checkoutBtn.setOnMouseClicked(mouseEvent -> {
+
+
+            Parent part = null;
+            try {
+                part = FXMLLoader.load(getClass().getResource("/View/CheckOutUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Check Out Items");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
     public BorderPane getNavBorder()
     {
         return navBorder;
