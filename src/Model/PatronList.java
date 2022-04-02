@@ -223,7 +223,7 @@ public class PatronList
         System.out.println("Phone Does Not Exist!");
         return false;
     }
-    public String searchEmail(String search){
+    public Person searchEmail(String search){
 
         try
         {
@@ -244,7 +244,7 @@ public class PatronList
                 if (users.get(i).getEmail().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return users.get(i).toString();
+                    return users.get(i);
                 }
             }
             // close reader

@@ -69,8 +69,7 @@ public class PhoneNumber
     public String toString()
     {
 
-        return "Phone Number: " +
-                "+" + countryCode + "-"+ areaCode +
+        return "+" + countryCode + "-"+ areaCode +
                 "-" + threeLocal + "-" + lastFour;
     }
     public boolean checkPhoneNum(int countryCode, int areaCode, int threeLocal, int lastFour){

@@ -322,6 +322,7 @@ public class StaffList
                 if (users.get(i).getPhoneNumber().toString().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
+
                     return users.get(i).toString();
                 }
             }

@@ -1,12 +1,12 @@
 package Controller;
 
-import Model.ItemList;
-import Model.PatronList;
-import Model.StaffList;
+import Model.*;
 import View.FxLoader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -14,6 +14,33 @@ import javafx.scene.shape.Line;
 
 
 public class SearchCtrl {
+    @FXML
+    private TableColumn<Person, Address> addCol;
+
+    @FXML
+    private Button checkoutsBtn;
+
+    @FXML
+    private TableColumn<Person, NormalDate> dobCol;
+
+    @FXML
+    private Button editBtn;
+
+    @FXML
+    private TableColumn<Person, String> emailCol;
+
+    @FXML
+    private Line menuLn;
+
+    @FXML
+    private TableColumn<Person, String> nameCol;
+
+    @FXML
+    private TableView<Person> personContenTbl;
+
+    @FXML
+    private TableColumn<Person, PhoneNumber> phoneCol;
+
     @FXML
     private Label itemResultsLbl;
     @FXML
@@ -25,8 +52,7 @@ public class SearchCtrl {
     @FXML
     private Label cardNumLbl;
 
-    @FXML
-    private Button checkoutsBtn;
+
 
     @FXML
     private Label dobLbl;
@@ -34,14 +60,12 @@ public class SearchCtrl {
     @FXML
     private Label dobResults;
 
-    @FXML
-    private Button editBtn;
+
 
     @FXML
     private Label libraryCardNumResults;
 
-    @FXML
-    private Line menuLn;
+
 
     @FXML
     private Label nameLbl;
@@ -182,8 +206,15 @@ public class SearchCtrl {
 
             if(pList.foundEmail(searchPersonTextField.getText()) == true){
                 System.out.println("Person Found");
-              resultsLbl.setText(pList.searchEmail(searchPersonTextField.getText()));
-
+             // resultsLbl.setText(pList.searchEmail(searchPersonTextField.getText()));
+                nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+                dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
+                addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
+                phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
+                emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+                ObservableList<Person> people = FXCollections.observableArrayList();
+                people.add(pList.searchEmail(searchPersonTextField.getText()));
+personContenTbl.setItems(people);
             }
                 if(sList.foundEmail(searchPersonTextField.getText()) == true){
                     System.out.println("Person Found");
@@ -379,5 +410,16 @@ public class SearchCtrl {
             searchItemType = "By ID";
             System.out.println("Selected search item by ID number.");
         });
+    }
+    @FXML
+    public void viewDetailsButton(javafx.event.ActionEvent actionEvent)
+    {
+editBtn.setOnMouseClicked(mouseEvent -> {
+    System.out.println(personContenTbl.getSelectionModel().selectedItemProperty().get());
+
+
+
+});
+
     }
 }
