@@ -102,7 +102,7 @@ public class PatronCheckoutList
     }
 
 
-    public ArrayList<PatronCheckoutList> LoadStaff(PatronCheckoutList temp)
+    public ArrayList<PatronCheckoutList> LoadList(PatronCheckoutList temp)
     {
 
         ArrayList<PatronCheckoutList> readFromJson = new ArrayList<PatronCheckoutList>();

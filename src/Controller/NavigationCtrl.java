@@ -64,24 +64,28 @@ public class NavigationCtrl {
 
     private ItemList itemList;
     private StaffList staffList;
+    private PatronCheckoutList list;
 
     public NavigationCtrl()
     {
         itemList = new ItemList();
         staffList = new StaffList();
-        // importLists();
+        list = new PatronCheckoutList();
     }
 
     private void importLists() {
+        list.LoadList(new PatronCheckoutList(45345, new ArrayList<CheckOut>()));
     }
 
     public void handleCreateAccount(javafx.event.ActionEvent actionEvent)
     {
+        importLists();
         newAccountBtn.setOnMouseClicked(mouseEvent -> {
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewAccountUI");
             navBorder.setLeft(content);
         });
+
     }
 
     public void handleSearchClick(javafx.event.ActionEvent actionEvent)
