@@ -70,7 +70,6 @@ public class NavigationCtrl {
     {
         itemList = new ItemList();
         staffList = new StaffList();
-        // importLists();
     }
 
     private void importLists() {
@@ -78,11 +77,13 @@ public class NavigationCtrl {
 
     public void handleCreateAccount(javafx.event.ActionEvent actionEvent)
     {
+        importLists();
         newAccountBtn.setOnMouseClicked(mouseEvent -> {
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewAccountUI");
             navBorder.setLeft(content);
         });
+
     }
 
     public void handleSearchClick(javafx.event.ActionEvent actionEvent)
@@ -137,12 +138,29 @@ public class NavigationCtrl {
         });
     }
 
-    public void logout(javafx.event.ActionEvent actionEvent){
-        logoutBtn.setOnMouseClicked(mouseEvent -> {
-            Platform.exit();
+
+    public void handleCheckoutClick(javafx.event.ActionEvent actionEvent)
+    {
+        checkoutBtn.setOnMouseClicked(mouseEvent -> {
+
+
+            Parent part = null;
+            try {
+                CheckOutCtrl controller = new CheckOutCtrl();
+                controller.testCheckOut();
+
+                part = FXMLLoader.load(getClass().getResource("/View/CheckOutUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Check Out Items");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         });
-
     }
 
     public BorderPane getNavBorder()
