@@ -64,17 +64,14 @@ public class NavigationCtrl {
 
     private ItemList itemList;
     private StaffList staffList;
-    private PatronCheckoutList list;
 
     public NavigationCtrl()
     {
         itemList = new ItemList();
         staffList = new StaffList();
-        list = new PatronCheckoutList();
     }
 
     private void importLists() {
-        list.LoadList(new PatronCheckoutList(1247592, new ArrayList<CheckOut>()));
     }
 
     public void handleCreateAccount(javafx.event.ActionEvent actionEvent)

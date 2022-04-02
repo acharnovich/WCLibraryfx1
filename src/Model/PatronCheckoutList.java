@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 public class PatronCheckoutList
 {
-    int patronCardNum;                 // the patron's library card number
+    String patronCardNum;                 // the patron's library card number
     ArrayList<CheckOut> checkouts;     // a list of all current check out transactions for this patron
 
     /**
@@ -30,7 +30,7 @@ public class PatronCheckoutList
      */
     public PatronCheckoutList()
     {
-        patronCardNum = 0000000;
+        patronCardNum = "0000000";
         checkouts = new ArrayList<CheckOut>();
     }
 
@@ -39,7 +39,7 @@ public class PatronCheckoutList
      * @param cardInput The patron's library card number.
      * @param checkoutsInput The list of items currently checked out to the Patron.
      */
-    public PatronCheckoutList(int cardInput, ArrayList<CheckOut> checkoutsInput)
+    public PatronCheckoutList(String cardInput, ArrayList<CheckOut> checkoutsInput)
     {
         patronCardNum = cardInput;
         checkouts = checkoutsInput;
@@ -47,7 +47,7 @@ public class PatronCheckoutList
 
     // Accessor methods
 
-    public int getPatronCardNum()
+    public String getPatronCardNum()
     {
         return patronCardNum;
     }
