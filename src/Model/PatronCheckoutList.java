@@ -10,7 +10,15 @@
 
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PatronCheckoutList
 {
@@ -77,8 +85,61 @@ public class PatronCheckoutList
         return checkouts.get(indexInput);
     }
 
+    public void saveToFilePatronCheckouts(ArrayList<PatronCheckoutList> checkoutListsInput)
+    {
+        try
+        {
+            Gson gson = new Gson();
+            Writer writer = Files.newBufferedWriter(Paths.get("patronCheckoutLists.json"));
+            gson.toJson(checkoutListsInput, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
+    }
 
 
+    public ArrayList<PatronCheckoutList> LoadStaff(PatronCheckoutList temp)
+    {
 
+        ArrayList<PatronCheckoutList> readFromJson = new ArrayList<PatronCheckoutList>();
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronCheckoutLists.json"));
+
+            // convert JSON array to list of patron checkout lists
+            ArrayList<PatronCheckoutList> lists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronCheckoutList>>()
+            {
+            }.getType());
+
+
+            for (int i = 0; i <= lists.size() - 1; i++)
+            {
+                readFromJson.add(lists.get(i));
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        readFromJson.add(new PatronCheckoutList(temp.getPatronCardNum(), temp.getCheckouts()));
+
+        saveToFilePatronCheckouts(readFromJson);
+
+        return readFromJson;
+
+
+    }
 
 }
