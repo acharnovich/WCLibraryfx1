@@ -22,7 +22,7 @@
                   <Button fx:id="addBillBtn" mnemonicParsing="false" text="Add Bill" />
                   <ButtonBar fx:id="logoutBar" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button fx:id="logoutBtn" mnemonicParsing="false" text="Logout" textFill="#ee0202" />
+                      <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logout" text="Logout" textFill="#ee0202" />
                     </buttons>
                   </ButtonBar>
               </items>

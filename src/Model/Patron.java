@@ -3,7 +3,7 @@ package Model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Patron extends Person implements Search
+public class Patron extends Person
 {
     private String patronCardNum;
     //PatronBillList billList; wil be developed in Sprint #3
@@ -48,7 +48,7 @@ public class Patron extends Person implements Search
     @Override
     public String toString()
     {
-        return super.toString() + "Patron{" +
+        return super.toString() + "Patron Account Information:\n" +
                 "patronCardNum='" + patronCardNum + '\'' +
                 ", age=" + age +
                 '}';
@@ -72,21 +72,5 @@ public class Patron extends Person implements Search
    public void issueNewCard(){}
 
     //below are search methods for searching. Will be developed in sprint 3
-    @Override
-    public boolean searchByName(String input)
-    {
-        return false;
-    }
 
-    @Override
-    public boolean searchByDate(String input)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean searchByID(String input)
-    {
-        return false;
-    }
 }
