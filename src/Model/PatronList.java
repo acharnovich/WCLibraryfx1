@@ -258,7 +258,7 @@ public class PatronList
         System.out.println("No Result");
         return null;
     }
-    public String searchCard(String search){
+    public Person searchCard(String search){
 
         try
         {
@@ -279,7 +279,7 @@ public class PatronList
                 if (users.get(i).getPatronCardNum().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return users.get(i).toString();
+                    return users.get(i);
                 }
             }
             // close reader
@@ -293,7 +293,7 @@ public class PatronList
         System.out.println("No Result, Name");
         return null;
     }
-    public String searchPhone(String search){
+    public Person searchPhone(String search){
 
         try
         {
@@ -314,7 +314,7 @@ public class PatronList
                     if (users.get(i).getPhoneNumber().toString().contains(search))
                     {
                         System.out.println("EMAIL EXISTS!");
-                        return users.get(i).toString();
+                        return users.get(i);
                     }
 
 

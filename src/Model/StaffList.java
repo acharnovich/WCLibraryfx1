@@ -214,7 +214,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getPhoneNumber().toString().equals(search))
+                if (users.get(i).getPhoneNumber().toString().contains(search))
                 {
                     System.out.println("Phone EXISTS!");
                     return true;
@@ -231,7 +231,7 @@ public class StaffList
         System.out.println("Phone Does Not Exist!");
         return false;
     }
-    public String searchEmail(String search){
+    public Person searchEmail(String search){
 
         try
         {
@@ -252,7 +252,7 @@ public class StaffList
                 if (users.get(i).getEmail().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return users.get(i).toString();
+                    return users.get(i);
                 }
             }
             // close reader
@@ -266,7 +266,7 @@ public class StaffList
         System.out.println("No Result");
         return null;
     }
-    public String searchUserID(String search){
+    public Person searchUserID(String search){
 
         try
         {
@@ -287,7 +287,7 @@ public class StaffList
                 if (users.get(i).getStaffId().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return users.get(i).toString();
+                    return users.get(i);
                 }
             }
             // close reader
@@ -301,7 +301,7 @@ public class StaffList
         System.out.println("No Result");
         return null;
     }
-    public String searchPhone(String search){
+    public Person searchPhone(String search){
 
         try
         {
@@ -319,11 +319,11 @@ public class StaffList
             {
 
 
-                if (users.get(i).getPhoneNumber().toString().equals(search))
+                if (users.get(i).getPhoneNumber().toString().contains(search))
                 {
                     System.out.println("EMAIL EXISTS!");
 
-                    return users.get(i).toString();
+                    return users.get(i);
                 }
             }
             // close reader

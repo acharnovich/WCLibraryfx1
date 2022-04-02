@@ -360,7 +360,7 @@ public class ItemList {
     }
 
 
-    public String bookReturn(String search){
+    public Item bookReturn(String search){
 
         try
         {
@@ -381,13 +381,13 @@ public class ItemList {
                 if (books.get(i).getTitle().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return books.get(i).toString();
+                    return books.get(i);
                 }
 
                 if (String.valueOf(books.get(i).getItemID()).equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return books.get(i).toString();
+                    return books.get(i);
                 }
             }
 
@@ -404,7 +404,7 @@ public class ItemList {
         return null;
     }
 
-    public String movieReturn(String search){
+    public Item movieReturn(String search){
 
         try
         {
@@ -425,13 +425,13 @@ public class ItemList {
                 if (String.valueOf(movies.get(i).getItemID()).equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return movies.get(i).toString();
+                    return movies.get(i);
                 }
 
                 if (movies.get(i).getTitle().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return movies.get(i).toString();
+                    return movies.get(i);
                 }
             }
 
@@ -448,7 +448,7 @@ public class ItemList {
         return null;
     }
 
-    public String audioReturn(String search){
+    public Item audioReturn(String search){
 
         try
         {
@@ -469,13 +469,13 @@ public class ItemList {
                 if (String.valueOf(audios.get(i).getItemID()).equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return audios.get(i).toString();
+                    return audios.get(i);
                 }
 
                 if (audios.get(i).getTitle().equals(search))
                 {
                     System.out.println("EMAIL EXISTS!");
-                    return audios.get(i).toString();
+                    return audios.get(i);
                 }
             }
 

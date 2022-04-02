@@ -36,9 +36,9 @@ public abstract class Item {
     @Override
     public String toString()
     {
-        return "Item{" +
-                "itemID=" + itemID +
-                ", title='" + title + '\'' +
+        return
+                + itemID +
+                 title + '\'' +
                 ", yearPublished=" + yearPublished +
                 ", datePublished=" + datePublished +
                 ", description='" + description + '\'' +
