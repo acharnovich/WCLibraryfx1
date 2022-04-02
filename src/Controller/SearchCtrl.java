@@ -1,12 +1,12 @@
 package Controller;
 
-import Model.ItemList;
-import Model.PatronList;
-import Model.StaffList;
+import Model.*;
 import View.FxLoader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -14,6 +14,35 @@ import javafx.scene.shape.Line;
 
 
 public class SearchCtrl {
+    @FXML
+    private TableColumn<Person, Address> addCol;
+
+    @FXML
+    private Button checkoutsBtn;
+
+    @FXML
+    private TableColumn<Person, NormalDate> dobCol;
+
+    @FXML
+    private Button editBtn;
+
+    @FXML
+    private TableColumn<Person, String> emailCol;
+
+    @FXML
+    private Line menuLn;
+
+    @FXML
+    private TableColumn<Person, String> nameCol;
+
+    @FXML
+    private TableView<Person> personContenTbl;
+
+    @FXML
+    private TableColumn<Person, PhoneNumber> phoneCol;
+
+    @FXML
+    private Label itemResultsLbl;
     @FXML
     private Label ageLbl;
 
@@ -23,8 +52,7 @@ public class SearchCtrl {
     @FXML
     private Label cardNumLbl;
 
-    @FXML
-    private Button checkoutsBtn;
+
 
     @FXML
     private Label dobLbl;
@@ -32,14 +60,12 @@ public class SearchCtrl {
     @FXML
     private Label dobResults;
 
-    @FXML
-    private Button editBtn;
+
 
     @FXML
     private Label libraryCardNumResults;
 
-    @FXML
-    private Line menuLn;
+
 
     @FXML
     private Label nameLbl;
@@ -119,6 +145,14 @@ public class SearchCtrl {
     @FXML
     private RadioButton searchItemByIDRadioButton;
 
+    @FXML
+    private Label resultsLbl;
+    @FXML
+    private Label accountLbl;
+
+    @FXML
+    private TextField searchItemTextField;
+
     // Other attributes
     String searchPersonType;
     String searchItemType;
@@ -147,8 +181,9 @@ public class SearchCtrl {
             Pane content = object.getPage("SearchItem");
             this.searchRadioPane.setRight(content);
             ItemList test = new ItemList();
-            test.search("Grand Central Publishing");
-
+            test.searchBook("Grand Central Publishing");
+            test.searchMovie("Grand Central Publishing");
+            test.searchAudio("Grand Central Publishing");
         });
 
     }
@@ -159,13 +194,79 @@ public class SearchCtrl {
     {
         searchPersonSearchButton.setOnMouseClicked(mouseEvent ->
         {
-            PatronList pList = new PatronList();
-            StaffList sList = new StaffList();
-            if(pList.found(searchPersonTextField.getText()) == true){
-                System.out.println("Person Found");
-              ageResults.setText(pList.search(searchPersonTextField.getText()));
+            if(searchPersonByNameRadioButton.isSelected() == false && searchPersonByEmailRadioButton.isSelected() == false && searchPersonByPhone.isSelected() == false){Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                loginFailed.setHeaderText("Select a Search Field");
+                loginFailed.setContentText("Please select one of the search options before clicking search.");
+                loginFailed.showAndWait();
 
             }
+            PatronList pList = new PatronList();
+            StaffList sList = new StaffList();
+            if(searchPersonByEmailRadioButton.isSelected() == true){
+
+            if(pList.foundEmail(searchPersonTextField.getText()) == true){
+                System.out.println("Person Found");
+             // resultsLbl.setText(pList.searchEmail(searchPersonTextField.getText()));
+                nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+                dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
+                addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
+                phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
+                emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
+                ObservableList<Person> people = FXCollections.observableArrayList();
+                people.add(pList.searchEmail(searchPersonTextField.getText()));
+personContenTbl.setItems(people);
+            }
+                if(sList.foundEmail(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(sList.searchEmail(searchPersonTextField.getText()));
+
+                }if(pList.foundEmail(searchPersonTextField.getText()) == false && sList.foundEmail(searchPersonTextField.getText()) == false)
+                {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Account Found");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.showAndWait();
+                }
+            }{
+
+        }
+            if(searchPersonByNameRadioButton.isSelected() == true){
+                if(pList.foundCard(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(pList.searchCard(searchPersonTextField.getText()));
+
+                }
+                if(sList.foundUserID(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(sList.searchUserID(searchPersonTextField.getText()));
+
+                }if(pList.foundCard(searchPersonTextField.getText()) == false && sList.foundUserID(searchPersonTextField.getText()) == false)
+                {Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Account Found");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.showAndWait();}
+            }{
+
+        }
+            if(searchPersonByPhone.isSelected() == true){
+                if(pList.foundPhone(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(pList.searchPhone(searchPersonTextField.getText()));
+
+                }
+                if(sList.foundPhone(searchPersonTextField.getText()) == true){
+                    System.out.println("Person Found");
+                    resultsLbl.setText(sList.searchPhone(searchPersonTextField.getText()));
+
+                }
+                if(pList.foundPhone(searchPersonTextField.getText()) == false && sList.foundPhone(searchPersonTextField.getText()) == false)
+                {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Account Found");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.showAndWait();
+                }}
+
         });
 
     }
@@ -175,7 +276,68 @@ public class SearchCtrl {
     {
         searchItemSearchButton.setOnMouseClicked(mouseEvent ->
         {
-            System.out.println("Search is incomplete at this time.");
+            if(itemResultsLbl.getText() != null){
+                itemResultsLbl.setText("");
+            }
+            if(searchItemByIDRadioButton.isSelected() == false && searchItemByTitleRadioButton.isSelected() == false){Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                loginFailed.setHeaderText("Select a Search Field");
+                loginFailed.setContentText("Please select one of the search options before clicking search.");
+                loginFailed.showAndWait();
+
+            }
+            ItemList iList = new ItemList();
+            if(searchItemByIDRadioButton.isSelected() == true){
+
+                if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
+                    System.out.println("Item Found");
+                    if (iList.bookReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.bookReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.movieReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.movieReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.audioReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.audioReturn(searchItemTextField.getText()));
+                    }
+                }
+                else
+                {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Item Found");
+                    loginFailed.setContentText("No Item found. Try a different search criteria or add item to inventory.");
+                    loginFailed.showAndWait();
+                }
+            }
+            if(searchItemByTitleRadioButton.isSelected() == true){
+
+
+                if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
+                    System.out.println("Item Found");
+                    if (iList.bookReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.bookReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.movieReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.movieReturn(searchItemTextField.getText()));
+                    }
+                    if (iList.audioReturn(searchItemTextField.getText()) != null)
+                    {
+                        itemResultsLbl.setText(iList.audioReturn(searchItemTextField.getText()));
+                    }
+                }
+                else
+                {
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("No Item Found");
+                    loginFailed.setContentText("No Item found. Try a different search criteria or add item to inventory.");
+                    loginFailed.showAndWait();
+                }
+            }
+
         });
 
     }
@@ -185,6 +347,8 @@ public class SearchCtrl {
     {
         searchPersonByNameRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            searchPersonTextField.clear();
+            searchPersonTextField.setPromptText("John Doe");
             searchPersonByPhone.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By Name";
@@ -197,6 +361,8 @@ public class SearchCtrl {
     {
         searchPersonByPhone.setOnMouseClicked(mouseEvent ->
         {
+            searchPersonTextField.clear();
+            searchPersonTextField.setPromptText("0-000-000-0000");
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By ID";
@@ -209,6 +375,8 @@ public class SearchCtrl {
     {
         searchPersonByEmailRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            searchPersonTextField.clear();
+            searchPersonTextField.setPromptText("example@gmail.com or example@wclibrary.com");
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByPhone.setSelected(false);
             searchPersonType = "By Email";
@@ -221,6 +389,9 @@ public class SearchCtrl {
     {
         searchItemByTitleRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            itemResultsLbl.setText("");
+            searchItemTextField.clear();
+            searchItemTextField.setPromptText("Raiders of the Lost Ark");
             searchItemByIDRadioButton.setSelected(false);
             searchItemType = "By Title";
             System.out.println("Selected search item by title.");
@@ -232,9 +403,23 @@ public class SearchCtrl {
     {
         searchItemByIDRadioButton.setOnMouseClicked(mouseEvent ->
         {
+            itemResultsLbl.setText("");
+            searchItemTextField.clear();
+            searchItemTextField.setPromptText("1234567");
             searchItemByTitleRadioButton.setSelected(false);
             searchItemType = "By ID";
             System.out.println("Selected search item by ID number.");
         });
+    }
+    @FXML
+    public void viewDetailsButton(javafx.event.ActionEvent actionEvent)
+    {
+editBtn.setOnMouseClicked(mouseEvent -> {
+    System.out.println(personContenTbl.getSelectionModel().selectedItemProperty().get());
+
+
+
+});
+
     }
 }

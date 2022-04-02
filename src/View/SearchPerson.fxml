@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
@@ -36,15 +38,23 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="editBtn" layoutX="236.0" layoutY="77.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="116.0" text="Edit Details">
+      <Button fx:id="editBtn" layoutX="236.0" layoutY="77.0" mnemonicParsing="false" onAction="#viewDetailsButton" prefHeight="20.0" prefWidth="116.0" text="Edit/View Details">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <RadioButton fx:id="searchPersonByNameRadioButton" layoutX="17.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonNameRadioClick" text="Search by Name" />
-      <RadioButton fx:id="searchPersonByPhone" layoutX="146.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonPhoneRadioClick" text="Search by Phone" />
+      <RadioButton fx:id="searchPersonByNameRadioButton" layoutX="17.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonNameRadioClick" text="Search by Card # or ID" />
+      <RadioButton fx:id="searchPersonByPhone" layoutX="174.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonPhoneRadioClick" text="Search by Phone" />
       <RadioButton fx:id="searchPersonByEmailRadioButton" layoutX="297.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonEmailRadioClick" text="Search by Email Address" />
-      <Label fx:id="ageLbl" layoutX="8.0" layoutY="111.0" text="Account Information:" />
-      <Label fx:id="ageResults" layoutX="14.0" layoutY="128.0" text="Label" />
+      <Label fx:id="resultsLbl" layoutX="14.0" layoutY="128.0" />
+      <TableView fx:id="personContenTbl" layoutY="102.0" prefHeight="288.0" prefWidth="627.0">
+        <columns>
+          <TableColumn fx:id="nameCol" prefWidth="120.0" text="Name" />
+          <TableColumn fx:id="dobCol" prefWidth="122.0" text="Birth Date" />
+            <TableColumn fx:id="addCol" prefWidth="137.0" text="Address" />
+            <TableColumn fx:id="phoneCol" prefWidth="127.0" text="Phone Number" />
+            <TableColumn fx:id="emailCol" minWidth="2.0" prefWidth="120.0" text="Email" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

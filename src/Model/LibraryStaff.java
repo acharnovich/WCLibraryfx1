@@ -3,7 +3,7 @@ package Model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class LibraryStaff extends Person implements Search
+public class LibraryStaff extends Person
 {
     private String staffId;
     private String pin;
@@ -121,52 +121,5 @@ public class LibraryStaff extends Person implements Search
 
 
 
-    @Override
-    public boolean searchByName(String input)
-    {
 
-
-        if (LibraryStaff.super.getName().contains(input))
-        {
-            System.out.println("Found");
-            return true;
-
-
-        }
-        System.out.println("Not Found");
-        return false;
-    }
-
-    @Override
-    public boolean searchByDate(String input)
-    {
-        if (getStartDate().toString().contains(input))
-        {
-            System.out.println("Found");
-            System.out.println(LibraryStaff.super.toString());
-            return true;
-
-
-        }
-        System.out.println("Not Found");
-        return false;
-
-
-    }
-
-    @Override
-    public boolean searchByID(String input)
-    {
-        if (staffId.contains(input))
-        {
-
-            System.out.println("Found");
-
-            return true;
-
-
-        }
-        System.out.println("Not Found");
-        return false;
-    }
 }
