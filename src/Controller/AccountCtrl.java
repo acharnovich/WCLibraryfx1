@@ -302,7 +302,7 @@ public class AccountCtrl
     private TextField verifyTxt;
 
     PatronList patronList;
-
+    PatronCheckoutList checkoutList = new PatronCheckoutList();
 
 @FXML
     public void patronCreateAccount(javafx.event.ActionEvent actionEvent)
@@ -348,11 +348,15 @@ public void  verifyEmail(){
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
             if (patronList.verifyEmail(emailText.getText()) == false){
-            if(countryTxt2.isVisible() == true){
+            if(countryTxt2.isVisible() == true)
+            {
             Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                     zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()),Integer.valueOf(areaTxt2.getText()),Integer.valueOf(localTxt2.getText()),Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
             PatronList patronList = new PatronList();
-            patronList.LoadPatron(tempPatron);}
+            PatronCheckoutList tempCheckOut = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+            checkoutList.LoadList(tempCheckOut);
+            patronList.LoadPatron(tempPatron);
+            }
             else{Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                     zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
 
