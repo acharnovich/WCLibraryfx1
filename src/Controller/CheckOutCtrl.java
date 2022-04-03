@@ -157,7 +157,7 @@ public class CheckOutCtrl {
                             checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
                             ObservableList<Item> items = FXCollections.observableArrayList();
-                            items.add(iList.audioReturn(itemIDTextField.getText()));
+                            items.add(iList.bookReturn(itemIDTextField.getText()));
                             checkoutTable.setItems(items);
 
                             checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
@@ -193,7 +193,7 @@ public class CheckOutCtrl {
                             checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
                             ObservableList<Item> items = FXCollections.observableArrayList();
-                            items.add(iList.audioReturn(itemIDTextField.getText()));
+                            items.add(iList.movieReturn(itemIDTextField.getText()));
                             checkoutTable.setItems(items);
 
                             checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
