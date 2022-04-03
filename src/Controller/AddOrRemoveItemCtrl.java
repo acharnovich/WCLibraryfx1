@@ -16,6 +16,17 @@ import java.util.ArrayList;
 public class AddOrRemoveItemCtrl {
     // FXML components
     @FXML
+    private Button SearchRemoveItemBtn;
+
+    @FXML
+    private AnchorPane searchRemovePane;
+
+    @FXML
+    private TableView<?> searchRemoveTbl;
+
+    @FXML
+    private TextField searchRemoveTxt;
+    @FXML
     private AnchorPane addItemUI;
 
     @FXML
@@ -463,9 +474,7 @@ public class AddOrRemoveItemCtrl {
             stage.close();
 
         });
-    }
-
-    ;
+    };
 
     public ArrayList<Collaborator> getCollaborators(String input) {
         ArrayList<String> people = new ArrayList<>();
@@ -509,5 +518,29 @@ public class AddOrRemoveItemCtrl {
 
         });
     }
+public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent){
+
+        archiveSearchButton.setOnMouseClicked(mouseEvent -> {
+
+            Parent part = null;
+
+            try {
+
+                part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Search Archive Items");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+}
+
 
 }

@@ -11,7 +11,7 @@
    <children>
       <ToolBar fx:id="archiveUIToolBar" prefHeight="40.0" prefWidth="354.0">
         <items>
-          <Button fx:id="archiveSearchButton" mnemonicParsing="false" text="Search" />
+          <Button fx:id="archiveSearchButton" mnemonicParsing="false" onAction="#handleArchiveSearchClick" text="Search" />
         </items>
       </ToolBar>
       <Label fx:id="archiveInstructionsLabel" layoutX="106.0" layoutY="58.0" prefHeight="40.0" prefWidth="142.0" text="Add Item to Archive List">

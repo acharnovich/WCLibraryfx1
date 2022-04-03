@@ -160,6 +160,25 @@ public class NavigationCtrl {
         });
     }
 
+    public void handleCheckInClick(javafx.event.ActionEvent actionEvent){
+        checkinBtn.setOnMouseClicked(mouseEvent -> {
+            Parent part = null;
+            try {
+
+                part = FXMLLoader.load(getClass().getResource("/View/CheckInUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Check In Items");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
     public void logout(javafx.event.ActionEvent actionEvent)
     {
         logoutBtn.setOnMouseClicked(mouseEvent ->
