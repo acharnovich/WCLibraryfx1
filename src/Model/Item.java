@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public abstract class Item {
 
     // fields
+    private String objectType;                  // type of object - for search purposes
     private int itemID;                         // the item's ID number
     private String title;                       // the title of the item
     private int yearPublished;                  // the year the item was published - PLACEHOLDER FOR NORMALDATE
@@ -77,6 +78,8 @@ public abstract class Item {
         itemStatus = statInput;
     }
 
+    public void setObjectType(String typeInput) { objectType = typeInput; }
+
     // Accessor methods
     public int getItemID()
     {
@@ -107,6 +110,8 @@ public abstract class Item {
     {
         return itemStatus;
     }
+
+    public String getObjectType() { return objectType;}
 
     public abstract String getPublisher();
 

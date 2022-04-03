@@ -27,6 +27,7 @@ public class Book extends Item
      */
     public Book()
     {
+        setObjectType("Book");
         setItemID(0);
         setTitle(null);
         setYearPublished(0);
@@ -55,6 +56,7 @@ public class Book extends Item
     public Book(int IDInput, String titleInput, int yearInput, NormalDate dateInput, String descInput,
                 String statInput, String pubInput, ArrayList<Collaborator> authInput, String lenInput, String genInput)
     {
+        setObjectType("Book");
         setItemID(IDInput);
         setTitle(titleInput);
         setYearPublished(yearInput);

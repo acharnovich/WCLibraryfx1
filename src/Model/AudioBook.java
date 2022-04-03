@@ -27,6 +27,7 @@ public class AudioBook extends Item {
      * no parameters.
      */
     public AudioBook() {
+        setObjectType("AudioBook");
         setItemID(0);
         setTitle(null);
         setYearPublished(0);
@@ -60,6 +61,7 @@ public class AudioBook extends Item {
     public AudioBook(int IDInput, String titleInput, int yearInput, NormalDate dateInput, String descInput,
                      String statInput, String pubInput, ArrayList<Collaborator> authInput, ArrayList<Collaborator> narrInput,
                      String prodInput, String lenInput, String genInput) {
+        setObjectType("AudioBook");
         setItemID(IDInput);
         setTitle(titleInput);
         setYearPublished(yearInput);

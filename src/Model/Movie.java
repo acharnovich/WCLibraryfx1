@@ -29,6 +29,7 @@ public class Movie extends Item
      */
     public Movie()
     {
+        setObjectType("Movie");
         setItemID(0);
         setTitle(null);
         setYearPublished(0);
@@ -62,6 +63,7 @@ public class Movie extends Item
                  String statInput, String prodInput, String distInput, ArrayList<Collaborator> actInput, String typeInput,
                  String runInput, String genInput)
     {
+        setObjectType("Movie");
         setItemID(IDInput);
         setTitle(titleInput);
         setYearPublished(yearInput);

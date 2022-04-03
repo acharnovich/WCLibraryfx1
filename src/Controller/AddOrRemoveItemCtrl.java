@@ -505,7 +505,7 @@ public class AddOrRemoveItemCtrl {
 
             String numToSearchFor = archiveItemIDTextField.getText();
 
-            itemList.archiveItem(numToSearchFor);
+            itemList.archiveBook(numToSearchFor);
 
         });
     }

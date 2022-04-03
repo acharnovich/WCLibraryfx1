@@ -492,7 +492,7 @@ public class ItemList {
         return null;
     }
 
-    public boolean archiveItem(String itemToSearchFor)
+    public boolean archiveBook(String itemToSearchFor)
     {
 
         try
