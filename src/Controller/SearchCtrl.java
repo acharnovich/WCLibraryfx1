@@ -361,6 +361,7 @@ personContenTbl.setItems(people);
                         items.add(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
+
                     if (iList.movieReturn(searchItemTextField.getText()) != null)
                     {
                         idCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));

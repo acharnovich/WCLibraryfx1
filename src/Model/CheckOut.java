@@ -10,7 +10,15 @@
 
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class CheckOut
 {
@@ -72,6 +80,63 @@ public class CheckOut
         NormalDate dueDate = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
         return dueDate;
+    }
+
+    public void saveToFileCheckouts(ArrayList<CheckOut> checkoutsInput)
+    {
+        try
+        {
+            Gson gson = new Gson();
+            Writer writer = Files.newBufferedWriter(Paths.get("checkouts.json"));
+            gson.toJson(checkoutsInput, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+
+    public ArrayList<CheckOut> LoadCheckouts(CheckOut temp)
+    {
+        ArrayList<CheckOut> allCheckouts = new ArrayList<CheckOut>();
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("checkouts.json"));
+
+            // convert JSON array to list of checkout lists
+            ArrayList<CheckOut> checkouts = new Gson().fromJson(reader, new TypeToken<ArrayList<CheckOut>>()
+            {
+            }.getType());
+
+
+
+            for (int i = 0; i <= checkouts.size() - 1; i++)
+            {
+                allCheckouts.add(checkouts.get(i));
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        allCheckouts.add(new CheckOut(temp.getItemID(), temp.getPatronID(), temp.getDateOut()));
+
+        saveToFileCheckouts(allCheckouts);
+
+        return allCheckouts;
+
+
     }
 
     // Accessor methods

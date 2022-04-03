@@ -7,7 +7,7 @@
  * ArrayLists with Collaborator ArrayLists, and no longer makes use of the purgeTransaction method. All references
  * to fields from the Item superclasses now use getter and setter methods.
  *
- * @version 2.2 2022-03-26
+ * @version 2.3 2022-04-03
  */
 
 package Model;

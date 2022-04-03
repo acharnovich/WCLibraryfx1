@@ -7,7 +7,7 @@
  * ArrayList of Collaborator objects. It has methods that can be called to import items from the old system
  * catalog into the new system, and methods to update the ArrayList with new items.
  *
- * @version 2.0 2022-03-26
+ * @version 3.0 2022-04-03
  */
 package Model;
 
