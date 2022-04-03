@@ -144,8 +144,6 @@ public class NavigationCtrl {
 
             Parent part = null;
             try {
-                CheckOutCtrl controller = new CheckOutCtrl();
-                controller.testCheckOut();
 
                 part = FXMLLoader.load(getClass().getResource("/View/CheckOutUI.fxml"));
                 Stage stage = new Stage();
