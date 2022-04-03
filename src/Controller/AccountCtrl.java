@@ -346,26 +346,35 @@ public void  verifyEmail(){
         patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
-            if (patronList.verifyEmail(emailText.getText()) == false){
-            if(countryTxt2.isVisible() == true)
+            if (patronList.verifyEmail(emailText.getText()) == false)
             {
-            Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                    zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()),Integer.valueOf(areaTxt2.getText()),Integer.valueOf(localTxt2.getText()),Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
-            PatronList patronList = new PatronList();
-            patronList.LoadPatron(tempPatron);
+                if (countryTxt2.isVisible() == true) {
+                    Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                            zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                    patronList.LoadPatron(tempPatron);
+                    PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+                    AllCheckoutLists allLists = new AllCheckoutLists();
+                    allLists.LoadList(tempList);
 
-            PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
-            AllCheckoutLists allLists = new AllCheckoutLists();
-            allLists.LoadList(tempList);
+                }
+                else
+                {
+                    Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                            zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                    patronList.LoadPatron(tempPatron);
+                    PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+                    AllCheckoutLists allLists = new AllCheckoutLists();
+                    allLists.LoadList(tempList);
+
+                }
             }
-            else{Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                    zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
-
-                patronList.LoadPatron(tempPatron);}}else {Alert accountExsists = new Alert(Alert.AlertType.ERROR);
+            else
+            {
+                Alert accountExsists = new Alert(Alert.AlertType.ERROR);
                 accountExsists.setHeaderText("Email Exists");
                 accountExsists.setContentText("Account Exists! Please try a new email or search for Patron");
-                accountExsists.showAndWait();}
-
+                accountExsists.showAndWait();
+            }
 
         });
 
