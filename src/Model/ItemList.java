@@ -492,7 +492,7 @@ public class ItemList {
         return null;
     }
 
-    public boolean archiveBook(String itemToSearchFor)
+    public boolean archiveItem(String itemToSearchFor)
     {
 
         try
@@ -519,7 +519,9 @@ public class ItemList {
                             books.get(i).getDatePublished(), books.get(i).getDescription(), "Archived",
                             books.get(i).getPublisher(), books.get(i).getAuthors(), books.get(i).getLength(),
                             books.get(i).getGenres());
-                    LoadBook(temp);
+                    books.remove(i);
+                    books.add(temp);
+                    saveToFileBookInventory(books);
                     System.out.println("Archived.");
                     return true;
                 }
@@ -548,7 +550,9 @@ public class ItemList {
                                            "Archived.", movies.get(i).getProductionCompany(), movies.get(i).getDistributor(),
                                            movies.get(i).getActors(), movies.get(i).getType(), movies.get(i).getRuntime(),
                                            movies.get(i).getGenres());
-                    LoadMovie(temp);
+                    movies.remove(i);
+                    movies.add(temp);
+                    saveToFileMovieInventory(movies);
                     System.out.println("Archived.");
 
                     return true;
@@ -579,7 +583,9 @@ public class ItemList {
                                                    audios.get(i).getAuthors(), audios.get(i).getNarrators(),
                                                    audios.get(i).getProductionCompany(), audios.get(i).getLength(),
                                                    audios.get(i).getGenres());
-                    LoadAudiobook(temp);
+                    audios.remove(i);
+                    audios.add(temp);
+                    saveToFileAudioBookInventory(audios);
                     System.out.println("Archived.");
                     return true;
                 }
