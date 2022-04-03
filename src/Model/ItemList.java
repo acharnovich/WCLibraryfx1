@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -239,7 +240,7 @@ public class ItemList {
 
     }
 
-    public boolean search(String itemToSearchFor)
+    public boolean searchBook(String itemToSearchFor)
     {
 
         try
@@ -260,19 +261,38 @@ public class ItemList {
 
 
 
-                if (books.get(i).toString().contains(itemToSearchFor))
+                if (books.get(i).getTitle().equals(itemToSearchFor))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
             }
 
-            // check through Movies
-            // create Gson instance
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Doesn't exist.");
+        return false;
+    }
+
+    public boolean searchMovie(String search){
+        // check through Movies
+        // create Gson instance
+        try
+        {
             gson = new Gson();
 
             // create a reader
-            reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
 
             // convert JSON array to list of items
             ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
@@ -281,21 +301,35 @@ public class ItemList {
             for (int i = 0; i < movies.size(); i++)
             {
 
-                String tempID = Integer.toString(movies.get(i).getItemID());
 
-                if (itemToSearchFor.contains(tempID))
+
+                if (movies.get(i).getTitle().equals(search))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-            }
+                if (String.valueOf(movies.get(i).getItemID()).equals(search))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+        }
 
-            // check through AudioBooks
-            // create Gson instance
+        } catch (IOException e)
+        {
+
+        }
+        return false;
+    }
+    public boolean searchAudio(String search){
+        // check through Movies
+        // create Gson instance
+        try
+        {
             gson = new Gson();
 
             // create a reader
-            reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
 
             // convert JSON array to list of items
             ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
@@ -304,14 +338,59 @@ public class ItemList {
             for (int i = 0; i < audios.size(); i++)
             {
 
-                String tempID = Integer.toString(audios.get(i).getItemID());
 
-                if (itemToSearchFor.contains(tempID))
+
+                if (audios.get(i).getTitle().equals(search))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(audios.get(i).getItemID()).equals(search))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
             }
+
+        } catch (IOException e)
+        {
+
+        }
+        return false;
+    }
+
+
+    public Item bookReturn(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+
+                if (books.get(i).getTitle().equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return books.get(i);
+                }
+
+                if (String.valueOf(books.get(i).getItemID()).equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return books.get(i);
+                }
+            }
+
 
             // close reader
             reader.close();
@@ -321,8 +400,96 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("Doesn't exist.");
-        return false;
+        System.out.println("No Result, Name");
+        return null;
+    }
+
+    public Item movieReturn(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+
+                if (String.valueOf(movies.get(i).getItemID()).equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return movies.get(i);
+                }
+
+                if (movies.get(i).getTitle().equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return movies.get(i);
+                }
+            }
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result, Name");
+        return null;
+    }
+
+    public Item audioReturn(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+
+                if (String.valueOf(audios.get(i).getItemID()).equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return audios.get(i);
+                }
+
+                if (audios.get(i).getTitle().equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return audios.get(i);
+                }
+            }
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result, Name");
+        return null;
     }
 
     public boolean archiveItem(String itemToSearchFor)

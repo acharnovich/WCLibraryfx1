@@ -84,6 +84,17 @@ public class Book extends Item
 
     }
 
+    @Override
+    public String toString()
+    {
+        return "Book:" + super.toString() + '\n'+
+                "publisher:'" + publisher + '\n' +
+                ", authors+" + authors + '\n'+
+                ", length='" + length + '\'' +
+                ", genre='" + genre + '\'' +
+                '}';
+    }
+
     /**
      * This method will ask the user for input about details they would like to change and re-initialize the
      * entire Book object.

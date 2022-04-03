@@ -33,6 +33,19 @@ public abstract class Item {
     public abstract void changeItemDetails();                                   // change the data stored in an item
     public abstract void changeItemStatus(String statInput);                    // change status of item
 
+    @Override
+    public String toString()
+    {
+        return
+                + itemID +
+                 title + '\'' +
+                ", yearPublished=" + yearPublished +
+                ", datePublished=" + datePublished +
+                ", description='" + description + '\'' +
+                ", itemStatus='" + itemStatus + '\'' +
+                '}';
+    }
+
     // Mutator methods
     public void setItemID(int idInput)
     {

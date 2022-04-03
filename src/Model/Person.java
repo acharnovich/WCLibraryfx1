@@ -84,7 +84,7 @@ public abstract class Person
         return "Personal Account Details:\n" +
                 "Name: " + name + "\n" +
                 "Birthday: " + dateofBirth + "\n" +
-                address.toString() + "\n"   + phoneNumber +
+                address.toString() + "\n"   + phoneNumber.toString() +
                 "\nEmail: " + email + "\n";
     }
     public boolean checkPhoneNumLimit(){

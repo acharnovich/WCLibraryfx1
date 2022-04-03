@@ -109,7 +109,7 @@ public class StaffList
             {
 
 
-                if (userstring.toString().contains(users.get(i).getStaffId()) && userpin.toString().contains(users.get(i).getPin()))
+                if (userstring.toString().equals(users.get(i).getStaffId()) && userpin.toString().equals(users.get(i).getPin()))
                 {
                     System.out.println("Works");
                     return true;
@@ -125,6 +125,217 @@ public class StaffList
 
         System.out.println("Wrong creds");
         return false;
+    }
+
+    public boolean foundEmail(String search){
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getEmail().equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return true;
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Email Does Not Exist!");
+        return false;
+    }
+
+    public boolean foundUserID(String search){
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getStaffId().equals(search))
+                {
+                    System.out.println("Name EXISTS!");
+                    return true;
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Name Does Not Exist!");
+        return false;
+    }
+
+    public boolean foundPhone(String search){
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getPhoneNumber().toString().contains(search))
+                {
+                    System.out.println("Phone EXISTS!");
+                    return true;
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Phone Does Not Exist!");
+        return false;
+    }
+    public Person searchEmail(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getEmail().equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return users.get(i);
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result");
+        return null;
+    }
+    public Person searchUserID(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getStaffId().equals(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return users.get(i);
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result");
+        return null;
+    }
+    public Person searchPhone(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getPhoneNumber().toString().contains(search))
+                {
+                    System.out.println("EMAIL EXISTS!");
+
+                    return users.get(i);
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result");
+        return null;
     }
 
     public ArrayList getStaffimport()

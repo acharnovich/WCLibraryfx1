@@ -210,9 +210,7 @@ public class Address
     @Override
     public String toString()
     {
-        return "Street Address: " + number + " " + name + " " + type + "\n" +
-                "City: " + city + "\n" + "State: " + state +
-                "\nZIP Code: " + zip + "\nAlternate Address: " + secondAdd;
+        return number + " " + name + " " + type;
     }
 
     /**

@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.FxLoader;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -155,6 +156,15 @@ public class NavigationCtrl {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+        });
+    }
+
+    public void logout(javafx.event.ActionEvent actionEvent)
+    {
+        logoutBtn.setOnMouseClicked(mouseEvent ->
+        {
+            Platform.exit();
 
         });
     }
