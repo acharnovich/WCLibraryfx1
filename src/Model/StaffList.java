@@ -109,7 +109,7 @@ public class StaffList
             {
 
 
-                if (userstring.toString().equals(users.get(i).getStaffId()) && userpin.toString().equals(users.get(i).getPin()))
+                if (userstring.toString().equalsIgnoreCase(users.get(i).getStaffId()) && userpin.toString().equals(users.get(i).getPin()))
                 {
                     System.out.println("Works");
                     return true;
@@ -144,7 +144,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getEmail().equals(search))
+                if (users.get(i).getEmail().equalsIgnoreCase(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return true;
@@ -179,7 +179,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getStaffId().equals(search))
+                if (users.get(i).getStaffId().equalsIgnoreCase(search))
                 {
                     System.out.println("Name EXISTS!");
                     return true;
@@ -214,7 +214,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getPhoneNumber().toString().contains(search))
+                if (users.get(i).getPhoneNumber().toString().equalsIgnoreCase(search))
                 {
                     System.out.println("Phone EXISTS!");
                     return true;
@@ -249,7 +249,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getEmail().equals(search))
+                if (users.get(i).getEmail().equalsIgnoreCase(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return users.get(i);
@@ -284,7 +284,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getStaffId().equals(search))
+                if (users.get(i).getStaffId().equalsIgnoreCase(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return users.get(i);
@@ -319,7 +319,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getPhoneNumber().toString().contains(search))
+                if (users.get(i).getPhoneNumber().toString().equalsIgnoreCase(search));
                 {
                     System.out.println("EMAIL EXISTS!");
 

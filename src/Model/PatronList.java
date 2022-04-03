@@ -99,7 +99,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getEmail().equals(email))
+                if (users.get(i).getEmail().equalsIgnoreCase(email))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return true;
@@ -134,7 +134,7 @@ public class PatronList
            {
 
 
-               if (users.get(i).getEmail().equals(search))
+               if (users.get(i).getEmail().equalsIgnoreCase(search))
                {
                    System.out.println("EMAIL EXISTS!");
                    return true;
@@ -169,7 +169,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPatronCardNum().equals(search))
+                if (users.get(i).getPatronCardNum().equalsIgnoreCase(search))
                 {
                     System.out.println("Card Exists EXISTS!");
                     return true;
@@ -241,7 +241,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getEmail().equals(search))
+                if (users.get(i).getEmail().equalsIgnoreCase(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return users.get(i);
@@ -276,7 +276,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPatronCardNum().equals(search))
+                if (users.get(i).getPatronCardNum().equalsIgnoreCase(search))
                 {
                     System.out.println("EMAIL EXISTS!");
                     return users.get(i);
@@ -311,7 +311,7 @@ public class PatronList
             {
 
 
-                    if (users.get(i).getPhoneNumber().toString().contains(search))
+                    if (users.get(i).getPhoneNumber().toString().equalsIgnoreCase(search))
                     {
                         System.out.println("EMAIL EXISTS!");
                         return users.get(i);
