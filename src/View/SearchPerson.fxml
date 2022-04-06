@@ -22,7 +22,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button fx:id="searchPersonExitButton" layoutX="594.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="33.0" text="X">
+      <Button fx:id="searchPersonExitButton" layoutX="594.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="33.0" text="X" visible="false">
          <font>
             <Font size="14.0" />
          </font>

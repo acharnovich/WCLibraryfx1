@@ -224,7 +224,7 @@ public class SearchCtrl {
         {
             if(searchPersonByNameRadioButton.isSelected() == false && searchPersonByEmailRadioButton.isSelected() == false && searchPersonByPhone.isSelected() == false){Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                 loginFailed.setHeaderText("Select a Search Field");
-                loginFailed.setContentText("Please select one of the search options before clicking search.");
+                loginFailed.setContentText("Please select one of the search options before clicking search. ajones or tsmith for ID");
                 loginFailed.showAndWait();
 
             }
@@ -258,7 +258,7 @@ personContenTbl.setItems(people);
                 {
                     Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                     loginFailed.setHeaderText("No Account Found");
-                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
+                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.try ajones or tsmith for ID");
                     loginFailed.showAndWait();
                 }
             }{

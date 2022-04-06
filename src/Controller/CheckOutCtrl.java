@@ -97,12 +97,22 @@ public class CheckOutCtrl {
                     // set the window title
                     noLibraryCard.setHeaderText("Error!");
                     // set the text inside the window
-                    noLibraryCard.setContentText("No library card with that number exists. Please go back and enter a valid card number.");
+                    noLibraryCard.setContentText("No library card with that number exists. Please go back and enter a valid card number such as 12345678.");
                     noLibraryCard.showAndWait();
                 }
                 // otherwise...
                 else
                 {
+                   if (patrons.foundCard(libraryCardNumTextField.getText()) == true){
+                       Alert noLibraryCard = new Alert(Alert.AlertType.CONFIRMATION);
+                       // set the window title
+                       noLibraryCard.setHeaderText("Patron Found");
+                       // set the text inside the window
+                       noLibraryCard.setContentText("Patron Card Found. Please start adding item ID numbers to the checkout transaction");
+                       noLibraryCard.showAndWait();
+            itemIDTextField.setDisable(false);
+            checkOutItemButton.setDisable(false);
+                }
                     // get the text from the library card number text field, parse to int, and assign to cardNumberEntered
                     cardNumberEntered = Integer.parseInt(libraryCardNumTextField.getText());
                 }
@@ -256,6 +266,23 @@ public class CheckOutCtrl {
                     }
             }
 
+        });
+    }
+   public void underDevCheckOut(javafx.event.ActionEvent actionEvent){
+finishCheckoutButton.setOnMouseClicked(mouseEvent -> {
+    Alert noItemID = new Alert(Alert.AlertType.ERROR);
+    noItemID.setHeaderText("Under Development");
+    noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
+    noItemID.showAndWait();
+});
+   }
+
+    public void underDevPrint(javafx.event.ActionEvent actionEvent){
+        finishAndPrintButton.setOnMouseClicked(mouseEvent -> {
+            Alert noItemID = new Alert(Alert.AlertType.ERROR);
+            noItemID.setHeaderText("Under Development");
+            noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
+            noItemID.showAndWait();
         });
     }
 

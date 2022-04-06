@@ -2,6 +2,7 @@ package Controller;
 
 import Model.*;
 import View.FxLoader;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -25,6 +26,14 @@ public class AccountCtrl
 
     @FXML
     private RadioButton staffRBtn;
+
+
+    @FXML
+    private ChoiceBox<String> positionBx;
+
+
+    @FXML
+    private ChoiceBox<String> statusBx;
 
     @FXML
     private Button testbtn;
@@ -302,8 +311,15 @@ public class AccountCtrl
     private TextField verifyTxt;
 
     PatronList patronList;
+    StaffList staffList;
 
-@FXML
+    public AccountCtrl()
+    {
+         positionBx = new ChoiceBox<>();
+         statusBx = new ChoiceBox<>();
+    }
+
+    @FXML
     public void patronCreateAccount(javafx.event.ActionEvent actionEvent)
     {
         patronRBtn.setOnMouseClicked(mouseEvent ->
@@ -370,10 +386,10 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
                 }
 
 
-                if (yearTxt.getText().length() != 4 && monthTxt.getText().length() != 2 && dayTxt.getText().length() != 2){
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+               if (yearTxt.getText().length() != 4 && monthTxt.getText().length() != 2 && dayTxt.getText().length() != 2){
+                     Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setHeaderText("BIRTH DATE!");
-                    confirm.setContentText("Check to make sure data is in YYYY  MM  DD format");
+                    confirm.setContentText("Check to make sure data is in MM DD YYYY format");
                     confirm.showAndWait();
 
                 }
@@ -388,8 +404,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
                 if(!emailText.getText().contains("@")){
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("BIRTH DATE!");
-                    confirm.setContentText("Check to make sure data is in YYYY  MM  DD format");
+                    confirm.setHeaderText("Email!");
+                    confirm.setContentText("Check to make sure email includes a @ character");
                     confirm.showAndWait();
 
                 }
@@ -437,32 +453,172 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
     }
 
     @FXML
+    public void initialize()
+    {
+        positionBx.getItems().removeAll(positionBx.getItems());
+        positionBx.getItems().addAll("Associate Librarian", "Head Librarian", "Intern");
+        positionBx.getSelectionModel().select("Associate Librarian");
+        statusBx.getItems().removeAll(statusBx.getItems());
+        statusBx.getItems().addAll("Experienced", "Training");
+        statusBx.getSelectionModel().select("Training");
+
+    }
+
+    @FXML
     public void staffCreateAccount(javafx.event.ActionEvent actionEvent)
     {
         staffRBtn.setOnMouseClicked(mouseEvent ->
         {
+
             patronRBtn.setSelected(false);
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewStaffUI");
             radioBPane.setRight(content);
 
 
+
+
+
         });
 
+    }
+
+    public ChoiceBox<String> getPositionBx()
+    {
+        return positionBx;
+    }
+
+    public void setPositionBx(ChoiceBox<String> positionBx)
+    {
+        this.positionBx = positionBx;
     }
 
     @FXML
     public void createStaffAccount(javafx.event.ActionEvent actionEvent)
     {
+     StaffList staffList= new StaffList();
         createAccountBtnStaff.setOnMouseClicked(mouseEvent ->
         {
+            if (staffList.foundUserID(staffIDTxt.getText()) == true){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("User Exists");
+                confirm.setContentText("Enter a new user name");
+                confirm.showAndWait();
 
-            LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(yearTxtStaff.getText(), monthTxtStaff.getText(), dayTxtStaff.getText()), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), cityTxtStaff.getText(), stateTxtStaff.getText(),
-                    zipTxtStaff.getText(), aptTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
-                    staffIDTxt.getText(), pinTxt.getText(), positionTxt.getText(), statusTxt.getText(), new NormalDate(startYearTxt.getText(), startMonthTxt.getText(), startDayTxt.getText()), 0);
-            StaffList staffList = new StaffList();
-            staffList.LoadStaff(tempStaff);
+            }
 
+            if (yearTxtStaff.getText().length() != 4 && monthTxtStaff.getText().length() != 2 && dayTxtStaff.getText().length() != 2){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("BIRTH DATE!");
+                confirm.setContentText("Check to make sure data is in MM DD YYYY format");
+                confirm.showAndWait();
+
+            }
+
+            if (startYearTxt.getText().length() != 4 && startMonthTxt.getText().length() != 2 && startDayTxt.getText().length() != 2){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Start Date!");
+                confirm.setContentText("Check to make sure data is in MM DD YYYY format");
+                confirm.showAndWait();
+
+            }
+            if (pinTxt.getText().length() < 4)
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Pin Length");
+                confirm.setContentText("Check to make sure pin is longer than 4 numbers");
+                confirm.showAndWait();
+            }
+
+            if(countryTxtStaff.getText().length() + areaTxtStaff.getText().length() + localTxtStaff.getText().length() + lastFourTxtStaf.getText().length() != 11){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Phone Number!");
+                confirm.setContentText("Phone Number is too long or too short!");
+                confirm.showAndWait();
+            }
+            if(zipTxtStaff.getText().length() != 5){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Zip Code!");
+                confirm.setContentText("Make sure Zip is 5 digits.");
+                confirm.showAndWait();
+
+            }
+
+            if(cityTxtStaff.getText().equals(null)){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("City!");
+                confirm.setContentText("Make sure City is not empty.");
+                confirm.showAndWait();
+
+            }
+
+            if(nameTxtStaff.getText().equals(null)){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Name!");
+                confirm.setContentText("Make sure Name is not empty.");
+                confirm.showAndWait();
+
+            }
+
+            if(streetNameTxtStaff.getText().equals(null)){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Street Name!");
+                confirm.setContentText("Make sure Street Name is not empty.");
+                confirm.showAndWait();
+
+            }
+            if(streetNumTxtStaff.getText().equals(null)){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Street Number!");
+                confirm.setContentText("Make sure Street Number is not empty.");
+                confirm.showAndWait();
+
+            }
+
+            if(stateTxtStaff.getText().equals(null)){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("State!");
+                confirm.setContentText("Make sure State is not empty.");
+                confirm.showAndWait();
+
+            }
+
+            if(typeTxtStaff.getText().equals(null)){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Street Type");
+                confirm.setContentText("Make sure Street Type is not empty.");
+                confirm.showAndWait();
+
+            }
+
+            if(!emailTextStaff.getText().contains("@wclibrary.com")){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Email Address!");
+                confirm.setContentText("Make sure the email includes @wclibrary.com");
+                confirm.showAndWait();
+
+            }
+            if(staffList.foundEmail(emailTextStaff.getText()) == true){
+            Alert confirm = new Alert(Alert.AlertType.ERROR);
+            confirm.setHeaderText("Email Address Exists!");
+            confirm.setContentText("Please use a new email address");
+            confirm.showAndWait();
+        }else
+            {
+
+
+                LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(yearTxtStaff.getText(), monthTxtStaff.getText(), dayTxtStaff.getText()), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), cityTxtStaff.getText(), stateTxtStaff.getText(),
+                        zipTxtStaff.getText(), aptTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
+                        staffIDTxt.getText(), pinTxt.getText(), positionBx.getValue(), statusBx.getValue(), new NormalDate(startYearTxt.getText(), startMonthTxt.getText(), startDayTxt.getText()), 0);
+
+                staffList.LoadStaff(tempStaff);
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setHeaderText("Staff Account Added!");
+                confirm.setContentText("Account has been added");
+                confirm.showAndWait();
+
+
+            }
 
         });
     }

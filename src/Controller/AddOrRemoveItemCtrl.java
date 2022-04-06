@@ -512,9 +512,15 @@ public class AddOrRemoveItemCtrl {
     {
         archiveSubmitButton.setOnMouseClicked(mouseEvent -> {
 
-            String numToSearchFor = archiveItemIDTextField.getText();
-
-            itemList.archiveItem(numToSearchFor);
+            if (itemList.searchAudio(archiveItemIDTextField.getText()) == true ||itemList.searchMovie(archiveItemIDTextField.getText()) == true || itemList.searchBook(archiveItemIDTextField.getText()) == true){
+            itemList.archiveItem(archiveItemIDTextField.getText());
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setHeaderText("Item added to Archive");
+            confirm.setContentText("Item Removed: " +archiveItemIDTextField.getText()+"has been removed from inventory and added to the archives.");
+            confirm.showAndWait();}else {Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setHeaderText("No item found!");
+                confirm.setContentText("No item was found. Please enter a item number from the book inventory.json list or other item lists");
+                confirm.showAndWait();}
 
         });
     }
