@@ -6,28 +6,27 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="436.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddOrRemoveItemCtrl">
    <children>
       <Label fx:id="newBookDetailsLabel" layoutX="20.0" layoutY="20.0" text="Enter details for new book to be added:" />
-      <TextField fx:id="bookItemIDTextField" layoutX="69.0" layoutY="47.0" prefHeight="18.0" prefWidth="134.0" />
+      <TextField fx:id="bookItemIDTextField" layoutX="69.0" layoutY="47.0" prefHeight="18.0" prefWidth="134.0" promptText="#######" />
       <Label fx:id="bookItemIDLabel" layoutX="20.0" layoutY="52.0" text="Item ID:" />
       <Label fx:id="bookTitleLabel" layoutX="223.0" layoutY="51.0" text="Title:" />
       <TextField fx:id="bookTitleTextField" layoutX="254.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
       <Label fx:id="bookYearPublishedLabel" layoutX="469.0" layoutY="51.0" text="Year Published:" />
-      <TextField fx:id="bookYearPublishedTextField" layoutX="556.0" layoutY="46.0" prefHeight="26.0" prefWidth="125.0" />
+      <TextField fx:id="bookYearPublishedTextField" layoutX="556.0" layoutY="46.0" prefHeight="26.0" prefWidth="125.0" promptText="YYYY" />
       <Label fx:id="bookDatePublishedLabel" layoutX="20.0" layoutY="92.0" text="Date Published:" />
-      <TextField fx:id="bookDatePublishedYearTextField" layoutX="109.0" layoutY="87.0" prefHeight="26.0" prefWidth="42.0" text="YYYY" />
-      <TextField fx:id="bookDatePublishedMonthTextField" layoutX="156.0" layoutY="87.0" prefHeight="26.0" prefWidth="42.0" text="MM" />
-      <TextField fx:id="bookDatePublishedDayTextField" layoutX="204.0" layoutY="87.0" prefHeight="26.0" prefWidth="34.0" text="DD" />
+      <TextField fx:id="bookDatePublishedYearTextField" layoutX="192.0" layoutY="87.0" prefHeight="26.0" prefWidth="42.0" promptText="YYYY" />
+      <TextField fx:id="bookDatePublishedMonthTextField" layoutX="106.0" layoutY="87.0" prefHeight="26.0" prefWidth="42.0" promptText="MM" />
+      <TextField fx:id="bookDatePublishedDayTextField" layoutX="153.0" layoutY="87.0" prefHeight="26.0" prefWidth="34.0" promptText="DD" />
       <Label fx:id="bookPublisherLabel" layoutX="254.0" layoutY="92.0" text="Publisher:" />
       <TextField fx:id="bookPublisherTextField" layoutX="313.0" layoutY="87.0" prefHeight="26.0" prefWidth="368.0" />
       <Label fx:id="bookGenresLabel" layoutX="20.0" layoutY="138.0" text="Genre(s):" />
-      <TextField fx:id="bookGenresTextField" layoutX="75.0" layoutY="133.0" prefHeight="26.0" prefWidth="307.0" text="e.g. &quot;Comedy, Non-fiction&quot;" />
+      <TextField fx:id="bookGenresTextField" layoutX="75.0" layoutY="133.0" prefHeight="26.0" prefWidth="307.0" promptText="e.g. &quot;Comedy, Non-fiction&quot;" />
       <Label fx:id="bookLengthLabel" layoutX="408.0" layoutY="137.0" text="Length:" />
-      <TextField fx:id="bookLengthTextField" layoutX="457.0" layoutY="133.0" prefHeight="26.0" prefWidth="223.0" text="e.g. &quot;208 pages&quot;" />
+      <TextField fx:id="bookLengthTextField" layoutX="457.0" layoutY="133.0" prefHeight="26.0" prefWidth="223.0" promptText="e.g. &quot;208 pages&quot;" />
       <Label fx:id="bookAuthorsLabel" layoutX="18.0" layoutY="180.0" text="Author(s):" />
-      <TextField fx:id="bookAuthorsTextField" layoutX="84.0" layoutY="175.0" prefHeight="26.0" prefWidth="595.0" text="If multiple, separate with commas." />
+      <TextField fx:id="bookAuthorsTextField" layoutX="84.0" layoutY="175.0" prefHeight="26.0" prefWidth="595.0" promptText="If multiple, separate with commas." />
       <Label fx:id="bookDescriptionLabel" layoutX="18.0" layoutY="214.0" text="Description:" />
       <TextArea fx:id="bookDescriptionTextArea" layoutX="18.0" layoutY="238.0" prefHeight="146.0" prefWidth="659.0" />
       <Button fx:id="bookAddNewItemButton" layoutX="295.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleAddNewBookClick" prefHeight="26.0" prefWidth="104.0" text="Add New Item" />
