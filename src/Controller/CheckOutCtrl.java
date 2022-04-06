@@ -143,7 +143,8 @@ public class CheckOutCtrl {
 
                 if(iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
                 {
-
+                    finishAndPrintButton.setDisable(false);
+                    finishCheckoutButton.setDisable(false);
                     itemOut = Integer.parseInt(itemIDTextField.getText());
 
                     if (iList.bookReturn(itemIDTextField.getText()) != null)

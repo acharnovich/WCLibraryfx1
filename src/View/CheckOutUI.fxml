@@ -15,8 +15,8 @@
       <TextField fx:id="itemIDTextField" disable="true" layoutX="150.0" layoutY="55.0" prefHeight="26.0" prefWidth="179.0" promptText="#######" />
       <Button fx:id="beginCheckoutButton" layoutX="353.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleBeginCheckoutClick" text="Begin Checkout" />
       <Button fx:id="checkOutItemButton" disable="true" layoutX="353.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleCheckOutItemClick" text="Check Out Item" />
-      <Button fx:id="finishCheckoutButton" layoutX="152.0" layoutY="440.0" mnemonicParsing="false" onAction="#underDevCheckOut" prefHeight="26.0" prefWidth="194.0" text="Finish Checkout" />
-      <Button fx:id="finishAndPrintButton" layoutX="361.0" layoutY="440.0" mnemonicParsing="false" onAction="#underDevPrint" text="Finish Checkout and Print Receipt" />
+      <Button fx:id="finishCheckoutButton" disable="true" layoutX="152.0" layoutY="440.0" mnemonicParsing="false" onAction="#underDevCheckOut" prefHeight="26.0" prefWidth="194.0" text="Finish Checkout" />
+      <Button fx:id="finishAndPrintButton" disable="true" layoutX="361.0" layoutY="440.0" mnemonicParsing="false" onAction="#underDevPrint" text="Finish Checkout and Print Receipt" />
       <TableView fx:id="checkoutTable" layoutX="21.0" layoutY="96.0" prefHeight="334.0" prefWidth="499.0">
         <columns>
           <TableColumn fx:id="checkoutTableItemID" prefWidth="150.40002822875977" text="Item ID" />

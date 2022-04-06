@@ -69,7 +69,7 @@ public class LoginCtrl
 
                         Alert loginSuccess = new Alert(Alert.AlertType.CONFIRMATION);
                         loginSuccess.setHeaderText("Login Success: " + userid.getText());
-                        loginSuccess.setContentText("Sprint 3: New in this update, Items and Accounts can now be searched one at a time. Remove Item works.  New Account tab has  more validation features for both patron and staff. Checkout List has partial functionality." );
+                        loginSuccess.setContentText("Sprint 3: New in this update, Items and Accounts can now be searched one at a time. Remove Item works.  New Account tab has  more validation features for both patron and staff. Validation prompts will indicate what is under development. Checkout List has partial functionality. Item still needs more validation features." );
                         loginSuccess.showAndWait();
                     } catch (IOException e)
                     {}
