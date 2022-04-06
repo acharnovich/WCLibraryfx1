@@ -133,6 +133,7 @@ public class CheckOutCtrl {
 
                 if(iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
                 {
+
                     itemOut = Integer.parseInt(itemIDTextField.getText());
 
                     if (iList.bookReturn(itemIDTextField.getText()) != null)
@@ -164,7 +165,10 @@ public class CheckOutCtrl {
                             ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
                             checkouts.add(checkoutTemp);
                             checkOutDueDateSeparate.setItems(checkouts);
-
+                        Alert bookAdded = new Alert(Alert.AlertType.CONFIRMATION);
+                        bookAdded.setHeaderText("Book Added to Checkout");
+                        bookAdded.setContentText("Success! Book has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        bookAdded.showAndWait();
 
 
 
@@ -200,6 +204,10 @@ public class CheckOutCtrl {
                             ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
                             checkouts.add(checkoutTemp);
                             checkOutDueDateSeparate.setItems(checkouts);
+                            Alert movieAdded = new Alert(Alert.AlertType.CONFIRMATION);
+                            movieAdded.setHeaderText("Movie Added to Checkout");
+                            movieAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                            movieAdded.showAndWait();
 
 
                         }
@@ -232,6 +240,10 @@ public class CheckOutCtrl {
                             ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
                             checkouts.add(checkoutTemp);
                             checkOutDueDateSeparate.setItems(checkouts);
+                            Alert audioAdded = new Alert(Alert.AlertType.CONFIRMATION);
+                            audioAdded.setHeaderText("Audio Added");
+                            audioAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                            audioAdded.showAndWait();
 
                         }
                     }

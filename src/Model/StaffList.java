@@ -213,13 +213,12 @@ public class StaffList
             for (int i = 0; i < users.size(); i++)
             {
 
+                    if (users.get(i).getPhoneNumber().equals(search));
+                    {
+                        System.out.println("Phone EXISTS!");
+                        return true;
+                    }}
 
-                if (users.get(i).getPhoneNumber().toString().equalsIgnoreCase(search))
-                {
-                    System.out.println("Phone EXISTS!");
-                    return true;
-                }
-            }
             // close reader
             reader.close();
 
@@ -263,7 +262,7 @@ public class StaffList
             ex.printStackTrace();
         }
 
-        System.out.println("No Result");
+
         return null;
     }
     public Person searchUserID(String search){
@@ -286,7 +285,7 @@ public class StaffList
 
                 if (users.get(i).getStaffId().equalsIgnoreCase(search))
                 {
-                    System.out.println("EMAIL EXISTS!");
+
                     return users.get(i);
                 }
             }
@@ -298,7 +297,7 @@ public class StaffList
             ex.printStackTrace();
         }
 
-        System.out.println("No Result");
+
         return null;
     }
     public Person searchPhone(String search){
@@ -319,13 +318,12 @@ public class StaffList
             {
 
 
-                if (users.get(i).getPhoneNumber().toString().equalsIgnoreCase(search));
+                if (users.get(i).getPhoneNumber().equals(search));
                 {
-                    System.out.println("EMAIL EXISTS!");
-
+                    System.out.println("Phone EXISTS!");
                     return users.get(i);
-                }
-            }
+                }}
+
             // close reader
             reader.close();
 
@@ -334,7 +332,7 @@ public class StaffList
             ex.printStackTrace();
         }
 
-        System.out.println("No Result");
+
         return null;
     }
 

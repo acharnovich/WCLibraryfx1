@@ -69,14 +69,14 @@ public class PhoneNumber
     public String toString()
     {
 
-        return "+" + countryCode + "-"+ areaCode +
+        return countryCode + "-"+ areaCode +
                 "-" + threeLocal + "-" + lastFour;
     }
     public boolean checkPhoneNum(int countryCode, int areaCode, int threeLocal, int lastFour){
 
-        if (String.valueOf(countryCode).length()  + String.valueOf(areaCode).length() + String.valueOf(threeLocal).length() + String.valueOf(lastFour).length() > 11)
+        if (String.valueOf(countryCode).length()  + String.valueOf(areaCode).length() + String.valueOf(threeLocal).length() + String.valueOf(lastFour).length() != 11)
         {
-            System.out.println("Too many numbers");
+
             return true;
         }
         return false;

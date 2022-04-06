@@ -205,7 +205,7 @@ public class PatronList
 
                 {
 
-                    if (users.get(i).getPhoneNumber().toString().contains(search))
+                    if (users.get(i).getPhoneNumber().toString().equals(search))
                     {
                         System.out.println("Phone EXISTS!");
                         return true;
@@ -310,10 +310,9 @@ public class PatronList
             for (int i = 0; i < users.size(); i++)
             {
 
-
-                    if (users.get(i).getPhoneNumber().toString().equalsIgnoreCase(search))
+                    if (users.get(i).getPhoneNumber().equals(search))
                     {
-                        System.out.println("EMAIL EXISTS!");
+
                         return users.get(i);
                     }
 
@@ -330,6 +329,12 @@ public class PatronList
         System.out.println("No Result");
         return null;
     }
+
+
+
+
+
+
     public PatronList(ArrayList<Patron> patronimport)
     {
         this.patronimport = patronimport;

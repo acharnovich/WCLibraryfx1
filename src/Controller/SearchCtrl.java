@@ -304,8 +304,11 @@ personContenTbl.setItems(people);
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
                     ObservableList<Person> people = FXCollections.observableArrayList();
-                    people.add(pList.searchPhone(searchPersonTextField.getText()));
-                    personContenTbl.setItems(people);
+                    for (int i = 0; i <= people.size()-1; i++)
+                    {
+                        people.add(pList.searchPhone(searchPersonTextField.getText()));
+                        personContenTbl.setItems(people);
+                    }
 
                 }
                 if(sList.foundPhone(searchPersonTextField.getText()) == true){
@@ -529,5 +532,55 @@ editBtn.setOnMouseClicked(mouseEvent -> {
 
 });
 
+    }
+    public void underDevEdit(javafx.event.ActionEvent actionEvent)
+    {
+        editBtn.setOnMouseClicked(mouseEvent ->
+        {
+            Alert indev = new Alert(Alert.AlertType.ERROR);
+            indev.setHeaderText("Under Development");
+            indev.setContentText("Will be finished in sprint 5");
+            indev.showAndWait();
+        });
+    }
+    public void underDevEditItem(javafx.event.ActionEvent actionEvent)
+    {
+        editItemBtn.setOnMouseClicked(mouseEvent ->
+        {
+            Alert indev = new Alert(Alert.AlertType.ERROR);
+            indev.setHeaderText("Under Development");
+            indev.setContentText("Will be finished in sprint 5");
+            indev.showAndWait();
+        });
+    }
+    public void underDevRemoveitem(javafx.event.ActionEvent actionEvent)
+    {
+        removeItemBtn.setOnMouseClicked(mouseEvent ->
+        {
+            Alert indev = new Alert(Alert.AlertType.ERROR);
+            indev.setHeaderText("Under Development");
+            indev.setContentText("Will be finished in sprint 5");
+            indev.showAndWait();
+        });
+    }
+    public void underDevBills(javafx.event.ActionEvent actionEvent)
+    {
+        viewBillsBtn.setOnMouseClicked(mouseEvent ->
+        {
+            Alert indev = new Alert(Alert.AlertType.ERROR);
+            indev.setHeaderText("Under Development");
+            indev.setContentText("Will be finished in sprint 5");
+            indev.showAndWait();
+        });
+    }
+    public void underDevCheckouts(javafx.event.ActionEvent actionEvent)
+    {
+        checkoutsBtn.setOnMouseClicked(mouseEvent ->
+        {
+            Alert indev = new Alert(Alert.AlertType.ERROR);
+            indev.setHeaderText("Under Development");
+            indev.setContentText("Will be finished in sprint 5");
+            indev.showAndWait();
+        });
     }
 }

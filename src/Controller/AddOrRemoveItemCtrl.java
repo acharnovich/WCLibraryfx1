@@ -521,21 +521,24 @@ public class AddOrRemoveItemCtrl {
 public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent){
 
         archiveSearchButton.setOnMouseClicked(mouseEvent -> {
+            Alert indev = new Alert(Alert.AlertType.ERROR);
+            indev.setHeaderText("Under Development");
+            indev.setContentText("Will be finished in sprint 4");
+            indev.showAndWait();
+            //Parent part = null;
 
-            Parent part = null;
+           // try {
 
-            try {
+              //  part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
+              //  Stage stage = new Stage();
+              //  Scene scene = new Scene(part);
+              //  stage.setScene(scene);
+              //  stage.setTitle("Search Archive Items");
+              //  stage.show();
 
-                part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
-                Stage stage = new Stage();
-                Scene scene = new Scene(part);
-                stage.setScene(scene);
-                stage.setTitle("Search Archive Items");
-                stage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+           // } catch (IOException e) {
+           //     e.printStackTrace();
+           // }
 
         });
 

@@ -66,6 +66,11 @@ public class LoginCtrl
                         stage.setTitle("WCLibrary Main Menu");
                         stage.setScene(scene);
                         stage.show();
+
+                        Alert loginSuccess = new Alert(Alert.AlertType.CONFIRMATION);
+                        loginSuccess.setHeaderText("Login Success: " + userid.getText());
+                        loginSuccess.setContentText("Welcome! New in this update, Items and Accounts can now be searched");
+                        loginSuccess.showAndWait();
                     } catch (IOException e)
                     {}
 

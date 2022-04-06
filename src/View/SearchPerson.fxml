@@ -28,17 +28,17 @@
          </font>
       </Button>
       <Line fx:id="menuLn" endX="525.0" endY="1.52587890625E-5" layoutX="101.0" layoutY="104.0" startX="-100.0" />
-      <Button fx:id="checkoutsBtn" layoutX="8.0" layoutY="77.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="104.0" text="Checkouts">
+      <Button fx:id="checkoutsBtn" layoutX="8.0" layoutY="77.0" mnemonicParsing="false" onAction="#underDevCheckouts" prefHeight="20.0" prefWidth="104.0" text="Checkouts">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="viewBillsBtn" layoutX="112.0" layoutY="77.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="124.0" text="View Bills">
+      <Button fx:id="viewBillsBtn" layoutX="112.0" layoutY="77.0" mnemonicParsing="false" onAction="#underDevBills" prefHeight="20.0" prefWidth="124.0" text="View Bills">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="editBtn" layoutX="236.0" layoutY="77.0" mnemonicParsing="false" onAction="#viewDetailsButton" prefHeight="20.0" prefWidth="116.0" text="Edit/View Details">
+      <Button fx:id="editBtn" layoutX="236.0" layoutY="77.0" mnemonicParsing="false" onAction="#underDevEdit" prefHeight="20.0" prefWidth="116.0" text="Edit/View Details">
          <font>
             <Font size="10.0" />
          </font>

@@ -63,7 +63,7 @@
     },
     "phoneNumber": [
       {
-        "countryCode": 17,
+        "countryCode": 1,
         "areaCode": 232,
         "threeLocal": 232,
         "lastFour": 2239

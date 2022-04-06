@@ -346,35 +346,90 @@ public void  verifyEmail(){
         patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
+            if(patronList.verifyEmail(emailText.getText()) == true){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("User Exists!");
+                confirm.setContentText("Patron already exists!");
+                confirm.showAndWait();
+            }
+
+
             if (patronList.verifyEmail(emailText.getText()) == false)
             {
-                if (countryTxt2.isVisible() == true) {
-                    Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                            zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
-                    patronList.LoadPatron(tempPatron);
-                    PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
-                    AllCheckoutLists allLists = new AllCheckoutLists();
-                    allLists.LoadList(tempList);
+if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11){
+    Alert confirm = new Alert(Alert.AlertType.ERROR);
+    confirm.setHeaderText("Phone Number!");
+    confirm.setContentText("Phone Number is too long or too short!");
+    confirm.showAndWait();
+}
+                if(countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() != 11){
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText(" Second Phone Number!");
+                    confirm.setContentText("Second Phone Number is too long or too short!");
+                    confirm.showAndWait();
+                }
+
+
+                if (yearTxt.getText().length() != 4 && monthTxt.getText().length() != 2 && dayTxt.getText().length() != 2){
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText("BIRTH DATE!");
+                    confirm.setContentText("Check to make sure data is in YYYY  MM  DD format");
+                    confirm.showAndWait();
+
+                }
+
+                if(cardTxt.getText().length() != 8 && patronList.foundCard(cardTxt.getText()) == true){
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText("Card Number!");
+                    confirm.setContentText("Check to make sure card number equals 8 and does not already exist. Will be developed auto generate the number in future updates.");
+                    confirm.showAndWait();
+
+                }
+
+                if(!emailText.getText().contains("@")){
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText("BIRTH DATE!");
+                    confirm.setContentText("Check to make sure data is in YYYY  MM  DD format");
+                    confirm.showAndWait();
+
+                }
+
+                if(zipTxt.getText().length() != 5){
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText("Zip Code!");
+                    confirm.setContentText("Make sure Zip is 5 digits.");
+                    confirm.showAndWait();
 
                 }
                 else
                 {
+                    if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11) {
+                        Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                                zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                        patronList.LoadPatron(tempPatron);
+                        PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+                        AllCheckoutLists allLists = new AllCheckoutLists();
+                        allLists.LoadList(tempList);
+                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                        confirm.setHeaderText("Account Added!");
+                        confirm.setContentText("Account has been added");
+                        confirm.showAndWait();
+                    }else{
                     Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                             zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
                     patronList.LoadPatron(tempPatron);
                     PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
                     AllCheckoutLists allLists = new AllCheckoutLists();
                     allLists.LoadList(tempList);
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setHeaderText("Account Added!");
+                confirm.setContentText("Account has been added");
+                confirm.showAndWait();}
+
 
                 }
             }
-            else
-            {
-                Alert accountExsists = new Alert(Alert.AlertType.ERROR);
-                accountExsists.setHeaderText("Email Exists");
-                accountExsists.setContentText("Account Exists! Please try a new email or search for Patron");
-                accountExsists.showAndWait();
-            }
+
 
         });
 
