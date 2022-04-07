@@ -410,36 +410,18 @@ public class AccountCtrl
             }else {createAccountBtn.setDisable(true);}
         });
 
-        streetNumTxt.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
-            {
-                if (!t1.matches("\\d*")) {
-                    streetNumTxt.setText(t1.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        cardTxt.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
-            {
-                if (!t1.matches("\\d*")) {
-                    cardTxt.setText(t1.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
-        yearTxt.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
-            {
-                if (!t1.matches("\\d*")) {
-                    yearTxt.setText(t1.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+
+
+        //yearTxt.textProperty().addListener(new ChangeListener<String>()
+       // {
+          //  @Override
+           // public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+           // {
+           //     if (!t1.matches("\\d*")) {
+             //       yearTxt.setText(t1.replaceAll("[^\\d]", ""));
+            //    }
+           // }
+      //  });
         monthTxt.textProperty().addListener(new ChangeListener<String>()
         {
             @Override
@@ -470,6 +452,116 @@ public class AccountCtrl
                 }
             }
         });
+
+        yearTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 4) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        monthTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 2) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        dayTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 2) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        cardTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 8) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        streetNumTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 6) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        zipTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 5) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        stateTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z]*$") && change.getControlNewText().length() <= 2) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        lastFourTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 4) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        countryTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 1) {
+                    return change;}
+                return null;
+            }
+        }));
+
+        localTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 3) {
+                    return change;}
+                return null;
+            }
+        }));
+        areaTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 3) {
+                    return change;}
+                return null;
+            }
+        }));
+
         areaTxt.textProperty().addListener(new ChangeListener<String>()
         {
             @Override
