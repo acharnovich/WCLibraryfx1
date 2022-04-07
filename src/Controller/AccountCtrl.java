@@ -2,8 +2,12 @@ package Controller;
 
 import Model.*;
 import View.FxLoader;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -13,10 +17,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.UnaryOperator;
 
 public class AccountCtrl
 {
@@ -185,7 +191,6 @@ public class AccountCtrl
     private TextField emailTextStaff;
 
 
-
     @FXML
     private TextField lastFourTxtStaf;
 
@@ -315,8 +320,10 @@ public class AccountCtrl
 
     public AccountCtrl()
     {
-         positionBx = new ChoiceBox<>();
-         statusBx = new ChoiceBox<>();
+        positionBx = new ChoiceBox<>();
+        statusBx = new ChoiceBox<>();
+
+
     }
 
     @FXML
@@ -333,36 +340,181 @@ public class AccountCtrl
         });
 
     }
-@FXML
-public void  verifyEmail(){
-    verifyBtn.setOnMouseClicked(mouseEvent -> {
-        patronList = new PatronList();
-        if (patronList.verifyEmail(emailText.getText()) == false){
-            emailText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
 
-        } else{emailText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");}
+    @FXML
+    public void verifyEmail()
+    {
+        verifyBtn.setOnMouseClicked(mouseEvent ->
+        {
+            patronList = new PatronList();
+            if (patronList.verifyEmail(emailText.getText()) == false)
+            {
+                emailText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
 
-    });
+            } else
+            {
+                emailText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+            }
+
+        });
 
 
-}
-
-@FXML
-    public void patronAddPhoneNumber(javafx.event.ActionEvent actionEvent){
-    secAddressBtn.setOnMouseClicked(mouseEvent -> {
-    countryTxt2.setVisible(true);
-        localTxt2.setVisible(true);
-        areaTxt2.setVisible(true);
-        lastFourTxt2.setVisible(true);
-    });
     }
+
+    @FXML
+    public void patronAddPhoneNumber(javafx.event.ActionEvent actionEvent)
+    {
+        secAddressBtn.setOnMouseClicked(mouseEvent ->
+        {
+            countryTxt2.setVisible(true);
+            localTxt2.setVisible(true);
+            areaTxt2.setVisible(true);
+            lastFourTxt2.setVisible(true);
+        });
+    }
+
+
+
+    @FXML
+    public void enablePatron()
+    {
+        boolean disabled = (nameTxt.getText().isEmpty() || yearTxt.getText().isEmpty() || monthTxt.getText().isEmpty() && dayTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty() || cardTxt.getText().isEmpty());
+        patronFillable.setOnKeyPressed(keyEvent ->
+        {
+            if (disabled == false)
+            {
+                createAccountBtn.setDisable(false);
+            }else {createAccountBtn.setDisable(true);}
+        });
+
+        patronFillable.setOnMouseMoved(mouseEvent ->
+        {
+            if (disabled == false)
+            {
+                createAccountBtn.setDisable(false);
+            }else {createAccountBtn.setDisable(true);}
+        });
+
+        patronFillable.setOnMouseExited(mouseEvent ->
+        {
+            if (disabled == false)
+            {
+                createAccountBtn.setDisable(false);
+            }else {createAccountBtn.setDisable(true);}
+        });
+        patronFillable.setOnMouseClicked(mouseEvent ->
+        {
+            if (disabled == false)
+            {
+                createAccountBtn.setDisable(false);
+            }else {createAccountBtn.setDisable(true);}
+        });
+
+        streetNumTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    streetNumTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        cardTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    cardTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        yearTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    yearTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        monthTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    monthTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        dayTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    dayTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        countryTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    countryTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        areaTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    areaTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        lastFourTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    lastFourTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        localTxt.textProperty().addListener(new ChangeListener<String>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
+            {
+                if (!t1.matches("\\d*")) {
+                    localTxt.setText(t1.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+
+    }
+
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
+
+
         patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
-            if(patronList.verifyEmail(emailText.getText()) == true){
+            if (patronList.verifyEmail(emailText.getText()) == true)
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("User Exists!");
                 confirm.setContentText("Patron already exists!");
@@ -372,13 +524,15 @@ public void  verifyEmail(){
 
             if (patronList.verifyEmail(emailText.getText()) == false)
             {
-if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11){
-    Alert confirm = new Alert(Alert.AlertType.ERROR);
-    confirm.setHeaderText("Phone Number!");
-    confirm.setContentText("Phone Number is too long or too short!");
-    confirm.showAndWait();
-}
-                if(countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() != 11){
+                if (countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11)
+                {
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText("Phone Number!");
+                    confirm.setContentText("Phone Number is too long or too short!");
+                    confirm.showAndWait();
+                }
+                if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() != 11)
+                {
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setHeaderText(" Second Phone Number!");
                     confirm.setContentText("Second Phone Number is too long or too short!");
@@ -386,15 +540,17 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
                 }
 
 
-               if (yearTxt.getText().length() != 4 && monthTxt.getText().length() != 2 && dayTxt.getText().length() != 2){
-                     Alert confirm = new Alert(Alert.AlertType.ERROR);
+                if (yearTxt.getText().length() != 4 && monthTxt.getText().length() != 2 && dayTxt.getText().length() != 2)
+                {
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setHeaderText("BIRTH DATE!");
                     confirm.setContentText("Check to make sure data is in MM DD YYYY format");
                     confirm.showAndWait();
 
                 }
 
-                if(cardTxt.getText().length() != 8 && patronList.foundCard(cardTxt.getText()) == true){
+                if (cardTxt.getText().length() != 8 && patronList.foundCard(cardTxt.getText()) == true)
+                {
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setHeaderText("Card Number!");
                     confirm.setContentText("Check to make sure card number equals 8 and does not already exist. Will be developed auto generate the number in future updates.");
@@ -402,7 +558,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
                 }
 
-                if(!emailText.getText().contains("@")){
+                if (!emailText.getText().contains("@"))
+                {
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setHeaderText("Email!");
                     confirm.setContentText("Check to make sure email includes a @ character");
@@ -410,16 +567,17 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
                 }
 
-                if(zipTxt.getText().length() != 5){
+                if (zipTxt.getText().length() != 5)
+                {
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
                     confirm.setHeaderText("Zip Code!");
                     confirm.setContentText("Make sure Zip is 5 digits.");
                     confirm.showAndWait();
 
-                }
-                else
+                } else
                 {
-                    if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11) {
+                    if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11)
+                    {
                         Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                                 zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
                         patronList.LoadPatron(tempPatron);
@@ -430,17 +588,19 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
                         confirm.setHeaderText("Account Added!");
                         confirm.setContentText("Account has been added");
                         confirm.showAndWait();
-                    }else{
-                    Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                            zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
-                    patronList.LoadPatron(tempPatron);
-                    PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
-                    AllCheckoutLists allLists = new AllCheckoutLists();
-                    allLists.LoadList(tempList);
-                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                    confirm.setHeaderText("Account Added!");
-                confirm.setContentText("Account has been added");
-                confirm.showAndWait();}
+                    } else
+                    {
+                        Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                        zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                        patronList.LoadPatron(tempPatron);
+                        PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+                        AllCheckoutLists allLists = new AllCheckoutLists();
+                        allLists.LoadList(tempList);
+                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                        confirm.setHeaderText("Account Added!");
+                        confirm.setContentText("Account has been added");
+                        confirm.showAndWait();
+                    }
 
 
                 }
@@ -476,9 +636,6 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
             radioBPane.setRight(content);
 
 
-
-
-
         });
 
     }
@@ -496,10 +653,11 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
     @FXML
     public void createStaffAccount(javafx.event.ActionEvent actionEvent)
     {
-     StaffList staffList= new StaffList();
+        StaffList staffList = new StaffList();
         createAccountBtnStaff.setOnMouseClicked(mouseEvent ->
         {
-            if (staffList.foundUserID(staffIDTxt.getText()) == true){
+            if (staffList.foundUserID(staffIDTxt.getText()) == true)
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("User Exists");
                 confirm.setContentText("Enter a new user name");
@@ -507,7 +665,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if (yearTxtStaff.getText().length() != 4 && monthTxtStaff.getText().length() != 2 && dayTxtStaff.getText().length() != 2){
+            if (yearTxtStaff.getText().length() != 4 && monthTxtStaff.getText().length() != 2 && dayTxtStaff.getText().length() != 2)
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("BIRTH DATE!");
                 confirm.setContentText("Check to make sure data is in MM DD YYYY format");
@@ -515,7 +674,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if (startYearTxt.getText().length() != 4 && startMonthTxt.getText().length() != 2 && startDayTxt.getText().length() != 2){
+            if (startYearTxt.getText().length() != 4 && startMonthTxt.getText().length() != 2 && startDayTxt.getText().length() != 2)
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Start Date!");
                 confirm.setContentText("Check to make sure data is in MM DD YYYY format");
@@ -530,13 +690,15 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
                 confirm.showAndWait();
             }
 
-            if(countryTxtStaff.getText().length() + areaTxtStaff.getText().length() + localTxtStaff.getText().length() + lastFourTxtStaf.getText().length() != 11){
+            if (countryTxtStaff.getText().length() + areaTxtStaff.getText().length() + localTxtStaff.getText().length() + lastFourTxtStaf.getText().length() != 11)
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Phone Number!");
                 confirm.setContentText("Phone Number is too long or too short!");
                 confirm.showAndWait();
             }
-            if(zipTxtStaff.getText().length() != 5){
+            if (zipTxtStaff.getText().length() != 5)
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Zip Code!");
                 confirm.setContentText("Make sure Zip is 5 digits.");
@@ -544,7 +706,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if(cityTxtStaff.getText().equals(null)){
+            if (cityTxtStaff.getText().equals(null))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("City!");
                 confirm.setContentText("Make sure City is not empty.");
@@ -552,7 +715,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if(nameTxtStaff.getText().equals(null)){
+            if (nameTxtStaff.getText().equals(null))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Name!");
                 confirm.setContentText("Make sure Name is not empty.");
@@ -560,14 +724,16 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if(streetNameTxtStaff.getText().equals(null)){
+            if (streetNameTxtStaff.getText().equals(null))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Street Name!");
                 confirm.setContentText("Make sure Street Name is not empty.");
                 confirm.showAndWait();
 
             }
-            if(streetNumTxtStaff.getText().equals(null)){
+            if (streetNumTxtStaff.getText().equals(null))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Street Number!");
                 confirm.setContentText("Make sure Street Number is not empty.");
@@ -575,7 +741,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if(stateTxtStaff.getText().equals(null)){
+            if (stateTxtStaff.getText().equals(null))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("State!");
                 confirm.setContentText("Make sure State is not empty.");
@@ -583,7 +750,8 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if(typeTxtStaff.getText().equals(null)){
+            if (typeTxtStaff.getText().equals(null))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Street Type");
                 confirm.setContentText("Make sure Street Type is not empty.");
@@ -591,19 +759,21 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
             }
 
-            if(!emailTextStaff.getText().contains("@wclibrary.com")){
+            if (!emailTextStaff.getText().contains("@wclibrary.com"))
+            {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Email Address!");
                 confirm.setContentText("Make sure the email includes @wclibrary.com");
                 confirm.showAndWait();
 
             }
-            if(staffList.foundEmail(emailTextStaff.getText()) == true){
-            Alert confirm = new Alert(Alert.AlertType.ERROR);
-            confirm.setHeaderText("Email Address Exists!");
-            confirm.setContentText("Please use a new email address");
-            confirm.showAndWait();
-        }else
+            if (staffList.foundEmail(emailTextStaff.getText()) == true)
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Email Address Exists!");
+                confirm.setContentText("Please use a new email address");
+                confirm.showAndWait();
+            } else
             {
 
 
@@ -622,8 +792,6 @@ if(countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText
 
         });
     }
-
-
 
 
 }
