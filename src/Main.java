@@ -1,3 +1,4 @@
+import Model.NormalDate;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,9 @@ public class Main extends Application
       primaryStage.setScene(new Scene(root, 600,300));
       primaryStage.show();
 
+
     }
     public static void main(String[] args)
-    {launch(args);}
+    {launch(args)
+    ;}
 }

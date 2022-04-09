@@ -234,6 +234,9 @@ public class AccountCtrl
     private Label secondAddressLblStaff;
 
     @FXML
+    private DatePicker dateTest;
+
+    @FXML
     private Label staffIDLbl;
 
     @FXML
@@ -364,6 +367,7 @@ public class AccountCtrl
     @FXML
     public void patronAddPhoneNumber(javafx.event.ActionEvent actionEvent)
     {
+
         secAddressBtn.setOnMouseClicked(mouseEvent ->
         {
             countryTxt2.setVisible(true);
@@ -378,14 +382,43 @@ public class AccountCtrl
     @FXML
     public void enablePatron()
     {
-        boolean disabled = (nameTxt.getText().isEmpty() || yearTxt.getText().isEmpty() || monthTxt.getText().isEmpty() && dayTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty() || cardTxt.getText().isEmpty());
+        NormalDate temp = new NormalDate(yearTxt.getText(),monthTxt.getText(),dayTxt.getText());
+
+        boolean disabled = (nameTxt.getText().isEmpty() || yearTxt.getText().isEmpty() || monthTxt.getText().isEmpty() && dayTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() && areaTxt.getText().length() < 3 || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty() || cardTxt.getText().isEmpty());
         patronFillable.setOnKeyPressed(keyEvent ->
         {
+           
+
             if (disabled == false)
             {
                 createAccountBtn.setDisable(false);
             }else {createAccountBtn.setDisable(true);}
         });
+
+        yearTxt.setOnKeyReleased(keyEvent->{
+            if(new NormalDate().verifyDate(Integer.valueOf(yearTxt.getText()), Integer.valueOf(monthTxt.getText()),Integer.valueOf(dayTxt.getText())) == true){
+                yearTxt.setStyle("-fx-text-fill: orange;");
+        }
+        else {
+                yearTxt.setStyle("-fx-text-fill: black;");}
+
+        });
+
+
+    yearTxt.setOnKeyReleased(mouseEvent -> {
+
+        if(yearTxt.getText().length() < 4){
+            yearTxt.setStyle("-fx-text-fill: red;");
+        }else {yearTxt.setStyle("-fx-text-fill: black;");}
+
+    });
+    monthTxt.setOnKeyReleased(mouseEvent->{if(monthTxt.getText().length() < 2){
+        monthTxt.setStyle("-fx-text-fill: red;");
+    }else {monthTxt.setStyle("-fx-text-fill: black;");}});
+
+        dayTxt.setOnKeyReleased(mouseEvent->{if(dayTxt.getText().length() < 2){
+            dayTxt.setStyle("-fx-text-fill: red;");
+        }else {dayTxt.setStyle("-fx-text-fill: black;");}});
 
         patronFillable.setOnMouseMoved(mouseEvent ->
         {
@@ -459,6 +492,7 @@ public class AccountCtrl
                 String value = change.getText();
                 if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 4) {
                     return change;}
+
                 return null;
             }
         }));
@@ -557,6 +591,7 @@ public class AccountCtrl
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 String value = change.getText();
                 if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 3) {
+
                     return change;}
                 return null;
             }
@@ -572,6 +607,8 @@ public class AccountCtrl
                 }
             }
         });
+
+
         lastFourTxt.textProperty().addListener(new ChangeListener<String>()
         {
             @Override
@@ -600,11 +637,19 @@ public class AccountCtrl
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
+        NormalDate temp = new NormalDate(yearTxt.getText(),monthTxt.getText(),dayTxt.getText());
+
 
 
         patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
+            if(temp.verifyDate(Integer.valueOf(yearTxt.getText()), Integer.valueOf(monthTxt.getText()), Integer.valueOf(dayTxt.getText())) == true){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Date is in the future");
+                confirm.setContentText("Please enter a date that is not in the future");
+                confirm.showAndWait();}
+
             if (patronList.verifyEmail(emailText.getText()) == true)
             {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
@@ -649,6 +694,7 @@ public class AccountCtrl
                     confirm.showAndWait();
 
                 }
+
 
                 if (!emailText.getText().contains("@"))
                 {

@@ -1,6 +1,7 @@
 package Model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class Patron extends Person
@@ -57,11 +58,11 @@ public class Patron extends Person
     @Override
     public int getYears()
     {
-        LocalDate parseStart = LocalDate.parse(getDateofBirth().toString());
+        LocalDate parseStart = LocalDate.parse(getDateofBirth().getYear() + "-" + getDateofBirth().getMonth() +"-"+getDateofBirth().getDay());
+        LocalDate ageTemp;
+        LocalDate localDate = LocalDate.now();
 
-        age = LocalDate.now().getYear() - parseStart.getYear();
-
-        return age;
+        return Period.between(parseStart, localDate).getYears();
     }
     //TBD in sprint 2
    public Patron changePatronDetails()

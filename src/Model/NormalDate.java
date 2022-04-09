@@ -1,5 +1,8 @@
 package Model;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 public class NormalDate
 {
     private String month;
@@ -57,4 +60,15 @@ public class NormalDate
                 "-" + month +
                 "-" + day;
     }
-}
+
+    public boolean verifyDate(int year, int month, int day){
+        LocalDate parseStart = LocalDate.parse(getYear() + "-" + getMonth() + "-" + getDay());
+        LocalDate localDate = LocalDate.now();
+if(parseStart.isAfter(localDate)){
+    System.out.println("DATE IS IN THE FUTURE");
+    return true;
+
+    }
+        System.out.println("FALSE");
+return false;
+}}

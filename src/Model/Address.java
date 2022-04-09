@@ -126,6 +126,10 @@ public class Address
             this.type = "Dr.";
         }
 
+        if (type.matches("")){
+            this.type = "";
+        }
+
     }
 
     /**
