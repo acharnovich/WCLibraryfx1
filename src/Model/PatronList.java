@@ -136,9 +136,9 @@ public class PatronList
            {
 
 
-               if (users.get(i).getEmail().contains(search))
+               if (users.get(i).getEmail().toLowerCase().contains(search.toLowerCase()))
                {
-                   System.out.println("EMAIL EXISTS!");
+
                    return true;
                }
            }
@@ -171,7 +171,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPatronCardNum().equalsIgnoreCase(search))
+                if (users.get(i).getPatronCardNum().contains(search))
                 {
                     System.out.println("Card Exists EXISTS!");
                     return true;
@@ -207,7 +207,7 @@ public class PatronList
 
                 {
 
-                    if (users.get(i).getPhoneNumber().toString().equals(search))
+                    if (users.get(i).getPhoneNumber().toString().contains(search))
                     {
                         System.out.println("Phone EXISTS!");
                         return true;
@@ -243,7 +243,7 @@ public class PatronList
             {
 
 
-                if (users.get(i).getEmail().contains(search))
+                if (users.get(i).getEmail().toLowerCase().contains(search.toLowerCase()))
                 {
                     ObservableList temp = FXCollections.observableArrayList();
                     temp.addAll(users.get(i));
@@ -265,7 +265,7 @@ public class PatronList
         System.out.println("No Result");
         return null;
     }
-    public Person searchCard(String search){
+    public ObservableList searchCard(String search){
 
         try
         {
@@ -283,10 +283,10 @@ public class PatronList
             {
 
 
-                if (users.get(i).getPatronCardNum().equalsIgnoreCase(search))
+                if (users.get(i).getPatronCardNum().contains(search))
                 {
-                    System.out.println("EMAIL EXISTS!");
-                    return users.get(i);
+                    ObservableList temp = FXCollections.observableArrayList();
+                    temp.addAll(users.get(i));
                 }
             }
             // close reader
@@ -300,7 +300,7 @@ public class PatronList
         System.out.println("No Result, Name");
         return null;
     }
-    public Person searchPhone(String search){
+    public ObservableList searchPhone(String search){
 
         try
         {
@@ -317,10 +317,11 @@ public class PatronList
             for (int i = 0; i < users.size(); i++)
             {
 
-                    if (users.get(i).getPhoneNumber().equals(search))
+                    if (users.get(i).getPhoneNumber().contains(search))
                     {
-
-                        return users.get(i);
+                        ObservableList temp = FXCollections.observableArrayList();
+                        temp.addAll(users.get(i));
+                        return temp;
                     }
 
 
@@ -335,6 +336,77 @@ public class PatronList
 
         System.out.println("No Result");
         return null;
+    }
+
+    public ObservableList searchCardExact(String search){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Patron> users = new Gson().fromJson(reader, new TypeToken<ArrayList<Patron>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getPatronCardNum().equals(search))
+                {
+                    ObservableList temp = FXCollections.observableArrayList();
+                    temp.addAll(users.get(i));
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result, Name");
+        return null;
+    }
+
+    public boolean foundCardExact(String search){
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Patron> users = new Gson().fromJson(reader, new TypeToken<ArrayList<Patron>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getPatronCardNum().equals(search))
+                {
+                    System.out.println("Card Exists EXISTS!");
+                    return true;
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Name Does Not Exist!");
+        return false;
     }
 
 

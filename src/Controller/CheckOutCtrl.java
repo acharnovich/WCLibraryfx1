@@ -94,7 +94,7 @@ public class CheckOutCtrl
 
                 // Get the text entered in the library card number text field, run foundCard method on it, and
                 // assign resulting Boolean to Boolean result
-                Boolean result = patrons.foundCard(libraryCardNumTextField.getText());
+                Boolean result = patrons.foundCardExact(libraryCardNumTextField.getText());
 
                 // if the card was not found...
                 if (result == false)
@@ -110,7 +110,7 @@ public class CheckOutCtrl
                 // otherwise...
                 else
                 {
-                    if (patrons.foundCard(libraryCardNumTextField.getText()) == true)
+                    if (patrons.foundCardExact(libraryCardNumTextField.getText()) == true)
                     {
                         Alert noLibraryCard = new Alert(Alert.AlertType.CONFIRMATION);
                         // set the window title

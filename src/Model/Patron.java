@@ -3,6 +3,7 @@ package Model;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Patron extends Person
 {
@@ -22,6 +23,7 @@ public class Patron extends Person
         super(name, dateofBirth, address, phoneNumber, email);
         this.patronCardNum = patronCardNum;
         setAge(getYears());
+
     }
 
 

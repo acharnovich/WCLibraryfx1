@@ -276,7 +276,7 @@ public class SearchCtrl {
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
                     ObservableList<Person> people = FXCollections.observableArrayList();
-                    people.add(pList.searchCard(searchPersonTextField.getText()));
+                    people.addAll(pList.searchCard(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
                 }
                 if(sList.foundUserID(searchPersonTextField.getText()) == true){
@@ -309,7 +309,7 @@ public class SearchCtrl {
                     ObservableList<Person> people = FXCollections.observableArrayList();
                     for (int i = 0; i <= people.size()-1; i++)
                     {
-                        people.add(pList.searchPhone(searchPersonTextField.getText()));
+                        people.addAll(pList.searchPhone(searchPersonTextField.getText()));
                         personContenTbl.setItems(people);
                     }
 

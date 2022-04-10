@@ -20,8 +20,10 @@ import javafx.scene.shape.Line;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.function.UnaryOperator;
 
 public class AccountCtrl
@@ -327,6 +329,7 @@ public class AccountCtrl
         statusBx = new ChoiceBox<>();
 
 
+
     }
 
     @FXML
@@ -338,6 +341,8 @@ public class AccountCtrl
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewPatronUI");
             this.radioBPane.setRight(content);
+
+
 
 
         });
@@ -376,15 +381,23 @@ public class AccountCtrl
             lastFourTxt2.setVisible(true);
         });
     }
+@FXML
+public void generateCard(ActionEvent E){
+    Random randomCard = new Random();
+    int n = 10000000 + randomCard.nextInt(90000000);
+    cardTxt.setText(String.valueOf(n));
 
+}
 
 
     @FXML
     public void enablePatron()
     {
+
+
         NormalDate temp = new NormalDate(yearTxt.getText(),monthTxt.getText(),dayTxt.getText());
 
-        boolean disabled = (nameTxt.getText().isEmpty() || yearTxt.getText().isEmpty() || monthTxt.getText().isEmpty() && dayTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() && areaTxt.getText().length() < 3 || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty() || cardTxt.getText().isEmpty());
+        boolean disabled = (nameTxt.getText().isEmpty() || yearTxt.getText().isEmpty() || monthTxt.getText().isEmpty() && dayTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() && areaTxt.getText().length() < 3 || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty());
         patronFillable.setOnKeyPressed(keyEvent ->
         {
 
@@ -517,15 +530,9 @@ public class AccountCtrl
             }
         }));
 
-        cardTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
-            @Override
-            public TextFormatter.Change apply(TextFormatter.Change change) {
-                String value = change.getText();
-                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 8) {
-                    return change;}
-                return null;
-            }
-        }));
+
+
+
 
         streetNumTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
             @Override
@@ -637,6 +644,7 @@ public class AccountCtrl
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
+
         NormalDate temp = new NormalDate(yearTxt.getText(),monthTxt.getText(),dayTxt.getText());
 
 
@@ -685,17 +693,6 @@ public class AccountCtrl
                     confirm.showAndWait();
 
                 }
-
-                if (cardTxt.getText().length() != 8 && patronList.foundCard(cardTxt.getText()) == true)
-                {
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("Card Number!");
-                    confirm.setContentText("Check to make sure card number equals 8 and does not already exist. Will be developed auto generate the number in future updates.");
-                    confirm.showAndWait();
-
-                }
-
-
                 if (!emailText.getText().contains("@"))
                 {
                     Alert confirm = new Alert(Alert.AlertType.ERROR);

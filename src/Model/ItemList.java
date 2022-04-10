@@ -383,7 +383,6 @@ public class ItemList {
                 if (books.get(i).getTitle().equals(search))
                 {
                     ObservableList temp = FXCollections.observableArrayList();
-                    System.out.println("EMAIL EXISTS!");
                     temp.addAll(books.get(i));
                     return temp;
                 }
@@ -392,7 +391,6 @@ public class ItemList {
                 {
 
                     ObservableList temp = FXCollections.observableArrayList();
-                    System.out.println("EMAIL EXISTS!");
                     temp.addAll(books.get(i));
                     return temp;
                 }
@@ -489,6 +487,7 @@ public class ItemList {
                     ObservableList temp = FXCollections.observableArrayList();
                     temp.add(audios.get(i));
                     return temp;
+
                 }
             }
 
