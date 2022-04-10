@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class CheckOutCtrl {
+public class CheckOutCtrl
+{
 
     // FXML Components
     @FXML
@@ -60,13 +61,19 @@ public class CheckOutCtrl {
     @FXML
     private TableView checkOutDueDateSeparate;
 
+    ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
+
+    ObservableList<Item> items = FXCollections.observableArrayList();
+
     // other attributes
     private int cardNumberEntered;              // the patron card number entered
     private int itemOut;                        // the item ID number entered
 
 
-    public void handleBeginCheckoutClick(javafx.event.ActionEvent actionEvent) {
-        beginCheckoutButton.setOnMouseClicked(mouseEvent -> {
+    public void handleBeginCheckoutClick(javafx.event.ActionEvent actionEvent)
+    {
+        beginCheckoutButton.setOnMouseClicked(mouseEvent ->
+        {
 
             // if there's nothing in the library card number text field, then...
             if (libraryCardNumTextField.getText().isEmpty())
@@ -103,16 +110,17 @@ public class CheckOutCtrl {
                 // otherwise...
                 else
                 {
-                   if (patrons.foundCard(libraryCardNumTextField.getText()) == true){
-                       Alert noLibraryCard = new Alert(Alert.AlertType.CONFIRMATION);
-                       // set the window title
-                       noLibraryCard.setHeaderText("Patron Found");
-                       // set the text inside the window
-                       noLibraryCard.setContentText("Patron Card Found. Please start adding item ID numbers to the checkout transaction");
-                       noLibraryCard.showAndWait();
-            itemIDTextField.setDisable(false);
-            checkOutItemButton.setDisable(false);
-                }
+                    if (patrons.foundCard(libraryCardNumTextField.getText()) == true)
+                    {
+                        Alert noLibraryCard = new Alert(Alert.AlertType.CONFIRMATION);
+                        // set the window title
+                        noLibraryCard.setHeaderText("Patron Found");
+                        // set the text inside the window
+                        noLibraryCard.setContentText("Patron Card Found. Please start adding item ID numbers to the checkout transaction");
+                        noLibraryCard.showAndWait();
+                        itemIDTextField.setDisable(false);
+                        checkOutItemButton.setDisable(false);
+                    }
                     // get the text from the library card number text field, parse to int, and assign to cardNumberEntered
                     cardNumberEntered = Integer.parseInt(libraryCardNumTextField.getText());
                 }
@@ -122,8 +130,10 @@ public class CheckOutCtrl {
 
     }
 
-    public void handleCheckOutItemClick(javafx.event.ActionEvent actionEvent) {
-        checkOutItemButton.setOnMouseClicked(mouseEvent -> {
+    public void handleCheckOutItemClick(javafx.event.ActionEvent actionEvent)
+    {
+        checkOutItemButton.setOnMouseClicked(mouseEvent ->
+        {
 
             // if there's nothing in the item ID text field, then...
             if (itemIDTextField.getText().isEmpty())
@@ -141,7 +151,7 @@ public class CheckOutCtrl {
             {
                 ItemList iList = new ItemList();
 
-                if(iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
+                if (iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
                 {
                     finishAndPrintButton.setDisable(false);
                     finishCheckoutButton.setDisable(false);
@@ -149,137 +159,131 @@ public class CheckOutCtrl {
 
                     if (iList.bookReturn(itemIDTextField.getText()) != null)
                     {
-                            // get today's date
-                            LocalDate today = LocalDate.now();
+                        // get today's date
+                        LocalDate today = LocalDate.now();
 
-                            // Call today's toString and assign the value to a String named stringDateOut
-                            String stringDateOut = today.toString();
+                        // Call today's toString and assign the value to a String named stringDateOut
+                        String stringDateOut = today.toString();
 
-                            // Create a String array named dateSplit and split stringDateOut where dashes appear
-                            String[] dateSplit = stringDateOut.split("-", 0);
+                        // Create a String array named dateSplit and split stringDateOut where dashes appear
+                        String[] dateSplit = stringDateOut.split("-", 0);
 
-                            // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
-                            // NormalDate object named dateOut
-                            NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
+                        // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
+                        // NormalDate object named dateOut
+                        NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
-                            // create a temp checkout object
-                            CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
-                            checkoutTemp.LoadCheckouts(checkoutTemp);
+                        // create a temp checkout object
 
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
-                            ObservableList<Item> items = FXCollections.observableArrayList();
-                            items.add(iList.bookReturn(itemIDTextField.getText()));
-                            checkoutTable.setItems(items);
+                        CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
+                        checkoutTemp.LoadCheckouts(checkoutTemp);
 
-                            checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
-                            ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
-                            checkouts.add(checkoutTemp);
-                            checkOutDueDateSeparate.setItems(checkouts);
+                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+                        items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                        checkoutTable.setItems(items);
+
+                        checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
+
+
+                        checkouts.addAll(checkoutTemp);
+                        checkOutDueDateSeparate.setItems(checkouts);
                         Alert bookAdded = new Alert(Alert.AlertType.CONFIRMATION);
                         bookAdded.setHeaderText("Book Added to Checkout");
                         bookAdded.setContentText("Success! Book has peen added to Patron Accout:" + libraryCardNumTextField.getText());
                         bookAdded.showAndWait();
 
 
-
-                        }
-
-                        if (iList.movieReturn(itemIDTextField.getText()) != null)
-                        {
-
-                            // get today's date
-                            LocalDate today = LocalDate.now();
-
-                            // Call today's toString and assign the value to a String named stringDateOut
-                            String stringDateOut = today.toString();
-
-                            // Create a String array named dateSplit and split stringDateOut where dashes appear
-                            String[] dateSplit = stringDateOut.split("-", 0);
-
-                            // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
-                            // NormalDate object named dateOut
-                            NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
-
-                            // create a temp checkout object
-                            CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
-                            checkoutTemp.LoadCheckouts(checkoutTemp);
-
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
-                            ObservableList<Item> items = FXCollections.observableArrayList();
-                            items.add(iList.movieReturn(itemIDTextField.getText()));
-                            checkoutTable.setItems(items);
-
-                            checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
-                            ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
-                            checkouts.add(checkoutTemp);
-                            checkOutDueDateSeparate.setItems(checkouts);
-                            Alert movieAdded = new Alert(Alert.AlertType.CONFIRMATION);
-                            movieAdded.setHeaderText("Movie Added to Checkout");
-                            movieAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
-                            movieAdded.showAndWait();
-
-
-                        }
-                        if (iList.audioReturn(itemIDTextField.getText()) != null)
-                        {
-                            // get today's date
-                            LocalDate today = LocalDate.now();
-
-                            // Call today's toString and assign the value to a String named stringDateOut
-                            String stringDateOut = today.toString();
-
-                            // Create a String array named dateSplit and split stringDateOut where dashes appear
-                            String[] dateSplit = stringDateOut.split("-", 0);
-
-                            // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
-                            // NormalDate object named dateOut
-                            NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
-
-                            // create a temp checkout object
-                            CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
-                            checkoutTemp.LoadCheckouts(checkoutTemp);
-
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
-                            ObservableList<Item> items = FXCollections.observableArrayList();
-                            items.add(iList.audioReturn(itemIDTextField.getText()));
-                            checkoutTable.setItems(items);
-
-                            checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
-                            ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
-                            checkouts.add(checkoutTemp);
-                            checkOutDueDateSeparate.setItems(checkouts);
-                            Alert audioAdded = new Alert(Alert.AlertType.CONFIRMATION);
-                            audioAdded.setHeaderText("Audio Added");
-                            audioAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
-                            audioAdded.showAndWait();
-
-                        }
                     }
-                    else
+
+                    if (iList.movieReturn(itemIDTextField.getText()) != null)
                     {
-                        Alert noItemID = new Alert(Alert.AlertType.ERROR);
-                        noItemID.setHeaderText("No Item Found");
-                        noItemID.setContentText("No Item found. Please enter a different Item ID Number.");
-                        noItemID.showAndWait();
+
+                        // get today's date
+                        LocalDate today = LocalDate.now();
+
+                        // Call today's toString and assign the value to a String named stringDateOut
+                        String stringDateOut = today.toString();
+
+                        // Create a String array named dateSplit and split stringDateOut where dashes appear
+                        String[] dateSplit = stringDateOut.split("-", 0);
+
+                        // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
+                        // NormalDate object named dateOut
+                        NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
+
+                        // create a temp checkout object
+                        CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
+                        checkoutTemp.LoadCheckouts(checkoutTemp);
+
+                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+                        items.addAll(iList.movieReturn(itemIDTextField.getText()));
+                        checkoutTable.setItems(items);
+
+                        checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
+
+                        checkouts.add(checkoutTemp);
+                        checkOutDueDateSeparate.setItems(checkouts);
+                        Alert movieAdded = new Alert(Alert.AlertType.CONFIRMATION);
+                        movieAdded.setHeaderText("Movie Added to Checkout");
+                        movieAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        movieAdded.showAndWait();
+
+
                     }
+                    if (iList.audioReturn(itemIDTextField.getText()) != null)
+                    {
+                        // get today's date
+                        LocalDate today = LocalDate.now();
+
+                        // Call today's toString and assign the value to a String named stringDateOut
+                        String stringDateOut = today.toString();
+
+                        // Create a String array named dateSplit and split stringDateOut where dashes appear
+                        String[] dateSplit = stringDateOut.split("-", 0);
+
+                        // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
+                        // NormalDate object named dateOut
+                        NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
+
+                        // create a temp checkout object
+                        CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
+                        checkoutTemp.LoadCheckouts(checkoutTemp);
+
+                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+                        items.addAll(iList.audioReturn(itemIDTextField.getText()));
+                        checkoutTable.setItems(items);
+
+                        checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
+
+                        checkouts.add(checkoutTemp);
+                        checkOutDueDateSeparate.setItems(checkouts);
+                        Alert audioAdded = new Alert(Alert.AlertType.CONFIRMATION);
+                        audioAdded.setHeaderText("Audio Added");
+                        audioAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        audioAdded.showAndWait();
+
+                    }
+                } else
+                {
+                    Alert noItemID = new Alert(Alert.AlertType.ERROR);
+                    noItemID.setHeaderText("No Item Found");
+                    noItemID.setContentText("No Item found. Please enter a different Item ID Number.");
+                    noItemID.showAndWait();
+                }
             }
 
         });
     }
-   public void underDevCheckOut(javafx.event.ActionEvent actionEvent){
-finishCheckoutButton.setOnMouseClicked(mouseEvent -> {
-    Alert noItemID = new Alert(Alert.AlertType.ERROR);
-    noItemID.setHeaderText("Under Development");
-    noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
-    noItemID.showAndWait();
-});
-   }
 
-    public void underDevPrint(javafx.event.ActionEvent actionEvent){
-        finishAndPrintButton.setOnMouseClicked(mouseEvent -> {
+    public void underDevCheckOut(javafx.event.ActionEvent actionEvent)
+    {
+        finishCheckoutButton.setOnMouseClicked(mouseEvent ->
+        {
             Alert noItemID = new Alert(Alert.AlertType.ERROR);
             noItemID.setHeaderText("Under Development");
             noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
@@ -287,6 +291,16 @@ finishCheckoutButton.setOnMouseClicked(mouseEvent -> {
         });
     }
 
+    public void underDevPrint(javafx.event.ActionEvent actionEvent)
+    {
+        finishAndPrintButton.setOnMouseClicked(mouseEvent ->
+        {
+            Alert noItemID = new Alert(Alert.AlertType.ERROR);
+            noItemID.setHeaderText("Under Development");
+            noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
+            noItemID.showAndWait();
+        });
+    }
 
 
 }

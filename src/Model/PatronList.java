@@ -2,6 +2,8 @@ package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Reader;
 import java.io.Writer;
@@ -134,7 +136,7 @@ public class PatronList
            {
 
 
-               if (users.get(i).getEmail().equalsIgnoreCase(search))
+               if (users.get(i).getEmail().contains(search))
                {
                    System.out.println("EMAIL EXISTS!");
                    return true;
@@ -223,7 +225,7 @@ public class PatronList
         System.out.println("Phone Does Not Exist!");
         return false;
     }
-    public Person searchEmail(String search){
+    public ObservableList searchEmail(String search){
 
         try
         {
@@ -241,10 +243,15 @@ public class PatronList
             {
 
 
-                if (users.get(i).getEmail().equalsIgnoreCase(search))
+                if (users.get(i).getEmail().contains(search))
                 {
+                    ObservableList temp = FXCollections.observableArrayList();
+                    temp.addAll(users.get(i));
+
                     System.out.println("EMAIL EXISTS!");
-                    return users.get(i);
+
+
+                    return temp;
                 }
             }
             // close reader

@@ -14,6 +14,8 @@ package Model;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -360,7 +362,7 @@ public class ItemList {
     }
 
 
-    public Item bookReturn(String search){
+    public ObservableList bookReturn(String search){
 
         try
         {
@@ -380,14 +382,19 @@ public class ItemList {
 
                 if (books.get(i).getTitle().equals(search))
                 {
+                    ObservableList temp = FXCollections.observableArrayList();
                     System.out.println("EMAIL EXISTS!");
-                    return books.get(i);
+                    temp.addAll(books.get(i));
+                    return temp;
                 }
 
                 if (String.valueOf(books.get(i).getItemID()).equals(search))
                 {
+
+                    ObservableList temp = FXCollections.observableArrayList();
                     System.out.println("EMAIL EXISTS!");
-                    return books.get(i);
+                    temp.addAll(books.get(i));
+                    return temp;
                 }
             }
 
@@ -404,7 +411,7 @@ public class ItemList {
         return null;
     }
 
-    public Item movieReturn(String search){
+    public ObservableList movieReturn(String search){
 
         try
         {
@@ -424,14 +431,18 @@ public class ItemList {
 
                 if (String.valueOf(movies.get(i).getItemID()).equals(search))
                 {
-                    System.out.println("EMAIL EXISTS!");
-                    return movies.get(i);
+                    ObservableList temp = FXCollections.observableArrayList();
+                    temp.add(movies.get(i));
+
+                    return temp;
                 }
 
                 if (movies.get(i).getTitle().equals(search))
                 {
-                    System.out.println("EMAIL EXISTS!");
-                    return movies.get(i);
+                    ObservableList temp = FXCollections.observableArrayList();
+                    temp.add(movies.get(i));
+
+                    return temp;
                 }
             }
 
@@ -448,7 +459,7 @@ public class ItemList {
         return null;
     }
 
-    public Item audioReturn(String search){
+    public ObservableList audioReturn(String search){
 
         try
         {
@@ -468,14 +479,16 @@ public class ItemList {
 
                 if (String.valueOf(audios.get(i).getItemID()).equals(search))
                 {
-                    System.out.println("EMAIL EXISTS!");
-                    return audios.get(i);
+                  ObservableList temp = FXCollections.observableArrayList();
+                  temp.add(audios.get(i));
+                    return temp;
                 }
 
                 if (audios.get(i).getTitle().equals(search))
                 {
-                    System.out.println("EMAIL EXISTS!");
-                    return audios.get(i);
+                    ObservableList temp = FXCollections.observableArrayList();
+                    temp.add(audios.get(i));
+                    return temp;
                 }
             }
 

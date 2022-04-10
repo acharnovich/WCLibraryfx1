@@ -231,6 +231,7 @@ public class SearchCtrl {
             PatronList pList = new PatronList();
             StaffList sList = new StaffList();
             if(searchPersonByEmailRadioButton.isSelected() == true){
+                ObservableList<Person> people = FXCollections.observableArrayList();
 
             if(pList.foundEmail(searchPersonTextField.getText()) == true){
                 System.out.println("Person Found");
@@ -240,9 +241,11 @@ public class SearchCtrl {
                 addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                 phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                 emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-                ObservableList<Person> people = FXCollections.observableArrayList();
-                people.add(pList.searchEmail(searchPersonTextField.getText()));
-personContenTbl.setItems(people);
+
+
+                people.addAll(pList.searchEmail(searchPersonTextField.getText()));
+
+                personContenTbl.setItems(people);
             }
                 if(sList.foundEmail(searchPersonTextField.getText()) == true){
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
@@ -250,8 +253,8 @@ personContenTbl.setItems(people);
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-                    ObservableList<Person> people = FXCollections.observableArrayList();
-                    people.add(sList.searchEmail(searchPersonTextField.getText()));
+
+                    people.addAll(sList.searchEmail(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
 
                 }if(pList.foundEmail(searchPersonTextField.getText()) == false && sList.foundEmail(searchPersonTextField.getText()) == false)
@@ -361,7 +364,7 @@ personContenTbl.setItems(people);
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         ObservableList<Item> items = FXCollections.observableArrayList();
-                        items.add(iList.bookReturn(searchItemTextField.getText()));
+                        items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
 
@@ -374,7 +377,7 @@ personContenTbl.setItems(people);
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         ObservableList<Item> items = FXCollections.observableArrayList();
-                        items.add(iList.movieReturn(searchItemTextField.getText()));
+                        items.addAll(iList.movieReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                     if (iList.audioReturn(searchItemTextField.getText()) != null)
@@ -386,7 +389,7 @@ personContenTbl.setItems(people);
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         ObservableList<Item> items = FXCollections.observableArrayList();
-                        items.add(iList.audioReturn(searchItemTextField.getText()));
+                        items.addAll(iList.audioReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                 }
@@ -412,7 +415,7 @@ personContenTbl.setItems(people);
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         ObservableList<Item> items = FXCollections.observableArrayList();
-                        items.add(iList.bookReturn(searchItemTextField.getText()));
+                        items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                     if (iList.movieReturn(searchItemTextField.getText()) != null)
@@ -424,7 +427,7 @@ personContenTbl.setItems(people);
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         ObservableList<Item> items = FXCollections.observableArrayList();
-                        items.add(iList.movieReturn(searchItemTextField.getText()));
+                        items.addAll(iList.movieReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                     if (iList.audioReturn(searchItemTextField.getText()) != null)
@@ -436,7 +439,7 @@ personContenTbl.setItems(people);
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         ObservableList<Item> items = FXCollections.observableArrayList();
-                        items.add(iList.audioReturn(searchItemTextField.getText()));
+                        items.addAll(iList.audioReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                 }
