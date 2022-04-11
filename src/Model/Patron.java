@@ -2,6 +2,7 @@ package Model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -60,10 +61,29 @@ public class Patron extends Person
     @Override
     public int getYears()
     {
-        LocalDate parseStart = LocalDate.parse(getDateofBirth().getYear() + "-" + getDateofBirth().getMonth() +"-"+getDateofBirth().getDay());
-        LocalDate ageTemp;
-        LocalDate localDate = LocalDate.now();
+        if(getDateofBirth().getMonth().length() != 2 && getDateofBirth().getDay().length() != 2){
 
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parseStart = LocalDate.parse(getDateofBirth().getYear() + "-" +"0" +getDateofBirth().getMonth() +"-"+ "0"+ getDateofBirth().getDay());
+            LocalDate localDate = LocalDate.now();
+            return Period.between(parseStart, localDate).getYears();}
+
+        if(getDateofBirth().getMonth().length() != 2){
+
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parseStart = LocalDate.parse(getDateofBirth().getYear() + "-" +"0"+getDateofBirth().getMonth() +"-"+ getDateofBirth().getDay());
+            LocalDate localDate = LocalDate.now();
+            return Period.between(parseStart, localDate).getYears();}
+
+        if(getDateofBirth().getDay().length() !=2){
+
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parseStart = LocalDate.parse(getDateofBirth().getYear() + "-" +  getDateofBirth().getMonth() +"-"+ "0" +getDateofBirth().getDay());
+            LocalDate localDate = LocalDate.now();
+            return Period.between(parseStart, localDate).getYears();}
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parseStart = LocalDate.parse(getDateofBirth().getYear() + "-" + getDateofBirth().getMonth() +"-"+ getDateofBirth().getDay());
+        LocalDate localDate = LocalDate.now();
         return Period.between(parseStart, localDate).getYears();
     }
     //TBD in sprint 2
