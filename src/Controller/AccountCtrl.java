@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 public class AccountCtrl
 {
@@ -462,16 +463,6 @@ public void generateCard(){
             }
         });
 
-
-
-
-
-
-
-
-
-
-
         streetNumTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
@@ -512,6 +503,18 @@ public void generateCard(){
             }
         }));
 
+        lastFourTxt.setOnKeyReleased(mouseEvent->{if(lastFourTxt.getText().length() < 4){
+            lastFourTxt.setStyle("-fx-text-fill: red;");
+        }else {lastFourTxt.setStyle("-fx-text-fill: black;");}});
+
+        areaTxt.setOnKeyReleased(mouseEvent->{if(areaTxt.getText().length() < 3){
+            areaTxt.setStyle("-fx-text-fill: red;");
+        }else {areaTxt.setStyle("-fx-text-fill: black;");}});
+
+        localTxt.setOnKeyReleased(mouseEvent->{if(localTxt.getText().length() < 3){
+            localTxt.setStyle("-fx-text-fill: red;");
+        }else {localTxt.setStyle("-fx-text-fill: black;");}});
+
         countryTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
@@ -542,39 +545,28 @@ public void generateCard(){
             }
         }));
 
-        areaTxt.textProperty().addListener(new ChangeListener<String>()
-        {
+        birthPicker.getEditor().setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
             @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
-            {
-                if (!t1.matches("\\d*")) {
-                    areaTxt.setText(t1.replaceAll("[^\\d]", ""));
-                }
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 8) {
+                    return change;}
+                return null;
             }
-        });
+        }));
+    }
 
 
-        lastFourTxt.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
-            {
-                if (!t1.matches("\\d*")) {
-                    lastFourTxt.setText(t1.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
 
-        localTxt.textProperty().addListener(new ChangeListener<String>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String s, String t1)
-            {
-                if (!t1.matches("\\d*")) {
-                    localTxt.setText(t1.replaceAll("[^\\d]", ""));
-                }
-            }
-        });
+    @FXML
+    public boolean verifyCreatePatronAccount(){
+        LocalDate tempDate = birthPicker.getValue();
+        NormalDate temp = new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth()));
+        patronList = new PatronList();
+
+        if(patronList.verifyEmail(emailText.getText()) == true||countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11||!emailText.getText().contains("@")||zipTxt.getText().length() != 5||tempDate.isAfter(LocalDate.now())){
+            return true;
+        }else {return false;}
 
 
     }
@@ -590,7 +582,12 @@ LocalDate tempDate = birthPicker.getValue();
         patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
         {
-
+            if(tempDate.isAfter(LocalDate.now())){
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Date is the Future!");
+                confirm.setContentText("Change the date to before current date.");
+                confirm.showAndWait();
+            }
 
             if (patronList.verifyEmail(emailText.getText()) == true)
             {
@@ -636,9 +633,9 @@ LocalDate tempDate = birthPicker.getValue();
                     confirm.setContentText("Make sure Zip is 5 digits.");
                     confirm.showAndWait();
 
-                } else
-                {
-                    if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11)
+                }
+
+                    if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11 && verifyCreatePatronAccount() == false)
                     {
                         Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                                 zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
@@ -652,7 +649,7 @@ LocalDate tempDate = birthPicker.getValue();
                         confirm.showAndWait();
                     } else
                     {
-
+                        if(verifyCreatePatronAccount() == false){
                         Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()),String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                         zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
                         patronList.LoadPatron(tempPatron);
