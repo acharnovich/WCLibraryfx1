@@ -68,6 +68,8 @@ public class CheckOutCtrl
     // other attributes
     private int cardNumberEntered;              // the patron card number entered
     private int itemOut;                        // the item ID number entered
+    private AllCheckoutLists allCheckoutLists = new AllCheckoutLists();  // reference to AllCheckoutList object for json
+                                                                         // file update method calls
 
 
     public void handleBeginCheckoutClick(javafx.event.ActionEvent actionEvent)
@@ -143,7 +145,7 @@ public class CheckOutCtrl
                 // set the window title
                 enterItemError.setHeaderText("Error!");
                 // set the text inside the window
-                enterItemError.setContentText("Please enter a Item ID Number to check out items.");
+                enterItemError.setContentText("Please enter an Item ID Number to check out items.");
                 enterItemError.showAndWait();
             }
             // otherwise...
@@ -173,24 +175,41 @@ public class CheckOutCtrl
                         NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
                         // create a temp checkout object
+                        CheckOut checkoutTemp = new CheckOut(itemOut, cardNumberEntered, dateOut);
 
-                        CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
+                        // update the patron's checkout list to reflect the new checkout
+                        allCheckoutLists.updateCheckOutList(Integer.toString(cardNumberEntered), checkoutTemp);
+                        // load the checkout to the json
                         checkoutTemp.LoadCheckouts(checkoutTemp);
+                        // update the status of the item to checked out in the item list json
+                        iList.checkOutItem(itemIDTextField.getText());
 
+
+                        // display item ID in tableview
                         checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+
+                        // display item title in tableview
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
+                        // search for the book and then add it to items
                         items.addAll(iList.bookReturn(itemIDTextField.getText()));
+
+                        // display items in the checkout table
                         checkoutTable.setItems(items);
 
+                        // display the item due date
                         checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
 
-
+                        // add all checkouts
                         checkouts.addAll(checkoutTemp);
+
+                        // add the due dates
                         checkOutDueDateSeparate.setItems(checkouts);
+
+                        // display confirmation that book was checked out
                         Alert bookAdded = new Alert(Alert.AlertType.CONFIRMATION);
                         bookAdded.setHeaderText("Book Added to Checkout");
-                        bookAdded.setContentText("Success! Book has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        bookAdded.setContentText("Success! Book has been added to Patron Account:" + libraryCardNumTextField.getText());
                         bookAdded.showAndWait();
 
 
@@ -213,22 +232,40 @@ public class CheckOutCtrl
                         NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
                         // create a temp checkout object
-                        CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
-                        checkoutTemp.LoadCheckouts(checkoutTemp);
+                        CheckOut checkoutTemp = new CheckOut(itemOut, cardNumberEntered, dateOut);
 
+                        // update the patron's checkout list to reflect the new checkout
+                        allCheckoutLists.updateCheckOutList(Integer.toString(cardNumberEntered), checkoutTemp);
+                        // load the checkout to the json
+                        checkoutTemp.LoadCheckouts(checkoutTemp);
+                        // update the status of the item to checked out in the item list json
+                        iList.checkOutItem(itemIDTextField.getText());
+
+                        // display item ID to tableview
                         checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+
+                        // display item title to tableview
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
+                        // search movie and add it to items
                         items.addAll(iList.movieReturn(itemIDTextField.getText()));
+
+                        // add items to the checkout table
                         checkoutTable.setItems(items);
 
+                        // display due date in tableview
                         checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
 
-                        checkouts.add(checkoutTemp);
+                        // add all checkouts
+                        checkouts.addAll(checkoutTemp);
+
+                        // add the due dates
                         checkOutDueDateSeparate.setItems(checkouts);
+
+                        // display confirmation that movie was checked out
                         Alert movieAdded = new Alert(Alert.AlertType.CONFIRMATION);
                         movieAdded.setHeaderText("Movie Added to Checkout");
-                        movieAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        movieAdded.setContentText("Success! Movie has been added to Patron Account:" + libraryCardNumTextField.getText());
                         movieAdded.showAndWait();
 
 
@@ -249,22 +286,40 @@ public class CheckOutCtrl
                         NormalDate dateOut = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
                         // create a temp checkout object
-                        CheckOut checkoutTemp = new CheckOut(cardNumberEntered, itemOut, dateOut);
-                        checkoutTemp.LoadCheckouts(checkoutTemp);
+                        CheckOut checkoutTemp = new CheckOut(itemOut, cardNumberEntered, dateOut);
 
+                        // update the patron's checkout list to reflect the new checkout
+                        allCheckoutLists.updateCheckOutList(Integer.toString(cardNumberEntered), checkoutTemp);
+                        // load the checkout to the json
+                        checkoutTemp.LoadCheckouts(checkoutTemp);
+                        // update the status of the item to checked out in the item list json
+                        iList.checkOutItem(itemIDTextField.getText());
+
+                        // display the item id to the tableview
                         checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+
+                        // display the title to the tableview
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
+                        // search for audiobook and add to items
                         items.addAll(iList.audioReturn(itemIDTextField.getText()));
+
+                        // add items to checkout table
                         checkoutTable.setItems(items);
 
+                        // display due date in tableview
                         checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
 
-                        checkouts.add(checkoutTemp);
+                        // add all checkouts
+                        checkouts.addAll(checkoutTemp);
+
+                        // add due dates
                         checkOutDueDateSeparate.setItems(checkouts);
+
+                        // display confirmation audiobook is checked out
                         Alert audioAdded = new Alert(Alert.AlertType.CONFIRMATION);
-                        audioAdded.setHeaderText("Audio Added");
-                        audioAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        audioAdded.setHeaderText("Audiobook Added to Checkout");
+                        audioAdded.setContentText("Success! Audiobook has been added to Patron Account:" + libraryCardNumTextField.getText());
                         audioAdded.showAndWait();
 
                     }

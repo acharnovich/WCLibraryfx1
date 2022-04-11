@@ -57,6 +57,11 @@ public class PatronCheckoutList
         return checkouts;
     }
 
+    public void setCheckouts(ArrayList<CheckOut> checkoutsInput)
+    {
+        checkouts = checkoutsInput;
+    }
+
 
 
 }
