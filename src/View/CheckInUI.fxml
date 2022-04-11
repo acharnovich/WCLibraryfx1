@@ -2,23 +2,27 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 
-
-<AnchorPane fx:id="checkInPane" prefHeight="391.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckInCtrl">
+<AnchorPane fx:id="checkInPane" prefHeight="430.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckInCtrl">
    <children>
       <Label fx:id="itemIDLabel" layoutX="28.0" layoutY="23.0" text="Item ID Number:" />
       <TextField fx:id="itemIDTextField" layoutX="162.0" layoutY="19.0" prefHeight="26.0" prefWidth="179.0" promptText="#######" />
       <Button fx:id="checkInItemButton" layoutX="363.0" layoutY="19.0" mnemonicParsing="false" text="Check In" />
-      <ScrollPane fx:id="checkoutScrollPane" layoutX="31.0" layoutY="62.0" prefHeight="322.0" prefWidth="664.0" />
-      <Label fx:id="TitleTableLabel" layoutX="344.0" layoutY="45.0" text="Title" />
-      <Label fx:id="dueDateTableLabel" layoutX="598.0" layoutY="45.0" text="Due Date" />
-      <Label fx:id="itemIDTableLabel" layoutX="72.0" layoutY="45.0" text="Item ID" />
-      <Line endX="-44.79998779296875" endY="283.0" layoutX="217.0" layoutY="101.0" startX="-44.79998779296875" startY="-39.0" />
-      <Line endX="296.39996337890625" endY="273.0" layoutX="260.0" layoutY="111.0" startX="296.39996337890625" startY="-49.0" />
-      <Button fx:id="finishCheckInButton" layoutX="251.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Finish Check In" />
+      <Button fx:id="finishCheckInButton" layoutX="252.0" layoutY="397.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Finish Check In" />
+      <TableView fx:id="checkInTable" layoutX="13.0" layoutY="56.0" prefHeight="334.0" prefWidth="499.0">
+         <columns>
+            <TableColumn fx:id="checkoutTableItemID" prefWidth="150.40002822875977" text="Item ID" />
+            <TableColumn fx:id="checkoutTableTitle" prefWidth="347.1999969482422" text="Title" />
+         </columns>
+      </TableView>
+      <TableView fx:id="finesTable" layoutX="512.0" layoutY="56.0" prefHeight="334.0" prefWidth="172.0">
+         <columns>
+            <TableColumn fx:id="checkoutTableDueDate" prefWidth="178.40001220703124" text="Fines" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>
