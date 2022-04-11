@@ -143,7 +143,7 @@ public class CheckOutCtrl
                 // set the window title
                 enterItemError.setHeaderText("Error!");
                 // set the text inside the window
-                enterItemError.setContentText("Please enter a Item ID Number to check out items.");
+                enterItemError.setContentText("Please enter an Item ID Number to check out items.");
                 enterItemError.showAndWait();
             }
             // otherwise...
@@ -190,7 +190,7 @@ public class CheckOutCtrl
                         checkOutDueDateSeparate.setItems(checkouts);
                         Alert bookAdded = new Alert(Alert.AlertType.CONFIRMATION);
                         bookAdded.setHeaderText("Book Added to Checkout");
-                        bookAdded.setContentText("Success! Book has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        bookAdded.setContentText("Success! Book has been added to Patron Account:" + libraryCardNumTextField.getText());
                         bookAdded.showAndWait();
 
 
@@ -228,7 +228,7 @@ public class CheckOutCtrl
                         checkOutDueDateSeparate.setItems(checkouts);
                         Alert movieAdded = new Alert(Alert.AlertType.CONFIRMATION);
                         movieAdded.setHeaderText("Movie Added to Checkout");
-                        movieAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        movieAdded.setContentText("Success! Movie has been added to Patron Account:" + libraryCardNumTextField.getText());
                         movieAdded.showAndWait();
 
 
@@ -263,8 +263,8 @@ public class CheckOutCtrl
                         checkouts.add(checkoutTemp);
                         checkOutDueDateSeparate.setItems(checkouts);
                         Alert audioAdded = new Alert(Alert.AlertType.CONFIRMATION);
-                        audioAdded.setHeaderText("Audio Added");
-                        audioAdded.setContentText("Success! Movie has peen added to Patron Accout:" + libraryCardNumTextField.getText());
+                        audioAdded.setHeaderText("Audiobook Added");
+                        audioAdded.setContentText("Success! Audiobook has been added to Patron Account:" + libraryCardNumTextField.getText());
                         audioAdded.showAndWait();
 
                     }
