@@ -62,7 +62,7 @@ public class NormalDate
     }
 
     public boolean verifyDate(int year, int month, int day){
-        LocalDate parseStart = LocalDate.parse(getYear() + "-" + getMonth() + "-" + getDay());
+        LocalDate parseStart = LocalDate.parse(Integer.valueOf(getYear()) +"-" + Integer.valueOf(getMonth()) + "-" + Integer.valueOf(getDay()));
         LocalDate localDate = LocalDate.now();
 if(parseStart.isAfter(localDate)){
     System.out.println("DATE IS IN THE FUTURE");
