@@ -10,11 +10,15 @@ import com.sun.javafx.charts.Legend;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -60,6 +64,15 @@ public class CheckOutCtrl
 
     @FXML
     private TableView checkOutDueDateSeparate;
+
+    @FXML
+    private Label confirmationLabel;
+
+    @FXML
+    private Button anotherPatronButton;
+
+    @FXML
+    private Button backToNavButton;
 
     ObservableList<CheckOut> checkouts = FXCollections.observableArrayList();
 
@@ -335,14 +348,24 @@ public class CheckOutCtrl
         });
     }
 
-    public void underDevCheckOut(javafx.event.ActionEvent actionEvent)
+    public void handleFinishCheckout(javafx.event.ActionEvent actionEvent)
     {
         finishCheckoutButton.setOnMouseClicked(mouseEvent ->
         {
-            Alert noItemID = new Alert(Alert.AlertType.ERROR);
-            noItemID.setHeaderText("Under Development");
-            noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
-            noItemID.showAndWait();
+            finishCheckoutButton.getScene().getWindow().hide();
+
+            Parent part = null;
+            try {
+                part = FXMLLoader.load(getClass().getResource("/View/FinishCheckoutConfirmation.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Checkout Complete");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 

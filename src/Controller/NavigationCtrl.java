@@ -121,7 +121,6 @@ public class NavigationCtrl {
     {
         removeItemBtn.setOnMouseClicked(mouseEvent -> {
 
-
             Parent part = null;
             try {
                 part = FXMLLoader.load(getClass().getResource("/View/ArchiveItemUI.fxml"));
