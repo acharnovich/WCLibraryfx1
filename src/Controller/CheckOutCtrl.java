@@ -68,6 +68,8 @@ public class CheckOutCtrl
     // other attributes
     private int cardNumberEntered;              // the patron card number entered
     private int itemOut;                        // the item ID number entered
+    private AllCheckoutLists allCheckoutLists = new AllCheckoutLists();  // reference to AllCheckoutList object for json
+                                                                         // file update method calls
 
 
     public void handleBeginCheckoutClick(javafx.event.ActionEvent actionEvent)
@@ -175,11 +177,13 @@ public class CheckOutCtrl
                         // create a temp checkout object
                         CheckOut checkoutTemp = new CheckOut(itemOut, cardNumberEntered, dateOut);
 
-                        // add the checkout to the checkouts json
+                        // update the patron's checkout list to reflect the new checkout
+                        allCheckoutLists.updateCheckOutList(Integer.toString(cardNumberEntered), checkoutTemp);
+                        // load the checkout to the json
                         checkoutTemp.LoadCheckouts(checkoutTemp);
-
                         // update the status of the item to checked out in the item list json
                         iList.checkOutItem(itemIDTextField.getText());
+
 
                         // display item ID in tableview
                         checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
@@ -230,9 +234,10 @@ public class CheckOutCtrl
                         // create a temp checkout object
                         CheckOut checkoutTemp = new CheckOut(itemOut, cardNumberEntered, dateOut);
 
+                        // update the patron's checkout list to reflect the new checkout
+                        allCheckoutLists.updateCheckOutList(Integer.toString(cardNumberEntered), checkoutTemp);
                         // load the checkout to the json
                         checkoutTemp.LoadCheckouts(checkoutTemp);
-
                         // update the status of the item to checked out in the item list json
                         iList.checkOutItem(itemIDTextField.getText());
 
@@ -283,9 +288,10 @@ public class CheckOutCtrl
                         // create a temp checkout object
                         CheckOut checkoutTemp = new CheckOut(itemOut, cardNumberEntered, dateOut);
 
+                        // update the patron's checkout list to reflect the new checkout
+                        allCheckoutLists.updateCheckOutList(Integer.toString(cardNumberEntered), checkoutTemp);
                         // load the checkout to the json
                         checkoutTemp.LoadCheckouts(checkoutTemp);
-
                         // update the status of the item to checked out in the item list json
                         iList.checkOutItem(itemIDTextField.getText());
 
