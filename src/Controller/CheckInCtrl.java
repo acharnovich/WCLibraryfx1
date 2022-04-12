@@ -3,13 +3,12 @@ package Controller;
 import Model.CheckOut;
 import Model.Item;
 import Model.ItemList;
-import Model.NormalDate;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
-import java.time.LocalDate;
 
 public class CheckInCtrl {
 
@@ -20,16 +19,16 @@ public class CheckInCtrl {
     private AnchorPane checkInPane;
 
     @FXML
-    private TableView<?> checkInTable;
+    private TableView<Item> checkInTable;
 
     @FXML
     private TableColumn<?, ?> checkoutTableDueDate;
 
     @FXML
-    private TableColumn<?, ?> checkoutTableItemID;
+    private TableColumn<Item, Integer> checkoutTableItemID;
 
     @FXML
-    private TableColumn<?, ?> checkoutTableTitle;
+    private TableColumn<Item, Integer> checkoutTableTitle;
 
     @FXML
     private TableView<?> finesTable;
@@ -44,6 +43,10 @@ public class CheckInCtrl {
     private TextField itemIDTextField;
 
     private int itemCheckIn;
+
+    ObservableList<CheckOut> checkins = FXCollections.observableArrayList();
+
+    ObservableList<Item> items = FXCollections.observableArrayList();
 
     public void handleCheckInItemClick(javafx.event.ActionEvent actionEvent)
     {
@@ -84,6 +87,15 @@ public class CheckInCtrl {
 
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
+
+                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                        // display item title in tableview
+
+                        items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                        checkInTable.setItems(items);
+
                         System.out.println(checkoutTransaction.toString());
 
                     }
