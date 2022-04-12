@@ -143,6 +143,7 @@ public class CheckOut
 
     public CheckOut searchCheckOut(String itemIDInput){
 
+        CheckOut checkoutToReturn = new CheckOut();
 
         try
         {
@@ -166,7 +167,7 @@ public class CheckOut
                 // if idAsString is the same as itemIDInput, return the checkout object
                 if (idAsString.equals(itemIDInput))
                 {
-                    return checkouts.get(i);
+                    checkoutToReturn = checkouts.get(i);
                 }
 
             }
@@ -177,7 +178,7 @@ public class CheckOut
 
         }
 
-        return null;
+        return checkoutToReturn;
     }
 
     // Accessor methods

@@ -87,6 +87,7 @@ public class CheckInCtrl {
 
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
+                        System.out.println(checkoutTransaction.toString());
 
                         checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
@@ -96,19 +97,39 @@ public class CheckInCtrl {
                         items.addAll(iList.bookReturn(itemIDTextField.getText()));
                         checkInTable.setItems(items);
 
-                        System.out.println(checkoutTransaction.toString());
-
                     }
 
                     if (iList.movieReturn(itemIDTextField.getText()) != null)
                     {
+                        // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
                         System.out.println(checkoutTransaction.toString());
+
+                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                        // display item title in tableview
+
+                        items.addAll(iList.movieReturn(itemIDTextField.getText()));
+                        checkInTable.setItems(items);
+
+
                     }
                     if (iList.audioReturn(itemIDTextField.getText()) != null)
                     {
+                        // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
                         System.out.println(checkoutTransaction.toString());
+
+                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                        // display item title in tableview
+
+                        items.addAll(iList.audioReturn(itemIDTextField.getText()));
+                        checkInTable.setItems(items);
+
+
                     }
                 } else
                 {
