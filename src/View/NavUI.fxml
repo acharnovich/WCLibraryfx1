@@ -17,7 +17,7 @@
                   <Button fx:id="removeItemBtn" mnemonicParsing="false" onAction="#handleRemoveItemClick" text="Remove Item" />
                   <Button fx:id="newAccountBtn" mnemonicParsing="false" onAction="#handleCreateAccount" text="New Account" />
                   <Button fx:id="checkoutBtn" mnemonicParsing="false" onAction="#handleCheckoutClick" text="Check Out" />
-                  <Button fx:id="checkinBtn" mnemonicParsing="false" onAction="#handleCheckInClick" text="Checkin" />
+                  <Button fx:id="checkinBtn" mnemonicParsing="false" onAction="#handleCheckInClick" text="Check In" />
                   <Button fx:id="payBillBtn" mnemonicParsing="false" onAction="#handlePayBillsClick" text="Pay Bill" />
                   <Button fx:id="addBillBtn" disable="true" mnemonicParsing="false" text="Add Bill" />
                   <ButtonBar fx:id="logoutBar" prefHeight="40.0" prefWidth="200.0">

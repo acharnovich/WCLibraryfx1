@@ -12,7 +12,9 @@ package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.scene.control.Alert;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -137,6 +139,45 @@ public class CheckOut
         return allCheckouts;
 
 
+    }
+
+    public CheckOut searchCheckOut(String itemIDInput){
+
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("checkouts.json"));
+
+            // convert JSON array to list of checkouts
+            ArrayList<CheckOut> checkouts = new Gson().fromJson(reader, new TypeToken<ArrayList<CheckOut>>()
+            {
+            }.getType());
+
+            // step through the checkouts array
+            for (int i = 0; i < checkouts.size(); i++)
+            {
+                // get the Item ID from the current index, convert to string, and assign to a temporary String named idAsString
+                String idAsString = Integer.toString(checkouts.get(i).getItemID());
+
+                // if idAsString is the same as itemIDInput, return the checkout object
+                if (idAsString.equals(itemIDInput))
+                {
+                    return checkouts.get(i);
+                }
+
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+
+        }
+
+        return null;
     }
 
     // Accessor methods

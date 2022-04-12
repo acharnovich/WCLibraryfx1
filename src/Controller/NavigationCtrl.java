@@ -72,12 +72,8 @@ public class NavigationCtrl {
         staffList = new StaffList();
     }
 
-    private void importLists() {
-    }
-
     public void handleCreateAccount(javafx.event.ActionEvent actionEvent)
     {
-        importLists();
         newAccountBtn.setOnMouseClicked(mouseEvent -> {
             FxLoader object = new FxLoader();
             Pane content = object.getPage("NewAccountUI");
