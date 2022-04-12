@@ -375,10 +375,38 @@ public class CheckOutCtrl
         {
             Alert noItemID = new Alert(Alert.AlertType.ERROR);
             noItemID.setHeaderText("Under Development");
-            noItemID.setContentText("Will be developed in Sprint 4. No functionality currently");
+            noItemID.setContentText("Will be developed in Sprint 5 along with print functions.");
             noItemID.showAndWait();
         });
     }
 
+    public void handleAnotherPatronClick(javafx.event.ActionEvent actionEvent)
+    {
+        anotherPatronButton.setOnMouseClicked(mouseEvent ->
+        {
+            anotherPatronButton.getScene().getWindow().hide();
+
+            Parent part = null;
+            try {
+                part = FXMLLoader.load(getClass().getResource("/View/CheckOutUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Check Out Items");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void handleBackToNavClick(javafx.event.ActionEvent actionEvent)
+    {
+        backToNavButton.setOnMouseClicked(mouseEvent ->
+        {
+            backToNavButton.getScene().getWindow().hide();
+        });
+    }
 
 }
