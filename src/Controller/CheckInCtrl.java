@@ -99,7 +99,7 @@ public class CheckInCtrl {
 
                     }
 
-                    if (iList.movieReturn(itemIDTextField.getText()) != null)
+                    else if (iList.movieReturn(itemIDTextField.getText()) != null)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
@@ -115,7 +115,7 @@ public class CheckInCtrl {
 
 
                     }
-                    if (iList.audioReturn(itemIDTextField.getText()) != null)
+                    else if (iList.audioReturn(itemIDTextField.getText()) != null)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
@@ -131,7 +131,15 @@ public class CheckInCtrl {
 
 
                     }
-                } else
+                    else
+                    {
+                        Alert noItemID = new Alert(Alert.AlertType.ERROR);
+                        noItemID.setHeaderText("Fatal Error");
+                        noItemID.setContentText("It shouldn't be possible to reach this message, but if you do, congrats!");
+                        noItemID.showAndWait();
+                    }
+                }
+                else
                 {
                     Alert noItemID = new Alert(Alert.AlertType.ERROR);
                     noItemID.setHeaderText("No Item Found");

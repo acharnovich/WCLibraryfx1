@@ -198,4 +198,10 @@ public class CheckOut
     public NormalDate getDueDate() {
         return dueDate;
     }
+
+    public String toString()
+    {
+        return "Item ID Number: " + getItemID() + "\nPatron ID Number: " + getPatronID() +
+                "\nDate taken out: " + getDateOut().toString() + "\nDue date: " + getDueDate().toString();
+    }
 }
