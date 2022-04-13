@@ -23,6 +23,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -549,7 +552,7 @@ public void generateCard(){
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 String value = change.getText();
-                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 8) {
+                if (change.getText().matches("[^a-zA-Z._]+|[\b]+$/") && change.getControlNewText().length() <= 10) {
                     return change;}
                 return null;
             }
@@ -561,12 +564,17 @@ public void generateCard(){
     @FXML
     public boolean verifyCreatePatronAccount(){
         LocalDate tempDate = birthPicker.getValue();
-        NormalDate temp = new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth()));
         patronList = new PatronList();
 
-        if(patronList.verifyEmail(emailText.getText()) == true||countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11||!emailText.getText().contains("@")||zipTxt.getText().length() != 5||tempDate.isAfter(LocalDate.now())){
+        //birthPicker.getEditor().getText().equals(null)||(!birthPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")||(!birthPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")||(!birthPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")||(!birthPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})"))||
+
+ if(tempDate.isAfter(LocalDate.now())||(!birthPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")&&(!birthPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})"))&&(!birthPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})"))&&(!birthPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")) ||birthPicker.getEditor().getText().equals(null)||patronList.verifyEmail(emailText.getText()) == true||countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11||!emailText.getText().contains("@")||zipTxt.getText().length() != 5||tempDate.isAfter(LocalDate.now()))){
+                System.out.println("true");
             return true;
-        }else {return false;}
+        }else {
+            NormalDate temp = new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth()));
+            System.out.println("false");
+            return false;}
 
 
     }
@@ -574,19 +582,69 @@ public void generateCard(){
     @FXML
     public void createPatronAccount(javafx.event.ActionEvent actionEvent)
     {
-LocalDate tempDate = birthPicker.getValue();
-        NormalDate temp = new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth()));
-
-
-
+        LocalDate tempDate = birthPicker.getValue();
         patronList = new PatronList();
         createAccountBtn.setOnMouseClicked(mouseEvent ->
-        {
+        {if (verifyCreatePatronAccount() == true){
+            if (tempDate.equals(null))
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Check the numbers of Birthdate");
+                confirm.setContentText("The first digit of month or day may be to high if the format you're enterting is mm/dd/yyyy");
+                confirm.showAndWait();
+            }
+
             if(tempDate.isAfter(LocalDate.now())){
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
-                confirm.setHeaderText("Date is the Future!");
-                confirm.setContentText("Change the date to before current date.");
+                confirm.setHeaderText("Future Date!");
+                confirm.setContentText("Phone Number is too long or too short!");
                 confirm.showAndWait();
+
+            }
+
+            if (countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11)
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Phone Number!");
+                confirm.setContentText("Phone Number is too long or too short!");
+                confirm.showAndWait();
+            }
+            if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() != 11)
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText(" Second Phone Number!");
+                confirm.setContentText("Second Phone Number is too long or too short!");
+                confirm.showAndWait();
+            }
+
+            if (!emailText.getText().contains("@"))
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Email!");
+                confirm.setContentText("Check to make sure email includes a @ character");
+                confirm.showAndWait();
+
+            }
+            if(tempDate.equals(null)){
+            try
+            {
+               DateTimeFormatter df = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+               LocalDate.parse(tempDate.toString(),df);
+            } catch (Exception e)
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Check the numbers of Birthdate");
+                confirm.setContentText("The first digit of month or day may be to high if the format you're enterting is mm/dd/yyyy");
+                confirm.showAndWait();
+            }}
+
+            if (zipTxt.getText().length() != 5)
+            {
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Zip Code!");
+                confirm.setContentText("Make sure Zip is 5 digits.");
+                confirm.showAndWait();
+
             }
 
             if (patronList.verifyEmail(emailText.getText()) == true)
@@ -596,77 +654,37 @@ LocalDate tempDate = birthPicker.getValue();
                 confirm.setContentText("Patron already exists!");
                 confirm.showAndWait();
             }
+            if(!birthPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})")&&(!birthPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})"))&&(!birthPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})"))&&(!birthPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})"))){
 
-
-            if (patronList.verifyEmail(emailText.getText()) == false)
-            {
-                if (countryTxt.getText().length() + areaTxt.getText().length() + localTxt.getText().length() + lastFourTxt.getText().length() != 11)
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Date Format is Wrong!");
+                confirm.setContentText("Fix the Date");
+                confirm.showAndWait();
+            }}else {
+            if(verifyCreatePatronAccount() == false){
+                    Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()),String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                            zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                    patronList.LoadPatron(tempPatron);
+                    PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+                    AllCheckoutLists allLists = new AllCheckoutLists();
+                    allLists.LoadList(tempList);
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setHeaderText("Account Added!");
+                    confirm.setContentText("Account has been added");
+                    confirm.showAndWait();}
+                else {if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11 && verifyCreatePatronAccount() == false)
                 {
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("Phone Number!");
-                    confirm.setContentText("Phone Number is too long or too short!");
+                    Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
+                            zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                    patronList.LoadPatron(tempPatron);
+                    PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
+                    AllCheckoutLists allLists = new AllCheckoutLists();
+                    allLists.LoadList(tempList);
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setHeaderText("Account Added!");
+                    confirm.setContentText("Account has been added");
                     confirm.showAndWait();
-                }
-                if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() != 11)
-                {
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText(" Second Phone Number!");
-                    confirm.setContentText("Second Phone Number is too long or too short!");
-                    confirm.showAndWait();
-                }
-
-
-
-                if (!emailText.getText().contains("@"))
-                {
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("Email!");
-                    confirm.setContentText("Check to make sure email includes a @ character");
-                    confirm.showAndWait();
-
-                }
-
-                if (zipTxt.getText().length() != 5)
-                {
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("Zip Code!");
-                    confirm.setContentText("Make sure Zip is 5 digits.");
-                    confirm.showAndWait();
-
-                }
-
-                    if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11 && verifyCreatePatronAccount() == false)
-                    {
-                        Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                                zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
-                        patronList.LoadPatron(tempPatron);
-                        PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
-                        AllCheckoutLists allLists = new AllCheckoutLists();
-                        allLists.LoadList(tempList);
-                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                        confirm.setHeaderText("Account Added!");
-                        confirm.setContentText("Account has been added");
-                        confirm.showAndWait();
-                    } else
-                    {
-                        if(verifyCreatePatronAccount() == false){
-                        Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()),String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
-                        zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
-                        patronList.LoadPatron(tempPatron);
-                        PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
-                        AllCheckoutLists allLists = new AllCheckoutLists();
-                        allLists.LoadList(tempList);
-                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                        confirm.setHeaderText("Account Added!");
-                        confirm.setContentText("Account has been added");
-                        confirm.showAndWait();
-                    }
-
-
-                }
-            }
-
-
+                }}}
         });
 
 
