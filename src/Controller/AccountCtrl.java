@@ -400,11 +400,10 @@ public void generateCard(){
     public void enablePatron()
     {
         LocalDate tempDate = birthPicker.getValue();
-
-
-        boolean disabled = (nameTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() && areaTxt.getText().length() < 3 || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty());
+        boolean disabled = (nameTxt.getText().isEmpty() || cityTxt.getText().isEmpty() || streetNumTxt.getText().isEmpty() || streetNameTxt.getText().isEmpty() || typeTxt.getText().isEmpty() && cityTxt.getText().isEmpty() || stateTxt.getText().isEmpty() || zipTxt.getText().isEmpty() || countryTxt.getText().isEmpty() || areaTxt.getText().isEmpty() && areaTxt.getText().length() < 3 || localTxt.getText().isEmpty() || lastFourTxt.getText().isEmpty() || emailText.getText().isEmpty());
         patronFillable.setOnKeyPressed(keyEvent ->
         {
+
 
 
             if (disabled == false)
@@ -495,6 +494,16 @@ public void generateCard(){
             }
         }));
 
+        cityTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change) {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z.'/]*$") && change.getControlNewText().length() <= 15) {
+                    return change;}
+                return null;
+            }
+        }));
+
         lastFourTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>() {
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
@@ -551,7 +560,7 @@ public void generateCard(){
             @Override
             public TextFormatter.Change apply(TextFormatter.Change change) {
                 String value = change.getText();
-                if (change.getText().matches("[^a-zA-Z._]+|[\b]+$/") && change.getControlNewText().length() <= 10) {
+                if (change.getText().matches("^[0-9/]*$")&& change.getControlNewText().length() <= 10) {
                     return change;}
                 return null;
             }
@@ -664,7 +673,7 @@ public void generateCard(){
                 confirm.showAndWait();
             }
            }else {
-            if(verifyCreatePatronAccount() == false && !tempDate.isAfter(LocalDate.now())){
+            if(verifyCreatePatronAccount() == false && !tempDate.isAfter(LocalDate.now())&&areaTxt2.isVisible() == false&&!tempDate.isAfter(LocalDate.now())&& Period.between(tempDate,LocalDate.now()).getYears() >16){
                     Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()),String.valueOf(tempDate.getMonth().getValue()),String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), cityTxt.getText(), stateTxt.getText(),
                             zipTxt.getText(), aptTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
                     patronList.LoadPatron(tempPatron);
