@@ -287,6 +287,7 @@ public class PatronList
                 {
                     ObservableList temp = FXCollections.observableArrayList();
                     temp.addAll(users.get(i));
+                    return temp;
                 }
             }
             // close reader
@@ -296,8 +297,6 @@ public class PatronList
         {
             ex.printStackTrace();
         }
-
-        System.out.println("No Result, Name");
         return null;
     }
     public ObservableList searchPhone(String search){

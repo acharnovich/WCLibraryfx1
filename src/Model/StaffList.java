@@ -129,6 +129,41 @@ public class StaffList
         return false;
     }
 
+    public boolean verifyEmail(String email)
+    {
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of users
+            ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getEmail().equalsIgnoreCase(email))
+                {
+                    System.out.println("EMAIL EXISTS!");
+                    return true;
+                }
+            }
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Email Does Not Exist!");
+        return false;
+    }
     public boolean foundEmail(String search){
         try
         {

@@ -235,7 +235,7 @@ public class SearchCtrl {
 
             if(pList.foundEmail(searchPersonTextField.getText()) == true){
                 System.out.println("Person Found");
-             // resultsLbl.setText(pList.searchEmail(searchPersonTextField.getText()));
+
                 nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
                 dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
                 addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
