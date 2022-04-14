@@ -603,13 +603,7 @@ public void generateCard(){
                     confirm.setContentText("Phone Number is too long or too short!");
                     confirm.showAndWait();
             }
-                if(Period.between(tempDate,LocalDate.now()).getYears() <16) {
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("Patron is too young!");
-                    confirm.setContentText("Patron must be 16 years or older.");
-                    confirm.showAndWait();
 
-                }
 
             }
 
@@ -643,7 +637,17 @@ public void generateCard(){
                   confirm.setContentText("Try typing in the name box again to refresh the numbers");
                   confirm.showAndWait();
               }
-              if (zipTxt.getText().length() != 5)
+
+               if(Period.between(tempDate,LocalDate.now()).getYears() <16) {
+                   Alert confirm = new Alert(Alert.AlertType.ERROR);
+                   confirm.setHeaderText("Patron is too young!");
+                   confirm.setContentText("Patron must be 16 years or older.");
+                   confirm.showAndWait();
+
+               }
+
+
+            if (zipTxt.getText().length() != 5)
             {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Zip Code is too short");
