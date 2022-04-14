@@ -3,9 +3,10 @@
  * @author Andrew Charnovich and Ash Schultz
  *
  * The CheckOut class is used to create objects that represent a checkout transaction for a specific item,
- * on a specific date, by a specific patron. It has a method for calculating due dates.
+ * on a specific date, by a specific patron. It has methods for calculating due dates, serializing data, and
+ * deserializing data.
  *
- * @version 1.0 2022-04-01
+ * @version 1.1 2022-04-10
  */
 
 package Model;
