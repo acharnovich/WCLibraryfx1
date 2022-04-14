@@ -5,7 +5,7 @@
  * The PatronCheckoutList class is used to create objects that represent a list of all the checkout transactions associated
  * with a Patron's account. It includes methods to add checkouts, remove checkouts, and get a specific checkout from the list.
  *
- * @version 1.0 2022-04-01
+ * @version 1.1 2022-04-13
  */
 
 package Model;
@@ -56,6 +56,8 @@ public class PatronCheckoutList
     {
         return checkouts;
     }
+
+    // Mutator methods
 
     public void setCheckouts(ArrayList<CheckOut> checkoutsInput)
     {

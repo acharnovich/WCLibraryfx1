@@ -1,3 +1,13 @@
+/**
+ * COPYRIGHT (C) 2022 GROUP 1. IST 311. ALL RIGHTS RESERVED.
+ * @author Andrew Charnovich and Ash Schultz
+ *
+ * The AllCheckoutsList class is used to create an object that manages all patron checkout lists, serializing them to
+ * the json file, and deserializing them for use by the application.
+ *
+ * @version 1.1 2022-04-10
+ */
+
 package Model;
 
 import com.google.gson.Gson;
