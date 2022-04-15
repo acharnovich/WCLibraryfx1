@@ -13,8 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class AddOrRemoveItemCtrl {
     // FXML components
@@ -520,17 +523,18 @@ public class AddOrRemoveItemCtrl {
 
     public void handleArchiveSubmitClick()
     {
+
         archiveSubmitButton.setOnMouseClicked(mouseEvent -> {
 
             if (itemList.searchAudio(archiveItemIDTextField.getText()) == true ||itemList.searchMovie(archiveItemIDTextField.getText()) == true || itemList.searchBook(archiveItemIDTextField.getText()) == true){
-            itemList.archiveItem(archiveItemIDTextField.getText());
+                archiveItemIDTextField.setStyle("-fx-background-color: white");
+                itemList.archiveItem(archiveItemIDTextField.getText());
             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
             confirm.setHeaderText("Item added to Archive");
-            confirm.setContentText("Item Removed: " +archiveItemIDTextField.getText()+"has been removed from inventory and added to the archives.");
-            confirm.showAndWait();}else {Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                confirm.setHeaderText("No item found!");
-                confirm.setContentText("No item was found. Please enter a item number from the book inventory.json list or other item lists");
-                confirm.showAndWait();}
+            confirm.setContentText("Item Removed or was previously added to Archives: " +archiveItemIDTextField.getText()+" has been removed from inventory and added to the archives.");
+            confirm.showAndWait();
+
+                }else {archiveItemIDTextField.setStyle("-fx-background-color: red");;}
 
         });
     }
@@ -560,9 +564,7 @@ public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent)
 }
 
 public void removeItemVailidate(){
-
-
-    searchRemoveTxt.setOnKeyReleased(KeyEvent ->
+        searchRemoveTxt.setOnKeyReleased(KeyEvent ->
     {
         if (!searchRemoveTxt.getText().isEmpty())
         {
@@ -574,27 +576,79 @@ public void removeItemVailidate(){
 
     });
    SearchRemoveItemBtn.setOnMouseClicked(mouseEvent -> {
-       if (itemList.searchBook(searchRemoveTxt.getText()) == true){
-
+       ObservableList<Item> items = FXCollections.observableArrayList();
+       if (itemList.searchBook(searchRemoveTxt.getText()) == true|| itemList.searchMovie(searchRemoveTxt.getText())==true||itemList.searchAudio(searchRemoveTxt.getText())==true){
+if(itemList.searchBook(searchRemoveTxt.getText())){
+           searchRemoveTxt.setStyle("-fx-background-color: white");
            itemIdCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("itemID"));
            titleCol.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
 
-           ObservableList<Item> items = FXCollections.observableArrayList();
+           items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
+          }
+       if (itemList.searchMovie(searchRemoveTxt.getText()) == true){
 
+           searchRemoveTxt.setStyle("-fx-background-color: white");
+           itemIdCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("itemID"));
+           titleCol.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
 
-               items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
-               searchRemoveTbl.setItems(items);
-           
+           items.addAll(itemList.movieArchiveReturn(searchRemoveTxt.getText()));
+       }
+       if (itemList.searchAudio(searchRemoveTxt.getText()) == true)
+       {
 
+           searchRemoveTxt.setStyle("-fx-background-color: white");
+           itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+           titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+           items.addAll(itemList.audioArchiveReturn(searchRemoveTxt.getText()));
+
+       }
+           searchRemoveTbl.setItems(items);
        }else {
-
-           Alert loginFailed = new Alert(Alert.AlertType.ERROR);
-           loginFailed.setHeaderText("No Item Found -Archive");
-           loginFailed.setContentText("No Item found in Archive.");
-           loginFailed.showAndWait();
+           searchRemoveTxt.setStyle("-fx-background-color: red");
        }
    });
 
 
+
+
+}
+
+public void searchArchiveVal(){
+    searchRemoveTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+    {
+        @Override
+        public TextFormatter.Change apply(TextFormatter.Change change)
+        {
+            String value = change.getText();
+            if (change.getText().matches("\\d*") && change.getControlNewText().length() <10)
+            {
+                return change;
+            }
+            return null;
+        }
+    }));
+}
+
+public void archiveUIValidate(){
+
+    archiveItemIDTextField.setOnKeyPressed(KeyEvent->{
+        if(!archiveItemIDTextField.getText().isEmpty()){
+            archiveSubmitButton.setDisable(false);
+        }else {archiveSubmitButton.setDisable(true);}});
+    archiveItemIDTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+    {
+        @Override
+        public TextFormatter.Change apply(TextFormatter.Change change)
+        {
+            String value = change.getText();
+            if (change.getText().matches("\\d*") && change.getControlNewText().length() <10)
+            {
+                return change;
+            }
+            return null;
+        }
+    }));
 }
 }
+

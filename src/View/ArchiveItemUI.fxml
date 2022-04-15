@@ -24,7 +24,7 @@
             <Font size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="archiveItemIDTextField" layoutX="100.0" layoutY="103.0" promptText="Enter a Item Number" />
-      <Button fx:id="archiveSubmitButton" layoutX="149.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleArchiveSubmitClick" text="Submit" />
+      <TextField fx:id="archiveItemIDTextField" layoutX="100.0" layoutY="103.0" onAction="#archiveUIValidate" onKeyPressed="#archiveUIValidate" promptText="Enter a Item Number" />
+      <Button fx:id="archiveSubmitButton" disable="true" layoutX="149.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleArchiveSubmitClick" text="Submit" />
    </children>
 </AnchorPane>
