@@ -18,11 +18,8 @@
       <PasswordField fx:id="pin" accessibleRole="TEXT_FIELD" alignment="CENTER" layoutX="227.0" layoutY="169.0" promptText="Pin" />
       <ImageView fitHeight="72.0" fitWidth="85.0" layoutX="264.0" layoutY="44.0">
          <image>
-<<<<<<< HEAD
             <Image url="/images/65.png" />
-=======
-            <Image url="images/download (1).jpeg" />
->>>>>>> parent of 15152b8 (main)
+
          </image>
       </ImageView>
       
