@@ -292,5 +292,77 @@
       }
     ],
     "email": "ccheese@wclibrary.com"
+  },
+  {
+    "staffId": "ajon34e",
+    "pin": "12345678",
+    "position": "Associate Librarian",
+    "status": "Training",
+    "startDate": {
+      "month": "1",
+      "day": "1",
+      "year": "2000"
+    },
+    "yearsOfService": 22,
+    "name": "r23r23",
+    "dateofBirth": {
+      "month": "1",
+      "day": "1",
+      "year": "2000"
+    },
+    "address": {
+      "number": "45345",
+      "name": "Rwer",
+      "type": "Rd",
+      "city": "afwe",
+      "state": "ewfgawwe",
+      "zip": "23423",
+      "secondAdd": "PA"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 2,
+        "areaCode": 234,
+        "threeLocal": 423,
+        "lastFour": 3423
+      }
+    ],
+    "email": "tergvzagser@wclibrary.com"
+  },
+  {
+    "staffId": "ajone",
+    "pin": "3243423",
+    "position": "Associate Librarian",
+    "status": "Training",
+    "startDate": {
+      "month": "1",
+      "day": "1",
+      "year": "2000"
+    },
+    "yearsOfService": 22,
+    "name": "Ashley Jones",
+    "dateofBirth": {
+      "month": "1",
+      "day": "1",
+      "year": "2000"
+    },
+    "address": {
+      "number": "345",
+      "name": "Ew4r34",
+      "type": "Rd",
+      "city": "Apt 8",
+      "state": "New Salem",
+      "zip": "23423",
+      "secondAdd": "PA"
+    },
+    "phoneNumber": [
+      {
+        "countryCode": 2,
+        "areaCode": 234,
+        "threeLocal": 324,
+        "lastFour": 4234
+      }
+    ],
+    "email": "ajone@wclibrary.com"
   }
 ]

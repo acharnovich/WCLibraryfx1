@@ -1,6 +1,8 @@
 package Model;
 
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LibraryStaff extends Person
@@ -107,12 +109,31 @@ public class LibraryStaff extends Person
     @Override
     public int getYears()
     {
+        if(getStartDate().getMonth().length() != 2 && getStartDate().getDay().length() != 2){
 
-        LocalDate parseStart = LocalDate.parse(startDate.toString());
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parseStart = LocalDate.parse(getStartDate().getYear() + "-" +"0" +getStartDate().getMonth() +"-"+ "0"+ getStartDate().getDay());
+            LocalDate localDate = LocalDate.now();
+            return Period.between(parseStart, localDate).getYears();}
 
-        yearsOfService = LocalDate.now().getYear() - parseStart.getYear();
+        if(getStartDate().getMonth().length() != 2){
 
-        return yearsOfService;
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parseStart = LocalDate.parse(getStartDate().getYear() + "-" +"0"+getStartDate().getMonth() +"-"+ getStartDate().getDay());
+            LocalDate localDate = LocalDate.now();
+            return Period.between(parseStart, localDate).getYears();}
+
+        if(getStartDate().getDay().length() !=2){
+
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate parseStart = LocalDate.parse(getStartDate().getYear() + "-" +  getStartDate().getMonth() +"-"+ "0" +getStartDate().getDay());
+            LocalDate localDate = LocalDate.now();
+            return Period.between(parseStart, localDate).getYears();}
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parseStart = LocalDate.parse(getStartDate().getYear() + "-" + getStartDate().getMonth() +"-"+ getStartDate().getDay());
+        LocalDate localDate = LocalDate.now();
+        return Period.between(parseStart, localDate).getYears();
+
 
     }
 
