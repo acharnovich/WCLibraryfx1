@@ -214,7 +214,15 @@ public class Address
     @Override
     public String toString()
     {
-        return number + " " + name + " " + type;
+        return "Address{" +
+                "number='" + number + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", secondAdd='" + secondAdd + '\'' +
+                '}';
     }
 
     /**

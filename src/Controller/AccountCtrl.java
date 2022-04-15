@@ -572,7 +572,7 @@ public class AccountCtrl
             public TextFormatter.Change apply(TextFormatter.Change change)
             {
                 String value = change.getText();
-                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 10)
+                if (change.getText().matches("^[a-zA-Z' .]*$") && change.getControlNewText().length() <= 10)
                 {
                     return change;
                 }
@@ -934,7 +934,7 @@ public class AccountCtrl
                         {
                             if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11 && verifyCreatePatronAccount() == false && !tempDate.isAfter(LocalDate.now()) && Period.between(tempDate, LocalDate.now()).getYears() > 16)
                             {
-                                Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(yearTxt.getText(), monthTxt.getText(), dayTxt.getText()), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), aptTxt.getText(), cityTxt.getText(),
+                                Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()), String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), aptTxt.getText(), cityTxt.getText(),
                                         zipTxt.getText(), stateTxt.getValue()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
                                 patronList.LoadPatron(tempPatron);
                                 PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
