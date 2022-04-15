@@ -11,15 +11,16 @@
 <AnchorPane fx:id="loginUI" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginCtrl">
    <children>
       <Button fx:id="submitBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="279.0" layoutY="204.0" mnemonicParsing="false" onAction="#LoginBtnClicked" text="Submit" />
-      <Label fx:id="welcomeLbl" layoutX="242.0" layoutY="27.0" text="Welcome to WC Library" textAlignment="CENTER" />
+      <Label fx:id="welcomeLbl" layoutX="242.0" layoutY="21.0" text="Welcome to WC Library" textAlignment="CENTER" />
       <Label fx:id="idLbl" contentDisplay="CENTER" layoutX="186.0" layoutY="131.0" text="UserID:" />
       <Label fx:id="pinLbl" contentDisplay="CENTER" layoutX="206.0" layoutY="173.0" text="Pin:" />
       <TextField fx:id="userid" alignment="CENTER" layoutX="228.0" layoutY="126.0" promptText="UserID" />
       <PasswordField fx:id="pin" accessibleRole="TEXT_FIELD" alignment="CENTER" layoutX="227.0" layoutY="169.0" promptText="Pin" />
-      <ImageView fx:id="wcLogo" fitHeight="67.0" fitWidth="85.0" layoutX="265.0" layoutY="52.0">
+      <ImageView fitHeight="72.0" fitWidth="85.0" layoutX="264.0" layoutY="44.0">
          <image>
-            <Image url="" />
+            <Image url="/images/65.png" />
          </image>
       </ImageView>
+      
    </children>
 </AnchorPane>
