@@ -18,7 +18,7 @@
       <PasswordField fx:id="pin" accessibleRole="TEXT_FIELD" alignment="CENTER" layoutX="227.0" layoutY="169.0" promptText="Pin" />
       <ImageView fx:id="wcLogo" fitHeight="67.0" fitWidth="85.0" layoutX="265.0" layoutY="52.0">
          <image>
-            <Image url="images/download (1).jpeg" />
+            <Image url="" />
          </image>
       </ImageView>
    </children>
