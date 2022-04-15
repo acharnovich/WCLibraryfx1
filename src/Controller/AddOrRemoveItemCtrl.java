@@ -1,12 +1,15 @@
 package Controller;
 
 import Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -22,7 +25,7 @@ public class AddOrRemoveItemCtrl {
     private AnchorPane searchRemovePane;
 
     @FXML
-    private TableView<?> searchRemoveTbl;
+    private TableView<Item> searchRemoveTbl;
 
     @FXML
     private TextField searchRemoveTxt;
@@ -127,6 +130,13 @@ public class AddOrRemoveItemCtrl {
 
     @FXML
     private Label movieYearPublishedLabel;
+
+
+    @FXML
+    private TableColumn<Item, String> titleCol;
+
+    @FXML
+    private TableColumn<Item, Integer> itemIdCol;
 
     @FXML
     private TextField movieYearPublishedTextField;
@@ -524,32 +534,67 @@ public class AddOrRemoveItemCtrl {
 
         });
     }
-public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent){
+public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent)
+{
+    archiveSearchButton.setOnMouseClicked(mouseEvent ->
+    {
 
-        archiveSearchButton.setOnMouseClicked(mouseEvent -> {
-            Alert indev = new Alert(Alert.AlertType.ERROR);
-            indev.setHeaderText("Under Development");
-            indev.setContentText("Will be finished in sprint 4");
-            indev.showAndWait();
-            //Parent part = null;
+        Parent part = null;
 
-           // try {
+        try
+        {
 
-              //  part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
-              //  Stage stage = new Stage();
-              //  Scene scene = new Scene(part);
-              //  stage.setScene(scene);
-              //  stage.setTitle("Search Archive Items");
-              //  stage.show();
+            part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(part);
+            stage.setScene(scene);
+            stage.setTitle("Search Archive Items");
+            stage.show();
 
-           // } catch (IOException e) {
-           //     e.printStackTrace();
-           // }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
-        });
+    });
+}
+
+public void removeItemVailidate(){
+
+
+    searchRemoveTxt.setOnKeyReleased(KeyEvent ->
+    {
+        if (!searchRemoveTxt.getText().isEmpty())
+        {
+            SearchRemoveItemBtn.setDisable(false);
+        }else {
+            SearchRemoveItemBtn.setDisable(true);
+        }
+
+
+    });
+   SearchRemoveItemBtn.setOnMouseClicked(mouseEvent -> {
+       if (itemList.searchBook(searchRemoveTxt.getText()) == true){
+
+           itemIdCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("itemID"));
+           titleCol.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
+
+           ObservableList<Item> items = FXCollections.observableArrayList();
+
+
+               items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
+               searchRemoveTbl.setItems(items);
+           
+
+       }else {
+
+           Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+           loginFailed.setHeaderText("No Item Found -Archive");
+           loginFailed.setContentText("No Item found in Archive.");
+           loginFailed.showAndWait();
+       }
+   });
 
 
 }
-
-
 }

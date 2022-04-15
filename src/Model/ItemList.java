@@ -273,6 +273,12 @@ public class ItemList {
                     System.out.println("Exists.");
                     return true;
                 }
+                if (String.valueOf(books.get(i).getItemID()).contains(itemToSearchFor) && books.get(i).getItemStatus().equals("Archived"))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+
             }
 
 
@@ -394,6 +400,7 @@ public class ItemList {
                     temp.addAll(books.get(i));
                     return temp;
                 }
+
             }
 
 
@@ -408,7 +415,44 @@ public class ItemList {
         System.out.println("No Result, Name");
         return null;
     }
+    public ObservableList bookArchiveReturn(String search){
 
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+                if (String.valueOf(books.get(i).getItemID()).contains(search) && books.get(i).getItemStatus().contains("Archived"))
+                {
+
+                   {
+                        ObservableList temp = FXCollections.observableArrayList();
+                        temp.addAll(books.get(i));
+                        return temp;}}
+                }
+
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result, Name");
+        return null;
+    }
     public ObservableList movieReturn(String search){
 
         try
@@ -614,6 +658,8 @@ public class ItemList {
         System.out.println("Doesn't exist.");
         return false;
     }
+
+
 
     public boolean checkOutItem(String itemToSearchFor)
     {
