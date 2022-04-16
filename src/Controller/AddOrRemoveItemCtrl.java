@@ -191,6 +191,9 @@ public class AddOrRemoveItemCtrl
     private TextField movieRuntimeTextField;
 
     @FXML
+    private TextField movieRuntimeTextFieldMin;
+
+    @FXML
     private Label movieTypeLabel;
 
     @FXML
@@ -204,6 +207,9 @@ public class AddOrRemoveItemCtrl
 
     @FXML
     private TextField movieActorsTextField;
+
+    @FXML
+    private AnchorPane addMoviePane;
 
     @FXML
     private Label movieDescriptionLabel;
@@ -222,6 +228,13 @@ public class AddOrRemoveItemCtrl
 
     @FXML
     private Label audioBookTitleLabel;
+
+    @FXML
+    private ComboBox<String> movieGenreCombo = new ComboBox<String>();
+
+    @FXML
+    private DatePicker moviePublishedPicker;
+
 
     @FXML
     private TextField audioBookTitleTextField;
@@ -292,6 +305,9 @@ public class AddOrRemoveItemCtrl
     private Button audioBookAddNewItemButton;
 
     @FXML
+    private AnchorPane addAudioPane;
+
+    @FXML
     private RadioButton movieDVDTypeRadioButton;
 
     @FXML
@@ -311,6 +327,15 @@ public class AddOrRemoveItemCtrl
 
     @FXML
     private Label archiveItemIDLabel;
+
+    @FXML
+    private ComboBox<String> audioGenreCombo = new ComboBox<String>();
+
+    @FXML
+    private TextField audioBookLengthTextFieldMin;
+
+    @FXML
+    private DatePicker audioYearPublishedPicker;
 
     @FXML
     private TextField archiveItemIDTextField;
@@ -333,7 +358,8 @@ public class AddOrRemoveItemCtrl
                 "fantasy",
                 "Non-Fiction", "Other");
         genreComboBox.setItems(genres);
-
+        audioGenreCombo.setItems(genres);
+        movieGenreCombo.setItems(genres);
     }
 
 
@@ -342,7 +368,7 @@ public class AddOrRemoveItemCtrl
 
         addBookRadioButton.setOnMouseClicked(mouseEvent ->
         {
-
+addItemContinueButton.setDisable(false);
             addAudioBookRadioButton.setSelected(false);
             addMovieRadioButton.setSelected(false);
             itemType = "Book";
@@ -354,7 +380,7 @@ public class AddOrRemoveItemCtrl
     {
         addAudioBookRadioButton.setOnMouseClicked(mouseEvent ->
         {
-
+addItemContinueButton.setDisable(false);
             addBookRadioButton.setSelected(false);
             addMovieRadioButton.setSelected(false);
             itemType = "AudioBook";
@@ -366,7 +392,7 @@ public class AddOrRemoveItemCtrl
     {
         addMovieRadioButton.setOnMouseClicked(mouseEvent ->
         {
-
+            addItemContinueButton.setDisable(false);
             addAudioBookRadioButton.setSelected(false);
             addBookRadioButton.setSelected(false);
             itemType = "Movie";
@@ -400,7 +426,6 @@ public class AddOrRemoveItemCtrl
     {
         addItemContinueButton.setOnMouseClicked(mouseEvent ->
         {
-
             if (itemType == "Book")
             {
                 Parent part = null;
@@ -520,6 +545,20 @@ public class AddOrRemoveItemCtrl
             }
         }));
 
+        bookAuthorsTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z' .,]*$") && change.getControlNewText().length() <= 20)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
 
     }
 
@@ -571,7 +610,9 @@ public class AddOrRemoveItemCtrl
                 bookPublishedPicker.setValue(tempDateFormatted);
                 LocalDate tempDate = bookPublishedPicker.getValue();
                 if(!tempDate.isAfter(LocalDate.now())){
-                bookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+                    if(bookAuthorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*")){
+
+                        bookAddNewItemButton.setOnMouseClicked(mouseEvent ->
                 {
 
                     final Node source = (Node) actionEvent.getSource();
@@ -598,7 +639,12 @@ public class AddOrRemoveItemCtrl
                     itemList.LoadBook(temp);
                     stage.close();
 
-                });}
+                });}else {
+                        Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Missing Last Name");
+                        confirm.setContentText("Authors or Narrators Text field is missing a last name.");
+                        confirm.showAndWait();
+                    }}
                 else {
                     if(tempDate.isAfter(LocalDate.now())){
                     Alert confirm = new Alert(Alert.AlertType.ERROR);
@@ -621,39 +667,407 @@ public class AddOrRemoveItemCtrl
         }
     }
 
+    public void handleNewAudioValidation()
+    {
+
+        boolean disabled = (audioBookDescriptionTextArea.getText().isEmpty()||audioGenreCombo.getEditor().getText().isEmpty() || audioYearPublishedPicker.getEditor().getText().isEmpty() || audioBookTitleTextField.getText().isEmpty() || audioBookAuthorsTextField.getText().isEmpty() || audioBookPublisherTextField.getText().isEmpty() || audioBookLengthTextField.getText().isEmpty() || audioBookLengthTextFieldMin.getText().isEmpty()||audioBookNarratorsTextField.getText().isEmpty());
+        addAudioPane.setOnMouseMoved(mouseEvent ->
+                {
+                    if (disabled==false)
+                    {
+                        audioBookAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        audioBookAddNewItemButton.setDisable(true);
+                    }
+                    ;
+                }
+        );
+
+        audioBookDescriptionTextArea.setOnKeyPressed(mouseEvent ->
+                {
+                    if (disabled == false)
+                    {
+                        audioBookAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        audioBookAddNewItemButton.setDisable(true);
+                    }
+                    ;
+                }
+        );
+        audioBookTitleTextField.setOnKeyReleased(keyEvent ->
+        {
+            Random randomAudioID = new Random();
+            int n = 100000 + randomAudioID.nextInt(900000);
+            audioBookItemIDTextField.setText(String.valueOf(n));
+        });
+
+        audioYearPublishedPicker.getEditor().setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9/]*$") && change.getControlNewText().length() <= 10)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        audioGenreCombo.getEditor().setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z' .]*$") && change.getControlNewText().length() <= 20)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        audioBookNarratorsTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z' .,]*$") && change.getControlNewText().length() <= 100)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        audioBookAuthorsTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z' .,]*$") && change.getControlNewText().length() <= 100)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        audioBookLengthTextFieldMin.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 4)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        audioBookLengthTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 3)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+
+    }
+
     public void handleAddNewAudioBookClick(javafx.event.ActionEvent actionEvent)
     {
-        audioBookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+        if (!audioYearPublishedPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!audioYearPublishedPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!audioYearPublishedPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!audioYearPublishedPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")))
         {
 
-            final Node source = (Node) actionEvent.getSource();
-            final Stage stage = (Stage) source.getScene().getWindow();
+            Alert confirm = new Alert(Alert.AlertType.ERROR);
+            confirm.setHeaderText("Date Format is Wrong!");
+            confirm.setContentText("Fix the Date. m/d/yyyy");
+            confirm.showAndWait();
+        } else
+        {
+            boolean thrown = false;
+            String datePickText = audioYearPublishedPicker.getEditor().getText();
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("M/d/yyyy");
 
-            ArrayList<Collaborator> authors = new ArrayList<>();      // list of authors for this audiobook, as an arraylist
-            ArrayList<Collaborator> narrators = new ArrayList<>();    // list of authors for this audiobook, as an arraylist
-            AudioBook temp;                                           // temporary audiobook to be created
+            try
+            {
+                LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                audioYearPublishedPicker.setValue(tempDateFormatted);
+                if (tempDateFormatted.getDayOfMonth() > 31)
+                {
+                    thrown = true;
+                }
+                if (tempDateFormatted.getMonth().getValue() > 12)
+                {
+                    thrown = true;
+                }
+                if (tempDateFormatted.getYear() >= 20000)
+                {
+                    thrown = true;
+                }
 
-            authors = getCollaborators(audioBookAuthorsTextField.getText());
-            narrators = getCollaborators(audioBookNarratorsTextField.getText());
+            } catch (Exception e)
+            {
 
-            // create the AudioBook
-            temp = new AudioBook(Integer.parseInt(audioBookItemIDTextField.getText()), audioBookTitleTextField.getText(),
-                    Integer.parseInt(audioBookYearPublishedTextField.getText()),
-                    new NormalDate(audioBookDatePublishedYearTextField.getText(), audioBookDatePublishedMonthTextField.getText(),
-                            audioBookDatePublishedDayTextField.getText()), audioBookDescriptionTextArea.getText(), "Checked In",
-                    audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
-                    audioBookLengthTextField.getText(), audioBookGenresTextField.getText());
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Check Date!");
+                confirm.setContentText("Fix the Date. Month, Day, or year is too High. m/d/yyyy");
+                confirm.showAndWait();
+                thrown = true;
+            }
 
-            // send to LoadAudioBook
-            itemList.LoadAudiobook(temp);
+            if (!thrown)
+            {
+                LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                audioYearPublishedPicker.setValue(tempDateFormatted);
+                LocalDate tempDate = audioYearPublishedPicker.getValue();
+                if(!tempDate.isAfter(LocalDate.now()))
+                {
+                    if(audioBookNarratorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*")|| audioBookAuthorsTextField.getText().matches("[a-zA-Z]*[\\\\s]{1}[a-zA-Z].*")){
+                    audioBookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+                    {
 
-            stage.close();
+                        final Node source = (Node) actionEvent.getSource();
+                        final Stage stage = (Stage) source.getScene().getWindow();
 
+                        ArrayList<Collaborator> authors = new ArrayList<>();      // list of authors for this audiobook, as an arraylist
+                        ArrayList<Collaborator> narrators = new ArrayList<>();    // list of authors for this audiobook, as an arraylist
+                        AudioBook temp;                                           // temporary audiobook to be created
+
+                        authors = getCollaborators(audioBookAuthorsTextField.getText());
+                        narrators = getCollaborators(audioBookNarratorsTextField.getText());
+
+                        // create the AudioBook
+                        temp = new AudioBook(Integer.parseInt(audioBookItemIDTextField.getText()), audioBookTitleTextField.getText(),
+                                Integer.parseInt(String.valueOf(tempDate.getYear())),
+                                new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
+                                        String.valueOf(tempDate.getDayOfMonth())), audioBookDescriptionTextArea.getText(), "Checked In",
+                                audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
+                                audioBookLengthTextField.getText()+" Hours"+ audioBookLengthTextFieldMin.getText()+ " Minutes", audioGenreCombo.getEditor().getText());
+                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                        confirm.setHeaderText("AudioBook Added!");
+                        confirm.setContentText(audioBookTitleTextField.getText()+" is now in the item inventory with a status of checked in. ID#: "+audioBookItemIDTextField.getText());
+                        confirm.showAndWait();
+
+                        // send to LoadAudioBook
+                        itemList.LoadAudiobook(temp);
+
+                        stage.close();
+
+                    });}else { Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Missing Last Name");
+                        confirm.setContentText("Authors or Narrators Text field is missing a last name.");
+                        confirm.showAndWait();}
+                }else {
+                        if(tempDate.isAfter(LocalDate.now())){
+                            Alert confirm = new Alert(Alert.AlertType.ERROR);
+                            confirm.setHeaderText("Future Date!");
+                            confirm.setContentText("Mak sure the day equal to or before today.");
+                            confirm.showAndWait();
+
+                        }
+                        if(itemList.searchAudio(audioBookItemIDTextField.getText())==true){
+                            Random randomBookID = new Random();
+                            int n = 100000 + randomBookID.nextInt(900000);
+                            audioBookItemIDTextField.setText(String.valueOf(n));
+                            Alert confirm2 = new Alert(Alert.AlertType.ERROR);
+                            confirm2.setHeaderText("Please Submit");
+                            confirm2.setContentText("Please Resubmit, book ID already existed.");
+                            confirm2.showAndWait();
+
+                        }}
+                }
+            }
+        }
+
+    public void handleNewMovieValidation()
+    {
+
+        boolean disabled = (movieDescriptionTextArea.getText().isEmpty()||movieGenreCombo.getEditor().getText().isEmpty() || moviePublishedPicker.getEditor().getText().isEmpty() || movieTitleTextField.getText().isEmpty() || movieActorsTextField.getText().isEmpty() || movieDistributorTextField.getText().isEmpty() || movieRuntimeTextFieldMin.getText().isEmpty() || movieRuntimeTextField.getText().isEmpty()||(movieBluRayTypeRadioButton.isSelected() ==false &&movieDVDTypeRadioButton.isSelected()==false));
+        addMoviePane.setOnMouseMoved(mouseEvent ->
+                {
+                    if (disabled==false)
+                    {
+                        movieAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        movieAddNewItemButton.setDisable(true);
+                    }
+                    ;
+                }
+        );
+
+        addMoviePane.setOnMouseClicked(mouseEvent ->
+                {
+                    if (disabled==false)
+                    {
+                        movieAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        movieAddNewItemButton.setDisable(true);
+                    }
+                    ;
+                }
+        );
+
+        movieDescriptionTextArea.setOnKeyPressed(mouseEvent ->
+                {
+                    if (disabled == false)
+                    {
+                        movieAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        movieAddNewItemButton.setDisable(true);
+                    }
+                    ;
+                }
+        );
+        movieTitleTextField.setOnKeyReleased(keyEvent ->
+        {
+            Random randomAudioID = new Random();
+            int n = 100000 + randomAudioID.nextInt(900000);
+            movieItemIDTextField.setText(String.valueOf(n));
         });
+
+        moviePublishedPicker.getEditor().setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9/]*$") && change.getControlNewText().length() <= 10)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        movieGenreCombo.getEditor().setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z' .]*$") && change.getControlNewText().length() <= 20)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        movieActorsTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[a-zA-Z' .,]*$") && change.getControlNewText().length() <= 150)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        movieRuntimeTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 4)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        movieRuntimeTextFieldMin.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 3)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+
     }
 
     public void handleAddNewMovieClick(javafx.event.ActionEvent actionEvent)
     {
+        if (!moviePublishedPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!moviePublishedPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!moviePublishedPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!moviePublishedPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")))
+        {
+
+            Alert confirm = new Alert(Alert.AlertType.ERROR);
+            confirm.setHeaderText("Date Format is Wrong!");
+            confirm.setContentText("Fix the Date. m/d/yyyy");
+            confirm.showAndWait();
+        } else
+        {
+            boolean thrown = false;
+            String datePickText = moviePublishedPicker.getEditor().getText();
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("M/d/yyyy");
+
+            try
+            {
+                LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                moviePublishedPicker.setValue(tempDateFormatted);
+                if (tempDateFormatted.getDayOfMonth() > 31)
+                {
+                    thrown = true;
+                }
+                if (tempDateFormatted.getMonth().getValue() > 12)
+                {
+                    thrown = true;
+                }
+                if (tempDateFormatted.getYear() >= 20000)
+                {
+                    thrown = true;
+                }
+
+            } catch (Exception e)
+            {
+
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Check Date!");
+                confirm.setContentText("Fix the Date. Month, Day, or year is too High. m/d/yyyy");
+                confirm.showAndWait();
+                thrown = true;
+            }
+
+            if (!thrown)
+            {
+                LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                moviePublishedPicker.setValue(tempDateFormatted);
+                LocalDate tempDate = moviePublishedPicker.getValue();
+                if(!tempDate.isAfter(LocalDate.now()))
+                {
+                    if(movieActorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*")&&(movieBluRayTypeRadioButton.isSelected() ==true ||movieDVDTypeRadioButton.isSelected()== true)){
         movieAddNewItemButton.setOnMouseClicked(mouseEvent ->
         {
 
@@ -667,21 +1081,53 @@ public class AddOrRemoveItemCtrl
 
             // create the Movie
             temp = new Movie(Integer.parseInt(movieItemIDTextField.getText()), movieTitleTextField.getText(),
-                    Integer.parseInt(movieYearPublishedTextField.getText()),
-                    new NormalDate(movieDatePublishedYearTextField.getText(), movieDatePublishedMonthTextField.getText(),
-                            movieDatePublishedDayTextField.getText()), movieDescriptionTextArea.getText(), "Checked In",
+                    Integer.parseInt(String.valueOf(tempDate.getYear())),
+                    new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
+                            String.valueOf(tempDate.getDayOfMonth())), movieDescriptionTextArea.getText(), "Checked In",
                     movieProductionCompanyTextField.getText(), movieDistributorTextField.getText(), actors,
-                    movieType, movieRuntimeTextField.getText(), movieGenresTextField.getText());
+                    movieType, movieRuntimeTextField.getText()+" Hours "+movieRuntimeTextFieldMin.getText()+" Minutes", movieGenreCombo.getEditor().getText());
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setHeaderText("Movie Added!");
+            confirm.setContentText(movieTitleTextField.getText()+" is now in the item inventory with a status of checked in. ID#: "+movieItemIDTextField.getText());
+            confirm.showAndWait();
 
             // send to LoadMovie
             itemList.LoadMovie(temp);
 
             stage.close();
 
-        });
+        });}else { Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Missing Last Name");
+                        confirm.setContentText("Authors or Narrators Text field is missing a last name.");
+                        confirm.showAndWait();}
+                }else {
+                    if((movieBluRayTypeRadioButton.isSelected() ==false &&movieDVDTypeRadioButton.isSelected()==false)){
+                        if(tempDate.isAfter(LocalDate.now())){
+                            Alert confirm = new Alert(Alert.AlertType.ERROR);
+                            confirm.setHeaderText("Select Movie Type");
+                            confirm.setContentText("Select Blu Ray or DVD");
+                            confirm.showAndWait();}
+                    }
+                    if(tempDate.isAfter(LocalDate.now())){
+                        Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Future Date!");
+                        confirm.setContentText("Mak sure the day equal to or before today.");
+                        confirm.showAndWait();
+
+                    }
+                    if(itemList.searchMovie(movieItemIDTextField.getText())==true){
+                        Random randomBookID = new Random();
+                        int n = 100000 + randomBookID.nextInt(900000);
+                        movieItemIDTextField.setText(String.valueOf(n));
+                        Alert confirm2 = new Alert(Alert.AlertType.ERROR);
+                        confirm2.setHeaderText("Please Submit");
+                        confirm2.setContentText("Please Resubmit, book ID already existed.");
+                        confirm2.showAndWait();
+                    }}
+            }
+        }
     }
 
-    ;
 
     public ArrayList<Collaborator> getCollaborators(String input)
     {

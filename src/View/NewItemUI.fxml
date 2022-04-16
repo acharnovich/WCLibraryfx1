@@ -30,6 +30,6 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="addItemContinueButton" layoutX="164.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleContinueClick" prefHeight="29.0" prefWidth="116.0" text="Continue" />
+      <Button fx:id="addItemContinueButton" disable="true" layoutX="164.0" layoutY="178.0" mnemonicParsing="false" onAction="#handleContinueClick" prefHeight="29.0" prefWidth="116.0" text="Continue" />
    </children>
 </AnchorPane>
