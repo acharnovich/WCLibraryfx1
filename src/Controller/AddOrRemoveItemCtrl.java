@@ -16,11 +16,72 @@ import javafx.stage.Stage;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.function.UnaryOperator;
 
-public class AddOrRemoveItemCtrl {
+public class AddOrRemoveItemCtrl
+{
     // FXML components
+    @FXML
+    private Button bookAddNewItemButton;
+
+    @FXML
+    private Label bookAuthorsLabel;
+
+    @FXML
+    private TextField bookAuthorsTextField;
+
+    @FXML
+    private Label bookDatePublishedLabel;
+
+    @FXML
+    private Label bookDescriptionLabel;
+
+    @FXML
+    private TextArea bookDescriptionTextArea;
+
+    @FXML
+    private Label bookGenresLabel;
+
+    @FXML
+    private Label bookItemIDLabel;
+
+    @FXML
+    private TextField bookItemIDTextField;
+
+    @FXML
+    private Label bookLengthLabel;
+
+    @FXML
+    private TextField bookLengthTextField;
+
+    @FXML
+    private DatePicker bookPublishedPicker;
+
+    @FXML
+    private Label bookPublisherLabel;
+
+    @FXML
+    private TextField bookPublisherTextField;
+
+    @FXML
+    private Label bookTitleLabel;
+
+    @FXML
+    private TextField bookTitleTextField;
+
+
+    @FXML
+    private Label newBookDetailsLabel;
+
+    @FXML
+    private ComboBox<String> genreComboBox = new ComboBox<String>();
+
+    @FXML
+    private Label pageLbl;
     @FXML
     private Button SearchRemoveItemBtn;
 
@@ -51,28 +112,11 @@ public class AddOrRemoveItemCtrl {
     private Button addItemContinueButton;
 
     @FXML
-    private Label newBookDetailsLabel;
-
-    @FXML
-    private Label bookItemIDLabel;
-
-    @FXML
-    private TextField bookItemIDTextField;
-
-    @FXML
-    private Label bookTitleLabel;
-
-    @FXML
-    private TextField bookTitleTextField;
-
-    @FXML
     private Label bookYearPublishedLabel;
 
     @FXML
     private TextField bookYearPublishedTextField;
 
-    @FXML
-    private Label bookDatePublishedLabel;
 
     @FXML
     private TextField bookDatePublishedYearTextField;
@@ -83,38 +127,9 @@ public class AddOrRemoveItemCtrl {
     @FXML
     private TextField bookDatePublishedDayTextField;
 
-    @FXML
-    private Label bookPublisherLabel;
-
-    @FXML
-    private TextField bookPublisherTextField;
-
-    @FXML
-    private Label bookGenresLabel;
 
     @FXML
     private TextField bookGenresTextField;
-
-    @FXML
-    private Label bookLengthLabel;
-
-    @FXML
-    private TextField bookLengthTextField;
-
-    @FXML
-    private Label bookAuthorsLabel;
-
-    @FXML
-    private TextField bookAuthorsTextField;
-
-    @FXML
-    private Label bookDescriptionLabel;
-
-    @FXML
-    private TextArea bookDescriptionTextArea;
-
-    @FXML
-    private Button bookAddNewItemButton;
 
     @FXML
     private Label newMovieDetailsLabel;
@@ -237,6 +252,8 @@ public class AddOrRemoveItemCtrl {
 
     @FXML
     private Label audioBookProductionCompanyLabel;
+    @FXML
+    private AnchorPane addBookPane;
 
     @FXML
     private TextField audioBookProductionCompanyTextField;
@@ -306,21 +323,37 @@ public class AddOrRemoveItemCtrl {
     private String movieType;
     private ItemList itemList = new ItemList();
 
+    @FXML
+    public void initialize()
+    {
+        ObservableList genres = FXCollections.observableArrayList("romance",
+                "mystery",
+                "thriller",
+                "sci-fi",
+                "fantasy",
+                "Non-Fiction", "Other");
+        genreComboBox.setItems(genres);
+
+    }
 
 
-    public void handleAddBookClick(javafx.event.ActionEvent actionEvent) {
-        addBookRadioButton.setOnMouseClicked(mouseEvent -> {
+    public void handleAddBookClick(javafx.event.ActionEvent actionEvent)
+    {
+
+        addBookRadioButton.setOnMouseClicked(mouseEvent ->
+        {
 
             addAudioBookRadioButton.setSelected(false);
             addMovieRadioButton.setSelected(false);
             itemType = "Book";
-
-
         });
+
     }
 
-    public void handleAddAudioBookClick(javafx.event.ActionEvent actionEvent) {
-        addAudioBookRadioButton.setOnMouseClicked(mouseEvent -> {
+    public void handleAddAudioBookClick(javafx.event.ActionEvent actionEvent)
+    {
+        addAudioBookRadioButton.setOnMouseClicked(mouseEvent ->
+        {
 
             addBookRadioButton.setSelected(false);
             addMovieRadioButton.setSelected(false);
@@ -329,8 +362,10 @@ public class AddOrRemoveItemCtrl {
         });
     }
 
-    public void handleAddMovieClick(javafx.event.ActionEvent actionEvent) {
-        addMovieRadioButton.setOnMouseClicked(mouseEvent -> {
+    public void handleAddMovieClick(javafx.event.ActionEvent actionEvent)
+    {
+        addMovieRadioButton.setOnMouseClicked(mouseEvent ->
+        {
 
             addAudioBookRadioButton.setSelected(false);
             addBookRadioButton.setSelected(false);
@@ -339,8 +374,10 @@ public class AddOrRemoveItemCtrl {
         });
     }
 
-    public void handleDVDTypeClick(javafx.event.ActionEvent actionEvent) {
-        movieDVDTypeRadioButton.setOnMouseClicked(mouseEvent -> {
+    public void handleDVDTypeClick(javafx.event.ActionEvent actionEvent)
+    {
+        movieDVDTypeRadioButton.setOnMouseClicked(mouseEvent ->
+        {
 
             movieBluRayTypeRadioButton.setSelected(false);
             movieType = "DVD";
@@ -348,8 +385,10 @@ public class AddOrRemoveItemCtrl {
         });
     }
 
-    public void handleBluClick(javafx.event.ActionEvent actionEvent) {
-        movieBluRayTypeRadioButton.setOnMouseClicked(mouseEvent -> {
+    public void handleBluClick(javafx.event.ActionEvent actionEvent)
+    {
+        movieBluRayTypeRadioButton.setOnMouseClicked(mouseEvent ->
+        {
 
             movieDVDTypeRadioButton.setSelected(false);
             movieType = "Blu-Ray";
@@ -357,12 +396,16 @@ public class AddOrRemoveItemCtrl {
         });
     }
 
-    public void handleContinueClick(javafx.event.ActionEvent actionEvent) {
-        addItemContinueButton.setOnMouseClicked(mouseEvent -> {
+    public void handleContinueClick(javafx.event.ActionEvent actionEvent)
+    {
+        addItemContinueButton.setOnMouseClicked(mouseEvent ->
+        {
 
-            if (itemType == "Book") {
+            if (itemType == "Book")
+            {
                 Parent part = null;
-                try {
+                try
+                {
                     part = FXMLLoader.load(getClass().getResource("/View/NewBookDetailsUI.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(part);
@@ -370,12 +413,15 @@ public class AddOrRemoveItemCtrl {
                     stage.setTitle("Enter New Book Details");
                     stage.show();
 
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
-            } else if (itemType == "AudioBook") {
+            } else if (itemType == "AudioBook")
+            {
                 Parent part = null;
-                try {
+                try
+                {
                     part = FXMLLoader.load(getClass().getResource("/View/NewAudioBookDetailsUI.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(part);
@@ -383,13 +429,16 @@ public class AddOrRemoveItemCtrl {
                     stage.setTitle("Enter New Audiobook Details");
                     stage.show();
 
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
 
-            } else {
+            } else
+            {
                 Parent part = null;
-                try {
+                try
+                {
                     part = FXMLLoader.load(getClass().getResource("/View/NewMovieDetailsUI.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(part);
@@ -398,7 +447,8 @@ public class AddOrRemoveItemCtrl {
                     stage.show();
 
 
-                } catch (IOException e) {
+                } catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }
@@ -406,35 +456,175 @@ public class AddOrRemoveItemCtrl {
         });
     }
 
-    public void handleAddNewBookClick(javafx.event.ActionEvent actionEvent) {
-        bookAddNewItemButton.setOnMouseClicked(mouseEvent -> {
+    public void handleNewBookValidation()
+    {
 
-            final Node source = (Node) actionEvent.getSource();
-            final Stage stage = (Stage) source.getScene().getWindow();
+        boolean disabled = (genreComboBox.getEditor().getText().isEmpty() || bookPublishedPicker.getEditor().getText().isEmpty() || bookTitleTextField.getText().isEmpty() || bookAuthorsTextField.getText().isEmpty() || bookPublisherTextField.getText().isEmpty() || bookLengthTextField.getText().isEmpty() || bookDescriptionTextArea.getText().isEmpty());
+        addBookPane.setOnMouseMoved(mouseEvent ->
+                {
+                    if (!disabled)
+                    {
+                        bookAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        bookAddNewItemButton.setDisable(disabled);
+                    }
+                    ;
+                }
+        );
 
-            ArrayList<Collaborator> authors = new ArrayList<>(); // list of authors for this book, as an arraylist
-            Book temp;                                           // temporary book to be created
-
-            authors = getCollaborators(bookAuthorsTextField.getText());
-
-
-            // create the Book
-            temp = new Book(Integer.parseInt(bookItemIDTextField.getText()), bookTitleTextField.getText(),
-                    Integer.parseInt(bookYearPublishedTextField.getText()),
-                    new NormalDate(bookDatePublishedYearTextField.getText(), bookDatePublishedMonthTextField.getText(),
-                            bookDatePublishedDayTextField.getText()), bookDescriptionTextArea.getText(), "Checked In",
-                    bookPublisherTextField.getText(), authors, bookLengthTextField.getText(), bookGenresTextField.getText());
-
-            // send to LoadBook
-            itemList.LoadBook(temp);
-
-            stage.close();
-
+        bookDescriptionTextArea.setOnKeyPressed(mouseEvent ->
+                {
+                    if (!disabled)
+                    {
+                        bookAddNewItemButton.setDisable(false);
+                    } else
+                    {
+                        bookAddNewItemButton.setDisable(disabled);
+                    }
+                    ;
+                }
+        );
+        bookTitleTextField.setOnKeyReleased(keyEvent ->
+        {
+            Random randomBookID = new Random();
+            int n = 100000 + randomBookID.nextInt(900000);
+            bookItemIDTextField.setText(String.valueOf(n));
         });
+
+        bookPublishedPicker.getEditor().setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9/]*$") && change.getControlNewText().length() <= 10)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        bookLengthTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 8)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+
     }
 
-    public void handleAddNewAudioBookClick(javafx.event.ActionEvent actionEvent) {
-        audioBookAddNewItemButton.setOnMouseClicked(mouseEvent -> {
+    public void handleAddNewBookClick(javafx.event.ActionEvent actionEvent)
+    {
+        if (!bookPublishedPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!bookPublishedPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!bookPublishedPicker.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!bookPublishedPicker.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")))
+        {
+
+            Alert confirm = new Alert(Alert.AlertType.ERROR);
+            confirm.setHeaderText("Date Format is Wrong!");
+            confirm.setContentText("Fix the Date. m/d/yyyy");
+            confirm.showAndWait();
+        } else
+        {
+            boolean thrown = false;
+            String datePickText = bookPublishedPicker.getEditor().getText();
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("M/d/yyyy");
+
+            try
+            {
+                LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                bookPublishedPicker.setValue(tempDateFormatted);
+                if (tempDateFormatted.getDayOfMonth() > 31)
+                {
+                    thrown = true;
+                }
+                if (tempDateFormatted.getMonth().getValue() > 12)
+                {
+                    thrown = true;
+                }
+                if (tempDateFormatted.getYear() >= 20000)
+                {
+                    thrown = true;
+                }
+
+            } catch (Exception e)
+            {
+
+                Alert confirm = new Alert(Alert.AlertType.ERROR);
+                confirm.setHeaderText("Check Date!");
+                confirm.setContentText("Fix the Date. Month, Day, or year is too High. m/d/yyyy");
+                confirm.showAndWait();
+                thrown = true;
+            }
+
+            if (!thrown)
+            {
+                LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                bookPublishedPicker.setValue(tempDateFormatted);
+                LocalDate tempDate = bookPublishedPicker.getValue();
+                if(!tempDate.isAfter(LocalDate.now())){
+                bookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+                {
+
+                    final Node source = (Node) actionEvent.getSource();
+                    final Stage stage = (Stage) source.getScene().getWindow();
+
+                    ArrayList<Collaborator> authors = new ArrayList<>(); // list of authors for this book, as an arraylist
+                    Book temp;
+                    // temporary book to be created
+
+                    authors = getCollaborators(bookAuthorsTextField.getText());
+
+
+                    // create the Book
+                    temp = new Book(Integer.parseInt(bookItemIDTextField.getText()), bookTitleTextField.getText(),
+                            Integer.parseInt(String.valueOf(tempDate.getYear())),
+                            new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
+                                    String.valueOf(tempDate.getDayOfMonth())), bookDescriptionTextArea.getText(), "Checked In",
+                            bookPublisherTextField.getText(), authors, bookLengthTextField.getText()+" Pages", genreComboBox.getEditor().getText());
+                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirm.setHeaderText("Book Added!");
+                    confirm.setContentText(bookTitleTextField.getText()+" is now in the item inventory with a status of checked in. ID#: "+bookItemIDTextField.getText());
+                    confirm.showAndWait();
+                    // send to LoadBook
+                    itemList.LoadBook(temp);
+                    stage.close();
+
+                });}
+                else {
+                    if(tempDate.isAfter(LocalDate.now())){
+                    Alert confirm = new Alert(Alert.AlertType.ERROR);
+                    confirm.setHeaderText("Future Date!");
+                    confirm.setContentText("Mak sure the day equal to or before today.");
+                    confirm.showAndWait();
+
+                }
+                    if(itemList.searchBook(bookItemIDTextField.getText())==true){
+                        Random randomBookID = new Random();
+                        int n = 100000 + randomBookID.nextInt(900000);
+                        bookItemIDTextField.setText(String.valueOf(n));
+                        Alert confirm2 = new Alert(Alert.AlertType.ERROR);
+                        confirm2.setHeaderText("PLease Submit");
+                        confirm2.setContentText("Please Resubmit, book ID already existed.");
+                        confirm2.showAndWait();
+
+                    }}
+            }
+        }
+    }
+
+    public void handleAddNewAudioBookClick(javafx.event.ActionEvent actionEvent)
+    {
+        audioBookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+        {
 
             final Node source = (Node) actionEvent.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
@@ -448,11 +638,11 @@ public class AddOrRemoveItemCtrl {
 
             // create the AudioBook
             temp = new AudioBook(Integer.parseInt(audioBookItemIDTextField.getText()), audioBookTitleTextField.getText(),
-                                 Integer.parseInt(audioBookYearPublishedTextField.getText()),
-                                 new NormalDate(audioBookDatePublishedYearTextField.getText(), audioBookDatePublishedMonthTextField.getText(),
-                                 audioBookDatePublishedDayTextField.getText()), audioBookDescriptionTextArea.getText(), "Checked In",
-                                 audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
-                                 audioBookLengthTextField.getText(), audioBookGenresTextField.getText());
+                    Integer.parseInt(audioBookYearPublishedTextField.getText()),
+                    new NormalDate(audioBookDatePublishedYearTextField.getText(), audioBookDatePublishedMonthTextField.getText(),
+                            audioBookDatePublishedDayTextField.getText()), audioBookDescriptionTextArea.getText(), "Checked In",
+                    audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
+                    audioBookLengthTextField.getText(), audioBookGenresTextField.getText());
 
             // send to LoadAudioBook
             itemList.LoadAudiobook(temp);
@@ -462,8 +652,10 @@ public class AddOrRemoveItemCtrl {
         });
     }
 
-    public void handleAddNewMovieClick(javafx.event.ActionEvent actionEvent) {
-        movieAddNewItemButton.setOnMouseClicked(mouseEvent -> {
+    public void handleAddNewMovieClick(javafx.event.ActionEvent actionEvent)
+    {
+        movieAddNewItemButton.setOnMouseClicked(mouseEvent ->
+        {
 
             final Node source = (Node) actionEvent.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
@@ -475,11 +667,11 @@ public class AddOrRemoveItemCtrl {
 
             // create the Movie
             temp = new Movie(Integer.parseInt(movieItemIDTextField.getText()), movieTitleTextField.getText(),
-                             Integer.parseInt(movieYearPublishedTextField.getText()),
-                             new NormalDate(movieDatePublishedYearTextField.getText(), movieDatePublishedMonthTextField.getText(),
-                             movieDatePublishedDayTextField.getText()), movieDescriptionTextArea.getText(), "Checked In",
-                             movieProductionCompanyTextField.getText(), movieDistributorTextField.getText(), actors,
-                             movieType, movieRuntimeTextField.getText(), movieGenresTextField.getText());
+                    Integer.parseInt(movieYearPublishedTextField.getText()),
+                    new NormalDate(movieDatePublishedYearTextField.getText(), movieDatePublishedMonthTextField.getText(),
+                            movieDatePublishedDayTextField.getText()), movieDescriptionTextArea.getText(), "Checked In",
+                    movieProductionCompanyTextField.getText(), movieDistributorTextField.getText(), actors,
+                    movieType, movieRuntimeTextField.getText(), movieGenresTextField.getText());
 
             // send to LoadMovie
             itemList.LoadMovie(temp);
@@ -487,9 +679,12 @@ public class AddOrRemoveItemCtrl {
             stage.close();
 
         });
-    };
+    }
 
-    public ArrayList<Collaborator> getCollaborators(String input) {
+    ;
+
+    public ArrayList<Collaborator> getCollaborators(String input)
+    {
         ArrayList<String> people = new ArrayList<>();
         int x;
         String firstName;
@@ -500,7 +695,8 @@ public class AddOrRemoveItemCtrl {
 
         String str = input;
         String[] newStrings = str.split(", ", 0);
-        for (String myStr : newStrings) {
+        for (String myStr : newStrings)
+        {
             people.add(myStr);
         }
 
@@ -524,131 +720,152 @@ public class AddOrRemoveItemCtrl {
     public void handleArchiveSubmitClick()
     {
 
-        archiveSubmitButton.setOnMouseClicked(mouseEvent -> {
+        archiveSubmitButton.setOnMouseClicked(mouseEvent ->
+        {
 
-            if (itemList.searchAudio(archiveItemIDTextField.getText()) == true ||itemList.searchMovie(archiveItemIDTextField.getText()) == true || itemList.searchBook(archiveItemIDTextField.getText()) == true){
+            if (itemList.searchAudio(archiveItemIDTextField.getText()) == true || itemList.searchMovie(archiveItemIDTextField.getText()) == true || itemList.searchBook(archiveItemIDTextField.getText()) == true)
+            {
                 archiveItemIDTextField.setStyle("-fx-background-color: white");
                 itemList.archiveItem(archiveItemIDTextField.getText());
-            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-            confirm.setHeaderText("Item added to Archive");
-            confirm.setContentText("Item Removed or was previously added to Archives: " +archiveItemIDTextField.getText()+" has been removed from inventory and added to the archives.");
-            confirm.showAndWait();
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                confirm.setHeaderText("Item added to Archive");
+                confirm.setContentText("Item Removed or was previously added to Archives: " + archiveItemIDTextField.getText() + " has been removed from inventory and added to the archives.");
+                confirm.showAndWait();
 
-                }else {archiveItemIDTextField.setStyle("-fx-background-color: red");;}
+            } else
+            {
+                archiveItemIDTextField.setStyle("-fx-background-color: red");
+                ;
+            }
 
         });
     }
-public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent)
-{
-    archiveSearchButton.setOnMouseClicked(mouseEvent ->
-    {
 
-        Parent part = null;
+
+public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent)
+        {
+        archiveSearchButton.setOnMouseClicked(mouseEvent->
+        {
+
+        Parent part=null;
 
         try
         {
 
-            part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
-            Stage stage = new Stage();
-            Scene scene = new Scene(part);
-            stage.setScene(scene);
-            stage.setTitle("Search Archive Items");
-            stage.show();
+        part=FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
+        Stage stage=new Stage();
+        Scene scene=new Scene(part);
+        stage.setScene(scene);
+        stage.setTitle("Search Archive Items");
+        stage.show();
 
-        } catch (IOException e)
+        }catch(IOException e)
         {
-            e.printStackTrace();
+        e.printStackTrace();
         }
 
-    });
-}
+        });
+        }
 
-public void removeItemVailidate(){
-        searchRemoveTxt.setOnKeyReleased(KeyEvent ->
-    {
-        if (!searchRemoveTxt.getText().isEmpty())
+public void removeItemVailidate()
         {
-            SearchRemoveItemBtn.setDisable(false);
-        }else {
-            SearchRemoveItemBtn.setDisable(true);
+        searchRemoveTxt.setOnKeyReleased(KeyEvent->
+        {
+        if(!searchRemoveTxt.getText().isEmpty())
+        {
+        SearchRemoveItemBtn.setDisable(false);
+        }else
+        {
+        SearchRemoveItemBtn.setDisable(true);
         }
 
 
-    });
-   SearchRemoveItemBtn.setOnMouseClicked(mouseEvent -> {
-       ObservableList<Item> items = FXCollections.observableArrayList();
-       if (itemList.searchBook(searchRemoveTxt.getText()) == true|| itemList.searchMovie(searchRemoveTxt.getText())==true||itemList.searchAudio(searchRemoveTxt.getText())==true){
-if(itemList.searchBook(searchRemoveTxt.getText())){
-           searchRemoveTxt.setStyle("-fx-background-color: white");
-           itemIdCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("itemID"));
-           titleCol.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
-
-           items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
-          }
-       if (itemList.searchMovie(searchRemoveTxt.getText()) == true){
-
-           searchRemoveTxt.setStyle("-fx-background-color: white");
-           itemIdCol.setCellValueFactory(new PropertyValueFactory<Item,Integer>("itemID"));
-           titleCol.setCellValueFactory(new PropertyValueFactory<Item,String>("title"));
-
-           items.addAll(itemList.movieArchiveReturn(searchRemoveTxt.getText()));
-       }
-       if (itemList.searchAudio(searchRemoveTxt.getText()) == true)
-       {
-
-           searchRemoveTxt.setStyle("-fx-background-color: white");
-           itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-           titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
-
-           items.addAll(itemList.audioArchiveReturn(searchRemoveTxt.getText()));
-
-       }
-           searchRemoveTbl.setItems(items);
-       }else {
-           searchRemoveTxt.setStyle("-fx-background-color: red");
-       }
-   });
-
-
-
-
-}
-
-public void searchArchiveVal(){
-    searchRemoveTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
-    {
-        @Override
-        public TextFormatter.Change apply(TextFormatter.Change change)
+        });
+        SearchRemoveItemBtn.setOnMouseClicked(mouseEvent->
         {
-            String value = change.getText();
-            if (change.getText().matches("\\d*") && change.getControlNewText().length() <10)
-            {
-                return change;
-            }
-            return null;
-        }
-    }));
-}
-
-public void archiveUIValidate(){
-
-    archiveItemIDTextField.setOnKeyPressed(KeyEvent->{
-        if(!archiveItemIDTextField.getText().isEmpty()){
-            archiveSubmitButton.setDisable(false);
-        }else {archiveSubmitButton.setDisable(true);}});
-    archiveItemIDTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
-    {
-        @Override
-        public TextFormatter.Change apply(TextFormatter.Change change)
+        ObservableList<Item> items=FXCollections.observableArrayList();
+        if(itemList.searchBook(searchRemoveTxt.getText())==true||itemList.searchMovie(searchRemoveTxt.getText())==true||itemList.searchAudio(searchRemoveTxt.getText())==true)
         {
-            String value = change.getText();
-            if (change.getText().matches("\\d*") && change.getControlNewText().length() <10)
-            {
-                return change;
-            }
-            return null;
+        if(itemList.searchBook(searchRemoveTxt.getText()))
+        {
+        searchRemoveTxt.setStyle("-fx-background-color: white");
+        itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+        items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
         }
-    }));
-}
-}
+        if(itemList.searchMovie(searchRemoveTxt.getText())==true)
+        {
+
+        searchRemoveTxt.setStyle("-fx-background-color: white");
+        itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+        items.addAll(itemList.movieArchiveReturn(searchRemoveTxt.getText()));
+        }
+        if(itemList.searchAudio(searchRemoveTxt.getText())==true)
+        {
+
+        searchRemoveTxt.setStyle("-fx-background-color: white");
+        itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+
+        items.addAll(itemList.audioArchiveReturn(searchRemoveTxt.getText()));
+
+        }
+        searchRemoveTbl.setItems(items);
+        }else
+        {
+        searchRemoveTxt.setStyle("-fx-background-color: red");
+        }
+        });
+
+
+        }
+
+public void searchArchiveVal()
+        {
+        searchRemoveTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+@Override
+public TextFormatter.Change apply(TextFormatter.Change change)
+        {
+        String value=change.getText();
+        if(change.getText().matches("\\d*")&&change.getControlNewText().length()< 10)
+        {
+        return change;
+        }
+        return null;
+        }
+        }));
+        }
+
+public void archiveUIValidate()
+        {
+
+        archiveItemIDTextField.setOnKeyPressed(KeyEvent->
+        {
+        if(!archiveItemIDTextField.getText().isEmpty())
+        {
+        archiveSubmitButton.setDisable(false);
+        }else
+        {
+        archiveSubmitButton.setDisable(true);
+        }
+        });
+        archiveItemIDTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+@Override
+public TextFormatter.Change apply(TextFormatter.Change change)
+        {
+        String value=change.getText();
+        if(change.getText().matches("\\d*")&&change.getControlNewText().length()< 10)
+        {
+        return change;
+        }
+        return null;
+        }
+        }));
+        }
+        }
 

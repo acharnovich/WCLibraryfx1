@@ -96,15 +96,16 @@ public class NavigationCtrl {
     {
         addItemBtn.setOnMouseClicked(mouseEvent -> {
 
-
             Parent part = null;
             try {
+
                 part = FXMLLoader.load(getClass().getResource("/View/NewItemUI.fxml"));
                 Stage stage = new Stage();
                 Scene scene = new Scene(part);
                 stage.setScene(scene);
                 stage.setTitle("Add New Item");
                 stage.show();
+
 
             } catch (IOException e) {
                 e.printStackTrace();

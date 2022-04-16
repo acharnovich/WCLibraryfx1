@@ -209,6 +209,7 @@ public class AccountCtrl
     private TextField emailTextStaff;
 
 
+
     @FXML
     private TextField lastFourTxtStaf;
 
@@ -823,8 +824,8 @@ public class AccountCtrl
             {
 
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
-                confirm.setHeaderText("Numbers too hgireg");
-                confirm.setContentText("Fix the Date. m/d/yyyy");
+                confirm.setHeaderText("Check Date!");
+                confirm.setContentText("Fix the Date. Month, Day, or year is too High. m/d/yyyy");
                 confirm.showAndWait();
                 thrown = true;
             }
@@ -877,16 +878,19 @@ public class AccountCtrl
                         {
                             Alert confirm = new Alert(Alert.AlertType.ERROR);
                             confirm.setHeaderText("Email!");
-                            confirm.setContentText("Check to make sure email includes a @ character");
+                            confirm.setContentText("Check to make sure email includes a domain such as gmail.com");
                             confirm.showAndWait();
 
                         }
 
                         if (patronList.foundCardExact(cardTxt.getText()) == true)
                         {
+                            Random randomCard = new Random();
+                            int n = 10000000 + randomCard.nextInt(90000000);
+                            cardTxt.setText(String.valueOf(n));
                             Alert confirm = new Alert(Alert.AlertType.ERROR);
                             confirm.setHeaderText("Card Exists!");
-                            confirm.setContentText("Try typing in the name box again to refresh the numbers");
+                            confirm.setContentText("Please Resubmit, new card number has been generated");
                             confirm.showAndWait();
                         }
 
