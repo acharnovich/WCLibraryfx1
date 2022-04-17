@@ -75,7 +75,7 @@ public class CheckOut
         // Call dueDateLocal's toString and assign the value to a String named stringDueDate
         String stringDueDate = dueDateLocal.toString();
 
-        // Create a String array named brokenUpDueDte and split stringDueDate where dashes appear
+        // Create a String array named dateSplit and split stringDueDate where dashes appear
         String[] dateSplit = stringDueDate.split("-", 0);
 
         // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new

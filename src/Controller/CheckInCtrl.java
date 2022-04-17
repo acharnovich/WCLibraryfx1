@@ -1,9 +1,6 @@
 package Controller;
 
-import Model.CheckOut;
-import Model.Item;
-import Model.ItemList;
-import Model.NormalDate;
+import Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -85,6 +82,7 @@ public class CheckInCtrl {
                     // get the Item ID number from the Item ID text field and convert to integer
                     itemCheckIn = Integer.parseInt(itemIDTextField.getText());
 
+                    // if the item is a book...
                     if (iList.bookReturn(itemIDTextField.getText()) != null)
                     {
 
@@ -102,7 +100,7 @@ public class CheckInCtrl {
                         LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
                         // compare today to dueDateLocal and assign the value to daysPassed
-                        int daysPassed = today.compareTo(dueDateLocal);
+                        float daysPassed = today.compareTo(dueDateLocal);
 
                         // if the item is late
                         if (daysPassed > 0)
@@ -114,6 +112,23 @@ public class CheckInCtrl {
 
                             items.addAll(iList.bookReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
+
+                            // Call today's toString and assign the value to a String named stringDueDate
+                            String stringToday = today.toString();
+
+                            // Create a String array named dateSplit and split stringToday where dashes appear
+                            String[] dateSplit = stringToday.split("-", 0);
+
+                            // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
+                            // NormalDate object named normalToday
+                            NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
+
+
+                            Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
+                                                     Integer.toString(checkoutTransaction.getItemID()),
+                                                     normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
+
+                            lateBill.LoadBills(lateBill);
 
 
                         }
@@ -132,6 +147,7 @@ public class CheckInCtrl {
 
                     }
 
+                    // if the item is a movie...
                     else if (iList.movieReturn(itemIDTextField.getText()) != null)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
@@ -148,7 +164,7 @@ public class CheckInCtrl {
                         LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
                         // compare today to dueDateLocal and assign the value to daysPassed
-                        int daysPassed = today.compareTo(dueDateLocal);
+                        float daysPassed = today.compareTo(dueDateLocal);
 
                         // if the item is late
                         if (daysPassed > 0)
@@ -158,8 +174,27 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            items.addAll(iList.movieReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
+
+                            // Call today's toString and assign the value to a String named stringDueDate
+                            String stringToday = today.toString();
+
+                            // Create a String array named dateSplit and split stringToday where dashes appear
+                            String[] dateSplit = stringToday.split("-", 0);
+
+                            // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
+                            // NormalDate object named normalToday
+                            NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
+
+
+                            Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
+                                    Integer.toString(checkoutTransaction.getItemID()),
+                                    normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
+
+                            lateBill.LoadBills(lateBill);
+
+
                         }
                         // otherwise... (item is early or on time)
                         else
@@ -169,12 +204,13 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            items.addAll(iList.movieReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
                         }
 
-
                     }
+
+                    // if the item is an audiobook...
                     else if (iList.audioReturn(itemIDTextField.getText()) != null)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
@@ -191,7 +227,7 @@ public class CheckInCtrl {
                         LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
                         // compare today to dueDateLocal and assign the value to daysPassed
-                        int daysPassed = today.compareTo(dueDateLocal);
+                        float daysPassed = today.compareTo(dueDateLocal);
 
                         // if the item is late
                         if (daysPassed > 0)
@@ -201,8 +237,27 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            items.addAll(iList.audioReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
+
+                            // Call today's toString and assign the value to a String named stringDueDate
+                            String stringToday = today.toString();
+
+                            // Create a String array named dateSplit and split stringToday where dashes appear
+                            String[] dateSplit = stringToday.split("-", 0);
+
+                            // Take the year, month, and day from the dateSplit String Array and send them as parameters to create a new
+                            // NormalDate object named normalToday
+                            NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
+
+
+                            Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
+                                    Integer.toString(checkoutTransaction.getItemID()),
+                                    normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
+
+                            lateBill.LoadBills(lateBill);
+
+
                         }
                         // otherwise... (item is early or on time)
                         else
@@ -212,12 +267,14 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            items.addAll(iList.audioReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
                         }
 
 
                     }
+
+                    // if the item is some other type - should be impossible to reach this
                     else
                     {
                         Alert noItemID = new Alert(Alert.AlertType.ERROR);
