@@ -192,16 +192,29 @@ public class AllCheckoutLists
                     ArrayList<CheckOut> tempCheckoutsList = new ArrayList<CheckOut>();
                     tempCheckoutsList = temp.getCheckouts();
 
-                    // remove the checkout sent as an argument to the tempCheckoutsList ArrayList
-                    tempCheckoutsList.remove(checkoutInput);
+                    // step through the tempCheckoutsList ArrayList and find the Checkout Object with an item ID that matches checkoutInput
+                    for (int j = 0; j < tempCheckoutsList.size(); j++)
+                    {
+                        // get the CheckOut object at the current index and assign the value to currentCheckout
+                        CheckOut currentCheckout = tempCheckoutsList.get(j);
 
+                        // if the item ID of currentCheckout is equals to checkoutInput...
+                        if (Integer.toString(currentCheckout.getItemID()).equals(checkoutInput))
+                        {
+                            // remove the CheckOut from tempCheckoutsList
+                            tempCheckoutsList.remove(j);
+                        }
+                    }
+
+                    // create a new PatronCheckoutList object named updatedNewList and send the patron's card number and newly updated checkout list
+                    // as parameters
                     PatronCheckoutList updatedNewList = new PatronCheckoutList(patronLists.get(i).getPatronCardNum(),
                             tempCheckoutsList);
 
-                    // remove the old record
+                    // remove the old record from the ArrayList to be sent to json
                     patronLists.remove(i);
 
-                    // add the newly updated record
+                    // add the newly updated record to the ArrayList to be sent to json
                     patronLists.add(updatedNewList);
 
                     // send the ArrayList of records to the json to be serialized
