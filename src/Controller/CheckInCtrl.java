@@ -72,6 +72,7 @@ public class CheckInCtrl {
 
                 // create a new CheckOut object named checkoutTransaction to store the checkout transaction if found
                 CheckOut checkoutTransaction = new CheckOut();
+                PatronBillList billList = new PatronBillList();
 
                 // if the item exists somewhere in the inventory...
                 if (iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
@@ -123,12 +124,22 @@ public class CheckInCtrl {
                             // NormalDate object named normalToday
                             NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
-
+                            // Create a new Bill object with the patron ID, ite, ID, normalToday, the calculated fine, the amount
+                            // paid so far (0.0), and a description
                             Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
                                                      Integer.toString(checkoutTransaction.getItemID()),
                                                      normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
 
+                            // send lateBill as an argument to LoadBills method
                             lateBill.LoadBills(lateBill);
+
+                            // update the patron's bill list with the newly added bill
+                            billList.updateBillList(Integer.toString(checkoutTransaction.getPatronID()), lateBill);
+
+                            // delete checkout object
+                            checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
+
+                            // delete checkout from patron's checkout list
 
 
                         }
@@ -187,12 +198,22 @@ public class CheckInCtrl {
                             // NormalDate object named normalToday
                             NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
-
+                            // Create a new Bill object with the patron ID, ite, ID, normalToday, the calculated fine, the amount
+                            // paid so far (0.0), and a description
                             Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()),
                                     normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
 
+                            // send lateBill as an argument to LoadBills method
                             lateBill.LoadBills(lateBill);
+
+                            // update the patron's bill list with the newly added bill
+                            billList.updateBillList(Integer.toString(checkoutTransaction.getPatronID()), lateBill);
+
+                            // delete checkout object
+                            checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
+
+                            // delete checkout from patron's checkout list
 
 
                         }
@@ -250,12 +271,22 @@ public class CheckInCtrl {
                             // NormalDate object named normalToday
                             NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
-
+                            // Create a new Bill object with the patron ID, ite, ID, normalToday, the calculated fine, the amount
+                            // paid so far (0.0), and a description
                             Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()),
                                     normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
 
+                            // send lateBill as an argument to LoadBills method
                             lateBill.LoadBills(lateBill);
+
+                            // update the patron's bill list with the newly added bill
+                            billList.updateBillList(Integer.toString(checkoutTransaction.getPatronID()), lateBill);
+
+                            // delete checkout object
+                            checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
+
+                            // delete checkout from patron's checkout list
 
 
                         }

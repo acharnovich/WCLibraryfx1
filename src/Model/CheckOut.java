@@ -223,7 +223,6 @@ public class CheckOut
             ex.printStackTrace();
         }
 
-        System.out.println("Something went wrong.");
         return false;
     }
 
