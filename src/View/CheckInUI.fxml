@@ -15,13 +15,13 @@
       <Button fx:id="finishCheckInButton" disable="true" layoutX="252.0" layoutY="397.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Finish Check In" />
       <TableView fx:id="checkInTable" layoutX="13.0" layoutY="56.0" prefHeight="334.0" prefWidth="499.0">
          <columns>
-            <TableColumn fx:id="checkoutTableItemID" prefWidth="150.40002822875977" text="Item ID" />
-            <TableColumn fx:id="checkoutTableTitle" prefWidth="347.1999969482422" text="Title" />
+            <TableColumn fx:id="checkInTableItemID" prefWidth="150.40002822875977" text="Item ID" />
+            <TableColumn fx:id="checkInTableTitle" prefWidth="347.1999969482422" text="Title" />
          </columns>
       </TableView>
       <TableView fx:id="finesTable" layoutX="512.0" layoutY="56.0" prefHeight="334.0" prefWidth="172.0">
          <columns>
-            <TableColumn fx:id="checkoutTableDueDate" prefWidth="178.40001220703124" text="Fines" />
+            <TableColumn fx:id="checkInTableFines" prefWidth="178.40001220703124" text="Fines" />
          </columns>
       </TableView>
    </children>

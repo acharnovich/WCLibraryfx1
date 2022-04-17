@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,6 +10,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class CheckInCtrl {
 
@@ -22,16 +25,16 @@ public class CheckInCtrl {
     private TableView<Item> checkInTable;
 
     @FXML
-    private TableColumn<?, ?> checkoutTableDueDate;
+    private TableColumn<String, String> checkInTableFines;
 
     @FXML
-    private TableColumn<Item, Integer> checkoutTableItemID;
+    private TableColumn<Item, Integer> checkInTableItemID;
 
     @FXML
-    private TableColumn<Item, Integer> checkoutTableTitle;
+    private TableColumn<Item, Integer> checkInTableTitle;
 
     @FXML
-    private TableView<?> finesTable;
+    private TableView<String> finesTable;
 
     @FXML
     private Button finishCheckInButton;
@@ -44,9 +47,9 @@ public class CheckInCtrl {
 
     private int itemCheckIn;
 
-    ObservableList<CheckOut> checkins = FXCollections.observableArrayList();
-
     ObservableList<Item> items = FXCollections.observableArrayList();
+    Collection<String> finesCollection = new ArrayList<>();
+    ObservableList<String> fines = FXCollections.observableArrayList(finesCollection);
 
     public void handleCheckInItemClick(javafx.event.ActionEvent actionEvent)
     {
@@ -102,18 +105,17 @@ public class CheckInCtrl {
                         LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
                         // compare today to dueDateLocal and assign the value to daysPassed
-                        float daysPassed = today.compareTo(dueDateLocal);
+                        double daysPassed = today.compareTo(dueDateLocal);
 
                         // if the item is late
                         if (daysPassed > 0)
                         {
                             // display item ID in tableview
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            checkInTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             // display item title in tableview
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                            checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
                             items.addAll(iList.bookReturn(itemIDTextField.getText()));
-                            checkInTable.setItems(items);
 
                             // Call today's toString and assign the value to a String named stringDueDate
                             String stringToday = today.toString();
@@ -125,11 +127,14 @@ public class CheckInCtrl {
                             // NormalDate object named normalToday
                             NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
+                            // calculate fine and assign the resulting value to checkinFine
+                            double checkinFine = daysPassed * 0.25;
+
                             // Create a new Bill object with the patron ID, ite, ID, normalToday, the calculated fine, the amount
                             // paid so far (0.0), and a description
                             Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
                                                      Integer.toString(checkoutTransaction.getItemID()),
-                                                     normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
+                                                     normalToday, checkinFine, 0.0, "Overdue fine");
 
                             // send lateBill as an argument to LoadBills method
                             lateBill.LoadBills(lateBill);
@@ -137,24 +142,45 @@ public class CheckInCtrl {
                             // update the patron's bill list with the newly added bill
                             billList.updateBillList(Integer.toString(checkoutTransaction.getPatronID()), lateBill);
 
+                            // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
+                            finesCollection.add("$" + checkinFine);
+
+                            // display checkinFine in checkInFines column
+                            checkInTableFines.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+                            fines.addAll(finesCollection);
+
                             // delete checkout object
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()));
+
+                            // change the status of the item to 'Checked In' in the item database
+                            iList.checkInItem(Integer.toString(checkoutTransaction.getItemID()));
+
+                            checkInTable.setItems(items);
+                            finesTable.setItems(fines);
 
                         }
                         // otherwise... (item is early or on time)
                         else
                         {
                             // display item ID in tableview
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            checkInTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             // display item title in tableview
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                            checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
                             items.addAll(iList.bookReturn(itemIDTextField.getText()));
-                            checkInTable.setItems(items);
+
+                            // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
+                            finesCollection.add("$0.00");
+
+                            // display checkinFine in checkInFines column
+                            checkInTableFines.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+                            fines.addAll(finesCollection);
 
                             // delete checkout object
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
@@ -162,6 +188,12 @@ public class CheckInCtrl {
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()));
+
+                            // change the status of the item to 'Checked In' in the item database
+                            iList.checkInItem(Integer.toString(checkoutTransaction.getItemID()));
+
+                            checkInTable.setItems(items);
+                            finesTable.setItems(fines);
                         }
 
 
@@ -184,15 +216,15 @@ public class CheckInCtrl {
                         LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
                         // compare today to dueDateLocal and assign the value to daysPassed
-                        float daysPassed = today.compareTo(dueDateLocal);
+                        double daysPassed = today.compareTo(dueDateLocal);
 
                         // if the item is late
                         if (daysPassed > 0)
                         {
                             // display item ID in tableview
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            checkInTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             // display item title in tableview
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                            checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
                             items.addAll(iList.movieReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
@@ -207,11 +239,14 @@ public class CheckInCtrl {
                             // NormalDate object named normalToday
                             NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
+                            // calculate fine and assign the resulting value to checkinFine
+                            double checkinFine = daysPassed * 0.25;
+
                             // Create a new Bill object with the patron ID, ite, ID, normalToday, the calculated fine, the amount
                             // paid so far (0.0), and a description
                             Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()),
-                                    normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
+                                    normalToday, checkinFine, 0.0, "Overdue fine");
 
                             // send lateBill as an argument to LoadBills method
                             lateBill.LoadBills(lateBill);
@@ -219,12 +254,26 @@ public class CheckInCtrl {
                             // update the patron's bill list with the newly added bill
                             billList.updateBillList(Integer.toString(checkoutTransaction.getPatronID()), lateBill);
 
+                            // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
+                            finesCollection.add("$" + checkinFine);
+
+                            // display checkinFine in checkInFines column
+                            checkInTableFines.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+                            fines.addAll(finesCollection);
+
                             // delete checkout object
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()));
+
+                            // change the status of the item to 'Checked In' in the item database
+                            iList.checkInItem(Integer.toString(checkoutTransaction.getItemID()));
+
+                            checkInTable.setItems(items);
+                            finesTable.setItems(fines);
 
 
 
@@ -233,12 +282,19 @@ public class CheckInCtrl {
                         else
                         {
                             // display item ID in tableview
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            checkInTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             // display item title in tableview
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                            checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
                             items.addAll(iList.movieReturn(itemIDTextField.getText()));
-                            checkInTable.setItems(items);
+
+                            // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
+                            finesCollection.add("$0.00");
+
+                            // display checkinFine in checkInFines column
+                            checkInTableFines.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+                            fines.addAll(finesCollection);
 
                             // delete checkout object
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
@@ -246,6 +302,12 @@ public class CheckInCtrl {
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()));
+
+                            // change the status of the item to 'Checked In' in the item database
+                            iList.checkInItem(Integer.toString(checkoutTransaction.getItemID()));
+
+                            checkInTable.setItems(items);
+                            finesTable.setItems(fines);
                         }
 
                     }
@@ -267,15 +329,15 @@ public class CheckInCtrl {
                         LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
                         // compare today to dueDateLocal and assign the value to daysPassed
-                        float daysPassed = today.compareTo(dueDateLocal);
+                        double daysPassed = today.compareTo(dueDateLocal);
 
                         // if the item is late
                         if (daysPassed > 0)
                         {
                             // display item ID in tableview
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            checkInTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             // display item title in tableview
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                            checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
                             items.addAll(iList.audioReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
@@ -290,11 +352,14 @@ public class CheckInCtrl {
                             // NormalDate object named normalToday
                             NormalDate normalToday = new NormalDate(dateSplit[0], dateSplit[1], dateSplit[2]);
 
+                            // calculate fine and assign the resulting value to checkinFine
+                            double checkinFine = daysPassed * 0.25;
+
                             // Create a new Bill object with the patron ID, ite, ID, normalToday, the calculated fine, the amount
                             // paid so far (0.0), and a description
                             Bill lateBill = new Bill(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()),
-                                    normalToday, (daysPassed * 0.25), 0.0, "Overdue fine");
+                                    normalToday, checkinFine, 0.0, "Overdue fine");
 
                             // send lateBill as an argument to LoadBills method
                             lateBill.LoadBills(lateBill);
@@ -302,12 +367,26 @@ public class CheckInCtrl {
                             // update the patron's bill list with the newly added bill
                             billList.updateBillList(Integer.toString(checkoutTransaction.getPatronID()), lateBill);
 
+                            // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
+                            finesCollection.add("$" + checkinFine);
+
+                            // display checkinFine in checkInFines column
+                            checkInTableFines.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+                            fines.addAll(finesCollection);
+
                             // delete checkout object
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()));
+
+                            // change the status of the item to 'Checked In' in the item database
+                            iList.checkInItem(Integer.toString(checkoutTransaction.getItemID()));
+
+                            checkInTable.setItems(items);
+                            finesTable.setItems(fines);
 
 
 
@@ -316,12 +395,19 @@ public class CheckInCtrl {
                         else
                         {
                             // display item ID in tableview
-                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            checkInTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
                             // display item title in tableview
-                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                            checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
                             items.addAll(iList.audioReturn(itemIDTextField.getText()));
-                            checkInTable.setItems(items);
+
+                            // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
+                            finesCollection.add("$0.00");
+
+                            // display checkinFine in checkInFines column
+                            checkInTableFines.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
+
+                            fines.addAll(finesCollection);
 
                             // delete checkout object
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
@@ -329,6 +415,13 @@ public class CheckInCtrl {
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
                                     Integer.toString(checkoutTransaction.getItemID()));
+
+                            // change the status of the item to 'Checked In' in the item database
+                            iList.checkInItem(Integer.toString(checkoutTransaction.getItemID()));
+
+                            checkInTable.setItems(items);
+                            finesTable.setItems(fines);
+
                         }
 
 
