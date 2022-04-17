@@ -73,6 +73,7 @@ public class CheckInCtrl {
                 // create a new CheckOut object named checkoutTransaction to store the checkout transaction if found
                 CheckOut checkoutTransaction = new CheckOut();
                 PatronBillList billList = new PatronBillList();
+                AllCheckoutLists checkoutLists = new AllCheckoutLists();
 
                 // if the item exists somewhere in the inventory...
                 if (iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
@@ -140,7 +141,8 @@ public class CheckInCtrl {
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
 
                             // delete checkout from patron's checkout list
-
+                            checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
+                                                                 checkoutTransaction);
 
                         }
                         // otherwise... (item is early or on time)
@@ -153,6 +155,13 @@ public class CheckInCtrl {
 
                             items.addAll(iList.bookReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
+
+                            // delete checkout object
+                            checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
+
+                            // delete checkout from patron's checkout list
+                            checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
+                                    checkoutTransaction);
                         }
 
 
@@ -214,6 +223,9 @@ public class CheckInCtrl {
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
 
                             // delete checkout from patron's checkout list
+                            checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
+                                    checkoutTransaction);
+
 
 
                         }
@@ -227,6 +239,13 @@ public class CheckInCtrl {
 
                             items.addAll(iList.movieReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
+
+                            // delete checkout object
+                            checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
+
+                            // delete checkout from patron's checkout list
+                            checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
+                                    checkoutTransaction);
                         }
 
                     }
@@ -287,6 +306,9 @@ public class CheckInCtrl {
                             checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
 
                             // delete checkout from patron's checkout list
+                            checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
+                                    checkoutTransaction);
+
 
 
                         }
@@ -300,6 +322,13 @@ public class CheckInCtrl {
 
                             items.addAll(iList.audioReturn(itemIDTextField.getText()));
                             checkInTable.setItems(items);
+
+                            // delete checkout object
+                            checkoutTransaction.checkIn(Integer.toString(checkoutTransaction.getItemID()));
+
+                            // delete checkout from patron's checkout list
+                            checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
+                                    checkoutTransaction);
                         }
 
 

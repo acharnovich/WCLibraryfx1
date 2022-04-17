@@ -156,7 +156,68 @@ public class AllCheckoutLists
             ex.printStackTrace();
         }
 
-        System.out.println("Something went wrong.");
+        return false;
+    }
+
+    public boolean removeFromCheckOutList(String patronToSearchFor, CheckOut checkoutInput)
+    {
+
+        try
+        {
+            // check through Patron checkout lists
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronCheckoutLists.json"));
+
+            // convert JSON array to list of PatronCheckoutLists
+            ArrayList<PatronCheckoutList> patronLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronCheckoutList>>()
+            {
+            }.getType());
+            for (int i = 0; i < patronLists.size(); i++)
+            {
+                // get the patron card number at current index in the json, and assign the value to String tempID
+                String tempID = patronLists.get(i).getPatronCardNum();
+
+                // if the patron card number you are searching for matches tempID...
+                if (patronToSearchFor.equals(tempID))
+                {
+                    // deserialize data from json for this specific patron's checkout list and create new PatronCheckoutList
+                    // object named temp
+                    PatronCheckoutList temp = new PatronCheckoutList(patronLists.get(i).getPatronCardNum(),
+                            patronLists.get(i).getCheckouts());
+
+                    // get the checkouts from temp and assign the value to tempCheckoutsList
+                    ArrayList<CheckOut> tempCheckoutsList = new ArrayList<CheckOut>();
+                    tempCheckoutsList = temp.getCheckouts();
+
+                    // remove the checkout sent as an argument to the tempCheckoutsList ArrayList
+                    tempCheckoutsList.remove(checkoutInput);
+
+                    PatronCheckoutList updatedNewList = new PatronCheckoutList(patronLists.get(i).getPatronCardNum(),
+                            tempCheckoutsList);
+
+                    // remove the old record
+                    patronLists.remove(i);
+
+                    // add the newly updated record
+                    patronLists.add(updatedNewList);
+
+                    // send the ArrayList of records to the json to be serialized
+                    saveToFilePatronCheckouts(patronLists);
+                    return true;
+                }
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
         return false;
     }
 }
