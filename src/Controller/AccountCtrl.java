@@ -930,6 +930,8 @@ public class AccountCtrl
                             PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
                             AllCheckoutLists allLists = new AllCheckoutLists();
                             allLists.LoadList(tempList);
+                            PatronBillList tempBillList = new PatronBillList(cardTxt.getText(), new ArrayList<Bill>());
+                            tempBillList.LoadBillLists(tempBillList);
                             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                             confirm.setHeaderText("Account Added!");
                             confirm.setContentText("Account has been added");
