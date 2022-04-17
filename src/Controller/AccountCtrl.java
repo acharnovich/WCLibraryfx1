@@ -405,7 +405,7 @@ public class AccountCtrl
         nameTxt.setOnKeyReleased(KeyEvent ->
         {
             Random randomCard = new Random();
-            int n = 10000000 + randomCard.nextInt(90000000);
+            int n = 1000000 + randomCard.nextInt(9000000);
             cardTxt.setText(String.valueOf(n));
         });
 

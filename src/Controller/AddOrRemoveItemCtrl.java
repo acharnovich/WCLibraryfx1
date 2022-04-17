@@ -513,7 +513,7 @@ addItemContinueButton.setDisable(false);
         bookTitleTextField.setOnKeyReleased(keyEvent ->
         {
             Random randomBookID = new Random();
-            int n = 100000 + randomBookID.nextInt(900000);
+            int n = 1000000 + randomBookID.nextInt(9000000);
             bookItemIDTextField.setText(String.valueOf(n));
         });
 
