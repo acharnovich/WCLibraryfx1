@@ -159,7 +159,7 @@ public class AllCheckoutLists
         return false;
     }
 
-    public boolean removeFromCheckOutList(String patronToSearchFor, CheckOut checkoutInput)
+    public boolean removeFromCheckOutList(String patronToSearchFor, String checkoutInput)
     {
 
         try

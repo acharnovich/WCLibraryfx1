@@ -142,7 +142,7 @@ public class CheckInCtrl {
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
-                                                                 checkoutTransaction);
+                                    Integer.toString(checkoutTransaction.getItemID()));
 
                         }
                         // otherwise... (item is early or on time)
@@ -161,7 +161,7 @@ public class CheckInCtrl {
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
-                                    checkoutTransaction);
+                                    Integer.toString(checkoutTransaction.getItemID()));
                         }
 
 
@@ -224,7 +224,7 @@ public class CheckInCtrl {
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
-                                    checkoutTransaction);
+                                    Integer.toString(checkoutTransaction.getItemID()));
 
 
 
@@ -245,7 +245,7 @@ public class CheckInCtrl {
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
-                                    checkoutTransaction);
+                                    Integer.toString(checkoutTransaction.getItemID()));
                         }
 
                     }
@@ -307,7 +307,7 @@ public class CheckInCtrl {
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
-                                    checkoutTransaction);
+                                    Integer.toString(checkoutTransaction.getItemID()));
 
 
 
@@ -328,7 +328,7 @@ public class CheckInCtrl {
 
                             // delete checkout from patron's checkout list
                             checkoutLists.removeFromCheckOutList(Integer.toString(checkoutTransaction.getPatronID()),
-                                    checkoutTransaction);
+                                    Integer.toString(checkoutTransaction.getItemID()));
                         }
 
 
