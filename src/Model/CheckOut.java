@@ -182,6 +182,51 @@ public class CheckOut
         return checkoutToReturn;
     }
 
+    public boolean checkIn(String itemToSearchFor){
+
+        try
+        {
+            // check through checkouts
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("checkouts.json"));
+
+            // convert JSON arraylist of CheckOut objects
+            ArrayList<CheckOut> checkouts = new Gson().fromJson(reader, new TypeToken<ArrayList<CheckOut>>()
+            {
+            }.getType());
+            for (int i = 0; i < checkouts.size(); i++)
+            {
+                // get the item ID at current index in the json, and assign the value to String tempID
+                String tempID = String.valueOf(checkouts.get(i).getItemID());
+
+                // if the item ID number you are searching for matches tempID...
+                if (itemToSearchFor.equals(tempID))
+                {
+                    // remove the record
+                    checkouts.remove(i);
+
+                    // send the ArrayList of records to the json to be serialized
+                    saveToFileCheckouts(checkouts);
+                    return true;
+                }
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Something went wrong.");
+        return false;
+    }
+
+
     // Accessor methods
 
     public int getItemID() {

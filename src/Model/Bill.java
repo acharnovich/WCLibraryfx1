@@ -10,6 +10,15 @@
 
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 public class Bill
 {
     String patronCardNum;                   // card number of the Patron who was billed
@@ -57,27 +66,22 @@ public class Bill
     {
         return patronCardNum;
     }
-
     public String getItemID()
     {
         return itemID;
     }
-
     public NormalDate getDateBilled()
     {
         return dateBilled;
     }
-
     public double getAmtBilled()
     {
         return amtBilled;
     }
-
     public double getAmtCurrentlyPaid()
     {
         return amtCurrentlyPaid;
     }
-
     public String getDescription()
     {
         return description;
@@ -89,29 +93,82 @@ public class Bill
     {
         patronCardNum = cardInput;
     }
-
     public void setItemID(String idInput)
     {
         itemID = idInput;
     }
-
     public void setDateBilled(NormalDate dateInput)
     {
         dateBilled = dateInput;
     }
-
     public void setAmtBilled(double amtBilledInput)
     {
         amtBilled = amtBilledInput;
     }
-
     public void setAmtCurrentlyPaid(double paidInput)
     {
         amtCurrentlyPaid = paidInput;
     }
-
     public void setDescription(String descInput)
     {
         description = descInput;
+    }
+
+    public void saveToFileBills(ArrayList<Bill> billsInput)
+    {
+        try
+        {
+            Gson gson = new Gson();
+            Writer writer = Files.newBufferedWriter(Paths.get("bills.json"));
+            gson.toJson(billsInput, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+
+    public ArrayList<Bill> LoadBills(Bill temp)
+    {
+        ArrayList<Bill> allBills = new ArrayList<Bill>();
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bills.json"));
+
+            // convert JSON to arraylist of bills
+            ArrayList<Bill> bills = new Gson().fromJson(reader, new TypeToken<ArrayList<Bill>>()
+            {
+            }.getType());
+
+
+
+            for (int i = 0; i <= bills.size() - 1; i++)
+            {
+                allBills.add(bills.get(i));
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        allBills.add(new Bill(temp.getPatronCardNum(), temp.getItemID(), temp.getDateBilled(), temp.getAmtBilled(),
+                              temp.getAmtCurrentlyPaid(), temp.getDescription()));
+
+        saveToFileBills(allBills);
+
+        return allBills;
+
+
     }
 }

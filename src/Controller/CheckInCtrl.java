@@ -3,12 +3,15 @@ package Controller;
 import Model.CheckOut;
 import Model.Item;
 import Model.ItemList;
+import Model.NormalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import java.time.LocalDate;
 
 public class CheckInCtrl {
 
@@ -87,15 +90,45 @@ public class CheckInCtrl {
 
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
-                        System.out.println(checkoutTransaction.toString());
 
-                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                        // get today's date
+                        LocalDate today = LocalDate.now();
 
-                        // display item title in tableview
+                        // get the due date from checkoutTransaction
+                        NormalDate dueDate = checkoutTransaction.getDueDate();
+                        // convert dueDate to String
+                        String dueDateAsString = dueDate.toString();
+                        // parse dueDateAsString to a LocalDate object
+                        LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
-                        items.addAll(iList.bookReturn(itemIDTextField.getText()));
-                        checkInTable.setItems(items);
+                        // compare today to dueDateLocal and assign the value to daysPassed
+                        int daysPassed = today.compareTo(dueDateLocal);
+
+                        // if the item is late
+                        if (daysPassed > 0)
+                        {
+                            // display item ID in tableview
+                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            // display item title in tableview
+                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            checkInTable.setItems(items);
+
+
+                        }
+                        // otherwise... (item is early or on time)
+                        else
+                        {
+                            // display item ID in tableview
+                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            // display item title in tableview
+                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            checkInTable.setItems(items);
+                        }
+
 
                     }
 
@@ -103,15 +136,42 @@ public class CheckInCtrl {
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
-                        System.out.println(checkoutTransaction.toString());
 
-                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                        // get today's date
+                        LocalDate today = LocalDate.now();
 
-                        // display item title in tableview
+                        // get the due date from checkoutTransaction
+                        NormalDate dueDate = checkoutTransaction.getDueDate();
+                        // convert dueDate to String
+                        String dueDateAsString = dueDate.toString();
+                        // parse dueDateAsString to a LocalDate object
+                        LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
-                        items.addAll(iList.movieReturn(itemIDTextField.getText()));
-                        checkInTable.setItems(items);
+                        // compare today to dueDateLocal and assign the value to daysPassed
+                        int daysPassed = today.compareTo(dueDateLocal);
+
+                        // if the item is late
+                        if (daysPassed > 0)
+                        {
+                            // display item ID in tableview
+                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            // display item title in tableview
+                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            checkInTable.setItems(items);
+                        }
+                        // otherwise... (item is early or on time)
+                        else
+                        {
+                            // display item ID in tableview
+                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            // display item title in tableview
+                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            checkInTable.setItems(items);
+                        }
 
 
                     }
@@ -119,15 +179,42 @@ public class CheckInCtrl {
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
-                        System.out.println(checkoutTransaction.toString());
 
-                        checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-                        checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+                        // get today's date
+                        LocalDate today = LocalDate.now();
 
-                        // display item title in tableview
+                        // get the due date from checkoutTransaction
+                        NormalDate dueDate = checkoutTransaction.getDueDate();
+                        // convert dueDate to String
+                        String dueDateAsString = dueDate.toString();
+                        // parse dueDateAsString to a LocalDate object
+                        LocalDate dueDateLocal = LocalDate.parse(dueDateAsString);
 
-                        items.addAll(iList.audioReturn(itemIDTextField.getText()));
-                        checkInTable.setItems(items);
+                        // compare today to dueDateLocal and assign the value to daysPassed
+                        int daysPassed = today.compareTo(dueDateLocal);
+
+                        // if the item is late
+                        if (daysPassed > 0)
+                        {
+                            // display item ID in tableview
+                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            // display item title in tableview
+                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            checkInTable.setItems(items);
+                        }
+                        // otherwise... (item is early or on time)
+                        else
+                        {
+                            // display item ID in tableview
+                            checkoutTableItemID.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                            // display item title in tableview
+                            checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
+
+                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            checkInTable.setItems(items);
+                        }
 
 
                     }
