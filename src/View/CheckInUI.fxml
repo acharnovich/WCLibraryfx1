@@ -12,7 +12,7 @@
       <Label fx:id="itemIDLabel" layoutX="28.0" layoutY="23.0" text="Item ID Number:" />
       <TextField fx:id="itemIDTextField" layoutX="162.0" layoutY="19.0" prefHeight="26.0" prefWidth="179.0" promptText="#######" />
       <Button fx:id="checkInItemButton" layoutX="363.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleCheckInItemClick" text="Check In" />
-      <Button fx:id="finishCheckInButton" disable="true" layoutX="252.0" layoutY="397.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Finish Check In" />
+      <Button fx:id="finishCheckInButton" disable="true" layoutX="252.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleFinishCheckInClick" prefHeight="26.0" prefWidth="194.0" text="Finish Check In" />
       <TableView fx:id="checkInTable" layoutX="13.0" layoutY="56.0" prefHeight="334.0" prefWidth="499.0">
          <columns>
             <TableColumn fx:id="checkInTableItemID" prefWidth="150.40002822875977" text="Item ID" />

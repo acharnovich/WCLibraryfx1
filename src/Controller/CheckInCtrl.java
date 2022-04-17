@@ -5,10 +5,15 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -446,5 +451,16 @@ public class CheckInCtrl {
             }
 
         });
+    }
+
+    public void handleFinishCheckInClick(javafx.event.ActionEvent actionEvent)
+    {
+        finishCheckInButton.setOnMouseClicked(mouseEvent ->
+        {
+            // hide the check in window
+            finishCheckInButton.getScene().getWindow().hide();
+
+        });
+
     }
 }

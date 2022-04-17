@@ -70,7 +70,11 @@ public class LoginCtrl
 
                         Alert loginSuccess = new Alert(Alert.AlertType.CONFIRMATION);
                         loginSuccess.setHeaderText("Login Success: " + userid.getText());
-                        loginSuccess.setContentText("Sprint 3: New in this update, Items and Accounts can now be searched one at a time. Remove Item works.  New Account tab has  more validation features for both patron and staff. Validation prompts will indicate what is under development. Checkout List has partial functionality. Item still needs more validation features." );
+                        loginSuccess.setContentText("Sprint 4 Updates:" +
+                                                    "\n- Check In is now completely functional" +
+                                                    "\n- Newly created patrons accounts now have bill lists" +
+                                                    "\n- Checkout lists and bill lists are updated upon check in" +
+                                                    "\n- Library card numbers are now auto-generated");
                         loginSuccess.showAndWait();
                     } catch (IOException e)
                     {}
@@ -78,7 +82,7 @@ public class LoginCtrl
                 }else {
                     Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                     loginFailed.setHeaderText("Login Failed");
-                    loginFailed.setContentText("Wrong user ID or Pin. For testing, try User: ajones Pin:1234");
+                    loginFailed.setContentText("Wrong user ID or Pin. For testing, try\n\nUser: ajones\nPIN:1234");
                     loginFailed.showAndWait();
                 }
             }
