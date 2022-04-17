@@ -9,6 +9,13 @@
  */
 package Model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class PatronBillList
@@ -46,4 +53,124 @@ public class PatronBillList
 
     public void setPatronCardNum(String cardInput) { patronCardNum = cardInput; }
     public void setBills(ArrayList<Bill> billsInput) { bills = billsInput; }
+
+    public void saveToFilePatronBillLists(ArrayList<PatronBillList> listsInput)
+    {
+        try
+        {
+            Gson gson = new Gson();
+            Writer writer = Files.newBufferedWriter(Paths.get("patronBillLists.json"));
+            gson.toJson(listsInput, writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+        }
+    }
+
+
+    public ArrayList<PatronBillList> LoadBillLists(PatronBillList temp)
+    {
+        ArrayList<PatronBillList> allLists = new ArrayList<PatronBillList>();
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronBillLists.json"));
+
+            // convert JSON to arraylist of bill lists
+            ArrayList<PatronBillList> billLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronBillList>>()
+            {
+            }.getType());
+
+
+
+            for (int i = 0; i <= billLists.size() - 1; i++)
+            {
+                allLists.add(billLists.get(i));
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        allLists.add(new PatronBillList(temp.getPatronCardNum(), temp.getBills()));
+
+        saveToFilePatronBillLists(allLists);
+
+        return allLists;
+
+
+    }
+
+    public boolean updateBillList(String patronToSearchFor, Bill billInput)
+    {
+
+        try
+        {
+            // check through Patron bill lists
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronBillLists.json"));
+
+            // convert JSON array to list of PatronBillLists
+            ArrayList<PatronBillList> patronLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronBillList>>()
+            {
+            }.getType());
+            for (int i = 0; i < patronLists.size(); i++)
+            {
+                // get the patron card number at current index in the json, and assign the value to String tempID
+                String tempID = patronLists.get(i).getPatronCardNum();
+
+                // if the patron card number you are searching for matches tempID...
+                if (patronToSearchFor.equals(tempID))
+                {
+                    // deserialize data from json for this specific patron's bill list and create new PatronBillList
+                    // object named temp
+                    PatronBillList temp = new PatronBillList(patronLists.get(i).getPatronCardNum(),
+                            patronLists.get(i).getBills());
+
+                    // get the bills from temp and assign the value to tempBillList
+                    ArrayList<Bill> tempBillList = new ArrayList<Bill>();
+                    tempBillList = temp.getBills();
+
+                    // add the bill sent as an argument to the tempBillList ArrayList
+                    tempBillList.add(billInput);
+
+                    PatronBillList updatedNewList = new PatronBillList(patronLists.get(i).getPatronCardNum(),
+                            tempBillList);
+
+                    // remove the old record
+                    patronLists.remove(i);
+
+                    // add the newly updated record
+                    patronLists.add(updatedNewList);
+
+                    // send the ArrayList of records to the json to be serialized
+                    saveToFilePatronBillLists(patronLists);
+                    return true;
+                }
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Something went wrong.");
+        return false;
+    }
 }
