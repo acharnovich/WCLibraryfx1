@@ -4,9 +4,10 @@
  *
  * The CheckOut class is used to create objects that represent a checkout transaction for a specific item,
  * on a specific date, by a specific patron. It has methods for calculating due dates, serializing data, and
- * deserializing data.
+ * deserializing data. This new version of the CheckOut class has a checkIn method that removes records from the
+ * checkouts.json file.
  *
- * @version 1.1 2022-04-10
+ * @version 1.2 2022-04-17
  */
 
 package Model;

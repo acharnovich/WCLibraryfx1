@@ -5,7 +5,7 @@
  * The Bill class is used to create a Bill object. A Bill object represents an amount owed by a patron for a bill or
  * late fee. It includes getter, setter, serialization, and deserialization methods.
  *
- * @version 1.0 2022-04-14
+ * @version 1.1 2022-04-17
  */
 
 package Model;
