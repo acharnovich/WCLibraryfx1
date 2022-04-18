@@ -10,8 +10,8 @@
 <AnchorPane fx:id="checkInPane" prefHeight="430.0" prefWidth="694.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckInCtrl">
    <children>
       <Label fx:id="itemIDLabel" layoutX="28.0" layoutY="23.0" text="Item ID Number:" />
-      <TextField fx:id="itemIDTextField" layoutX="162.0" layoutY="19.0" prefHeight="26.0" prefWidth="179.0" promptText="#######" />
-      <Button fx:id="checkInItemButton" layoutX="363.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleCheckInItemClick" text="Check In" />
+      <TextField fx:id="itemIDTextField" layoutX="162.0" layoutY="19.0" onKeyPressed="#checkinVal" onKeyReleased="#checkinVal" prefHeight="26.0" prefWidth="179.0" promptText="#######" />
+      <Button fx:id="checkInItemButton" disable="true" layoutX="363.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleCheckInItemClick" text="Check In" />
       <Button fx:id="finishCheckInButton" disable="true" layoutX="252.0" layoutY="397.0" mnemonicParsing="false" onAction="#handleFinishCheckInClick" prefHeight="26.0" prefWidth="194.0" text="Finish Check In" />
       <TableView fx:id="checkInTable" layoutX="13.0" layoutY="56.0" prefHeight="334.0" prefWidth="499.0">
          <columns>

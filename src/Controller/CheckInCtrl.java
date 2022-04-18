@@ -13,10 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.UnaryOperator;
 
 public class CheckInCtrl {
 
@@ -56,6 +58,34 @@ public class CheckInCtrl {
     Collection<String> finesCollection = new ArrayList<>();
     ObservableList<String> fines = FXCollections.observableArrayList(finesCollection);
 
+    public void checkinVal()
+    {
+        itemIDTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 12)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+        itemIDTextField.setOnKeyReleased(KeyEvent ->
+        {
+            if (!itemIDTextField.getText().isEmpty())
+            {
+                checkInItemButton.setDisable(false);
+            } else
+            {
+                checkInItemButton.setDisable(true);
+            }
+        });
+    }
+
+
     public void handleCheckInItemClick(javafx.event.ActionEvent actionEvent)
     {
         checkInItemButton.setOnMouseClicked(mouseEvent ->
@@ -84,7 +114,7 @@ public class CheckInCtrl {
                 AllCheckoutLists checkoutLists = new AllCheckoutLists();
 
                 // if the item exists somewhere in the inventory...
-                if (iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
+                if (iList.searchBookExact(itemIDTextField.getText()) == true || iList.searchMovieExact(itemIDTextField.getText()) == true || iList.searchAudioExact(itemIDTextField.getText()) == true)
                 {
                     // enable the finish check in button
                     finishCheckInButton.setDisable(false);
@@ -93,7 +123,7 @@ public class CheckInCtrl {
                     itemCheckIn = Integer.parseInt(itemIDTextField.getText());
 
                     // if the item is a book...
-                    if (iList.bookReturn(itemIDTextField.getText()) != null)
+                    if (iList.bookReturnExact(itemIDTextField.getText()) != null &&iList.searchBookExact(itemIDTextField.getText()) == true)
                     {
 
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
@@ -120,7 +150,7 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            items.addAll(iList.bookReturnExact(itemIDTextField.getText()));
 
                             // Call today's toString and assign the value to a String named stringDueDate
                             String stringToday = today.toString();
@@ -177,7 +207,7 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                            items.addAll(iList.bookReturnExact(itemIDTextField.getText()));
 
                             // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
                             finesCollection.add("$0.00");
@@ -205,7 +235,7 @@ public class CheckInCtrl {
                     }
 
                     // if the item is a movie...
-                    else if (iList.movieReturn(itemIDTextField.getText()) != null)
+                    else if (iList.movieReturnExact(itemIDTextField.getText()) != null &&iList.searchMovieExact(itemIDTextField.getText()) == true)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
@@ -231,7 +261,7 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.movieReturn(itemIDTextField.getText()));
+                            items.addAll(iList.movieReturnExact(itemIDTextField.getText()));
                             checkInTable.setItems(items);
 
                             // Call today's toString and assign the value to a String named stringDueDate
@@ -291,7 +321,7 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.movieReturn(itemIDTextField.getText()));
+                            items.addAll(iList.movieReturnExact(itemIDTextField.getText()));
 
                             // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
                             finesCollection.add("$0.00");
@@ -318,7 +348,7 @@ public class CheckInCtrl {
                     }
 
                     // if the item is an audiobook...
-                    else if (iList.audioReturn(itemIDTextField.getText()) != null)
+                    else if (iList.audioReturnExact(itemIDTextField.getText()) != null &&iList.searchAudioExact(itemIDTextField.getText()) == true)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
@@ -344,7 +374,7 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.audioReturn(itemIDTextField.getText()));
+                            items.addAll(iList.audioReturnExact(itemIDTextField.getText()));
                             checkInTable.setItems(items);
 
                             // Call today's toString and assign the value to a String named stringDueDate
@@ -404,7 +434,7 @@ public class CheckInCtrl {
                             // display item title in tableview
                             checkInTableTitle.setCellValueFactory(new PropertyValueFactory<Item, Integer>("title"));
 
-                            items.addAll(iList.audioReturn(itemIDTextField.getText()));
+                            items.addAll(iList.audioReturnExact(itemIDTextField.getText()));
 
                             // convert checkinFine to a string with a dollar sign at the beginning, then add to finesCollection
                             finesCollection.add("$0.00");

@@ -368,7 +368,7 @@ public class AddOrRemoveItemCtrl
 
         addBookRadioButton.setOnMouseClicked(mouseEvent ->
         {
-addItemContinueButton.setDisable(false);
+            addItemContinueButton.setDisable(false);
             addAudioBookRadioButton.setSelected(false);
             addMovieRadioButton.setSelected(false);
             itemType = "Book";
@@ -380,7 +380,7 @@ addItemContinueButton.setDisable(false);
     {
         addAudioBookRadioButton.setOnMouseClicked(mouseEvent ->
         {
-addItemContinueButton.setDisable(false);
+            addItemContinueButton.setDisable(false);
             addBookRadioButton.setSelected(false);
             addMovieRadioButton.setSelected(false);
             itemType = "AudioBook";
@@ -609,51 +609,58 @@ addItemContinueButton.setDisable(false);
                 LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
                 bookPublishedPicker.setValue(tempDateFormatted);
                 LocalDate tempDate = bookPublishedPicker.getValue();
-                if(!tempDate.isAfter(LocalDate.now())){
-                    if(bookAuthorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*")){
+                if (!tempDate.isAfter(LocalDate.now()))
+                {
+                    if (bookAuthorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*"))
+                    {
 
                         bookAddNewItemButton.setOnMouseClicked(mouseEvent ->
-                {
+                        {
 
-                    final Node source = (Node) actionEvent.getSource();
-                    final Stage stage = (Stage) source.getScene().getWindow();
+                            final Node source = (Node) actionEvent.getSource();
+                            final Stage stage = (Stage) source.getScene().getWindow();
 
-                    ArrayList<Collaborator> authors = new ArrayList<>(); // list of authors for this book, as an arraylist
-                    Book temp;
-                    // temporary book to be created
+                            ArrayList<Collaborator> authors = new ArrayList<>(); // list of authors for this book, as an arraylist
+                            Book temp;
+                            // temporary book to be created
 
-                    authors = getCollaborators(bookAuthorsTextField.getText());
+                            authors = getCollaborators(bookAuthorsTextField.getText());
 
 
-                    // create the Book
-                    temp = new Book(Integer.parseInt(bookItemIDTextField.getText()), bookTitleTextField.getText(),
-                            Integer.parseInt(String.valueOf(tempDate.getYear())),
-                            new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
-                                    String.valueOf(tempDate.getDayOfMonth())), bookDescriptionTextArea.getText(), "Checked In",
-                            bookPublisherTextField.getText(), authors, bookLengthTextField.getText()+" Pages", genreComboBox.getEditor().getText());
-                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                    confirm.setHeaderText("Book Added!");
-                    confirm.setContentText(bookTitleTextField.getText()+" is now in the item inventory with a status of checked in. ID#: "+bookItemIDTextField.getText());
-                    confirm.showAndWait();
-                    // send to LoadBook
-                    itemList.LoadBook(temp);
-                    stage.close();
+                            // create the Book
+                            temp = new Book(Integer.parseInt(bookItemIDTextField.getText()), bookTitleTextField.getText(),
+                                    Integer.parseInt(String.valueOf(tempDate.getYear())),
+                                    new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
+                                            String.valueOf(tempDate.getDayOfMonth())), bookDescriptionTextArea.getText(), "Checked In",
+                                    bookPublisherTextField.getText(), authors, bookLengthTextField.getText() + " Pages", genreComboBox.getEditor().getText());
+                            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                            confirm.setHeaderText("Book Added!");
+                            confirm.setContentText(bookTitleTextField.getText() + " is now in the item inventory with a status of checked in. ID#: " + bookItemIDTextField.getText());
+                            confirm.showAndWait();
+                            // send to LoadBook
+                            itemList.LoadBook(temp);
+                            stage.close();
 
-                });}else {
+                        });
+                    } else
+                    {
                         Alert confirm = new Alert(Alert.AlertType.ERROR);
                         confirm.setHeaderText("Missing Last Name");
                         confirm.setContentText("Authors or Narrators Text field is missing a last name.");
                         confirm.showAndWait();
-                    }}
-                else {
-                    if(tempDate.isAfter(LocalDate.now())){
-                    Alert confirm = new Alert(Alert.AlertType.ERROR);
-                    confirm.setHeaderText("Future Date!");
-                    confirm.setContentText("Mak sure the day equal to or before today.");
-                    confirm.showAndWait();
+                    }
+                } else
+                {
+                    if (tempDate.isAfter(LocalDate.now()))
+                    {
+                        Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Future Date!");
+                        confirm.setContentText("Mak sure the day equal to or before today.");
+                        confirm.showAndWait();
 
-                }
-                    if(itemList.searchBook(bookItemIDTextField.getText())==true){
+                    }
+                    if (itemList.searchBook(bookItemIDTextField.getText()) == true)
+                    {
                         Random randomBookID = new Random();
                         int n = 100000 + randomBookID.nextInt(900000);
                         bookItemIDTextField.setText(String.valueOf(n));
@@ -662,7 +669,8 @@ addItemContinueButton.setDisable(false);
                         confirm2.setContentText("Please Resubmit, book ID already existed.");
                         confirm2.showAndWait();
 
-                    }}
+                    }
+                }
             }
         }
     }
@@ -670,10 +678,10 @@ addItemContinueButton.setDisable(false);
     public void handleNewAudioValidation()
     {
 
-        boolean disabled = (audioBookDescriptionTextArea.getText().isEmpty()||audioGenreCombo.getEditor().getText().isEmpty() || audioYearPublishedPicker.getEditor().getText().isEmpty() || audioBookTitleTextField.getText().isEmpty() || audioBookAuthorsTextField.getText().isEmpty() || audioBookPublisherTextField.getText().isEmpty() || audioBookLengthTextField.getText().isEmpty() || audioBookLengthTextFieldMin.getText().isEmpty()||audioBookNarratorsTextField.getText().isEmpty());
+        boolean disabled = (audioBookDescriptionTextArea.getText().isEmpty() || audioGenreCombo.getEditor().getText().isEmpty() || audioYearPublishedPicker.getEditor().getText().isEmpty() || audioBookTitleTextField.getText().isEmpty() || audioBookAuthorsTextField.getText().isEmpty() || audioBookPublisherTextField.getText().isEmpty() || audioBookLengthTextField.getText().isEmpty() || audioBookLengthTextFieldMin.getText().isEmpty() || audioBookNarratorsTextField.getText().isEmpty());
         addAudioPane.setOnMouseMoved(mouseEvent ->
                 {
-                    if (disabled==false)
+                    if (disabled == false)
                     {
                         audioBookAddNewItemButton.setDisable(false);
                     } else
@@ -837,72 +845,81 @@ addItemContinueButton.setDisable(false);
                 LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
                 audioYearPublishedPicker.setValue(tempDateFormatted);
                 LocalDate tempDate = audioYearPublishedPicker.getValue();
-                if(!tempDate.isAfter(LocalDate.now()))
+                if (!tempDate.isAfter(LocalDate.now()))
                 {
-                    if(audioBookNarratorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*")|| audioBookAuthorsTextField.getText().matches("[a-zA-Z]*[\\\\s]{1}[a-zA-Z].*")){
-                    audioBookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+                    if (audioBookNarratorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*") || audioBookAuthorsTextField.getText().matches("[a-zA-Z]*[\\\\s]{1}[a-zA-Z].*"))
                     {
+                        audioBookAddNewItemButton.setOnMouseClicked(mouseEvent ->
+                        {
 
-                        final Node source = (Node) actionEvent.getSource();
-                        final Stage stage = (Stage) source.getScene().getWindow();
+                            final Node source = (Node) actionEvent.getSource();
+                            final Stage stage = (Stage) source.getScene().getWindow();
 
-                        ArrayList<Collaborator> authors = new ArrayList<>();      // list of authors for this audiobook, as an arraylist
-                        ArrayList<Collaborator> narrators = new ArrayList<>();    // list of authors for this audiobook, as an arraylist
-                        AudioBook temp;                                           // temporary audiobook to be created
+                            ArrayList<Collaborator> authors = new ArrayList<>();      // list of authors for this audiobook, as an arraylist
+                            ArrayList<Collaborator> narrators = new ArrayList<>();    // list of authors for this audiobook, as an arraylist
+                            AudioBook temp;                                           // temporary audiobook to be created
 
-                        authors = getCollaborators(audioBookAuthorsTextField.getText());
-                        narrators = getCollaborators(audioBookNarratorsTextField.getText());
+                            authors = getCollaborators(audioBookAuthorsTextField.getText());
+                            narrators = getCollaborators(audioBookNarratorsTextField.getText());
 
-                        // create the AudioBook
-                        temp = new AudioBook(Integer.parseInt(audioBookItemIDTextField.getText()), audioBookTitleTextField.getText(),
-                                Integer.parseInt(String.valueOf(tempDate.getYear())),
-                                new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
-                                        String.valueOf(tempDate.getDayOfMonth())), audioBookDescriptionTextArea.getText(), "Checked In",
-                                audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
-                                audioBookLengthTextField.getText()+" Hours"+ audioBookLengthTextFieldMin.getText()+ " Minutes", audioGenreCombo.getEditor().getText());
-                        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-                        confirm.setHeaderText("AudioBook Added!");
-                        confirm.setContentText(audioBookTitleTextField.getText()+" is now in the item inventory with a status of checked in. ID#: "+audioBookItemIDTextField.getText());
-                        confirm.showAndWait();
-
-                        // send to LoadAudioBook
-                        itemList.LoadAudiobook(temp);
-
-                        stage.close();
-
-                    });}else { Alert confirm = new Alert(Alert.AlertType.ERROR);
-                        confirm.setHeaderText("Missing Last Name");
-                        confirm.setContentText("Authors or Narrators Text field is missing a last name.");
-                        confirm.showAndWait();}
-                }else {
-                        if(tempDate.isAfter(LocalDate.now())){
-                            Alert confirm = new Alert(Alert.AlertType.ERROR);
-                            confirm.setHeaderText("Future Date!");
-                            confirm.setContentText("Mak sure the day equal to or before today.");
+                            // create the AudioBook
+                            temp = new AudioBook(Integer.parseInt(audioBookItemIDTextField.getText()), audioBookTitleTextField.getText(),
+                                    Integer.parseInt(String.valueOf(tempDate.getYear())),
+                                    new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
+                                            String.valueOf(tempDate.getDayOfMonth())), audioBookDescriptionTextArea.getText(), "Checked In",
+                                    audioBookPublisherTextField.getText(), authors, narrators, audioBookProductionCompanyTextField.getText(),
+                                    audioBookLengthTextField.getText() + " Hours" + audioBookLengthTextFieldMin.getText() + " Minutes", audioGenreCombo.getEditor().getText());
+                            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                            confirm.setHeaderText("AudioBook Added!");
+                            confirm.setContentText(audioBookTitleTextField.getText() + " is now in the item inventory with a status of checked in. ID#: " + audioBookItemIDTextField.getText());
                             confirm.showAndWait();
 
-                        }
-                        if(itemList.searchAudio(audioBookItemIDTextField.getText())==true){
-                            Random randomBookID = new Random();
-                            int n = 100000 + randomBookID.nextInt(900000);
-                            audioBookItemIDTextField.setText(String.valueOf(n));
-                            Alert confirm2 = new Alert(Alert.AlertType.ERROR);
-                            confirm2.setHeaderText("Please Submit");
-                            confirm2.setContentText("Please Resubmit, book ID already existed.");
-                            confirm2.showAndWait();
+                            // send to LoadAudioBook
+                            itemList.LoadAudiobook(temp);
 
-                        }}
+                            stage.close();
+
+                        });
+                    } else
+                    {
+                        Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Missing Last Name");
+                        confirm.setContentText("Authors or Narrators Text field is missing a last name.");
+                        confirm.showAndWait();
+                    }
+                } else
+                {
+                    if (tempDate.isAfter(LocalDate.now()))
+                    {
+                        Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        confirm.setHeaderText("Future Date!");
+                        confirm.setContentText("Mak sure the day equal to or before today.");
+                        confirm.showAndWait();
+
+                    }
+                    if (itemList.searchAudio(audioBookItemIDTextField.getText()) == true)
+                    {
+                        Random randomBookID = new Random();
+                        int n = 100000 + randomBookID.nextInt(900000);
+                        audioBookItemIDTextField.setText(String.valueOf(n));
+                        Alert confirm2 = new Alert(Alert.AlertType.ERROR);
+                        confirm2.setHeaderText("Please Submit");
+                        confirm2.setContentText("Please Resubmit, book ID already existed.");
+                        confirm2.showAndWait();
+
+                    }
                 }
             }
         }
+    }
 
     public void handleNewMovieValidation()
     {
 
-        boolean disabled = (movieDescriptionTextArea.getText().isEmpty()||movieGenreCombo.getEditor().getText().isEmpty() || moviePublishedPicker.getEditor().getText().isEmpty() || movieTitleTextField.getText().isEmpty() || movieActorsTextField.getText().isEmpty() || movieDistributorTextField.getText().isEmpty() || movieRuntimeTextFieldMin.getText().isEmpty() || movieRuntimeTextField.getText().isEmpty()||(movieBluRayTypeRadioButton.isSelected() ==false &&movieDVDTypeRadioButton.isSelected()==false));
+        boolean disabled = (movieDescriptionTextArea.getText().isEmpty() || movieGenreCombo.getEditor().getText().isEmpty() || moviePublishedPicker.getEditor().getText().isEmpty() || movieTitleTextField.getText().isEmpty() || movieActorsTextField.getText().isEmpty() || movieDistributorTextField.getText().isEmpty() || movieRuntimeTextFieldMin.getText().isEmpty() || movieRuntimeTextField.getText().isEmpty() || (movieBluRayTypeRadioButton.isSelected() == false && movieDVDTypeRadioButton.isSelected() == false));
         addMoviePane.setOnMouseMoved(mouseEvent ->
                 {
-                    if (disabled==false)
+                    if (disabled == false)
                     {
                         movieAddNewItemButton.setDisable(false);
                     } else
@@ -915,7 +932,7 @@ addItemContinueButton.setDisable(false);
 
         addMoviePane.setOnMouseClicked(mouseEvent ->
                 {
-                    if (disabled==false)
+                    if (disabled == false)
                     {
                         movieAddNewItemButton.setDisable(false);
                     } else
@@ -1065,57 +1082,68 @@ addItemContinueButton.setDisable(false);
                 LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
                 moviePublishedPicker.setValue(tempDateFormatted);
                 LocalDate tempDate = moviePublishedPicker.getValue();
-                if(!tempDate.isAfter(LocalDate.now()))
+                if (!tempDate.isAfter(LocalDate.now()))
                 {
-                    if(movieActorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*")&&(movieBluRayTypeRadioButton.isSelected() ==true ||movieDVDTypeRadioButton.isSelected()== true)){
-        movieAddNewItemButton.setOnMouseClicked(mouseEvent ->
-        {
+                    if (movieActorsTextField.getText().matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*") && (movieBluRayTypeRadioButton.isSelected() == true || movieDVDTypeRadioButton.isSelected() == true))
+                    {
+                        movieAddNewItemButton.setOnMouseClicked(mouseEvent ->
+                        {
 
-            final Node source = (Node) actionEvent.getSource();
-            final Stage stage = (Stage) source.getScene().getWindow();
+                            final Node source = (Node) actionEvent.getSource();
+                            final Stage stage = (Stage) source.getScene().getWindow();
 
-            ArrayList<Collaborator> actors = new ArrayList<>();      // list of actors for this movie, as an arraylist
-            Movie temp;                                              // temporary movie to be created
+                            ArrayList<Collaborator> actors = new ArrayList<>();      // list of actors for this movie, as an arraylist
+                            Movie temp;                                              // temporary movie to be created
 
-            actors = getCollaborators(movieActorsTextField.getText());
+                            actors = getCollaborators(movieActorsTextField.getText());
 
-            // create the Movie
-            temp = new Movie(Integer.parseInt(movieItemIDTextField.getText()), movieTitleTextField.getText(),
-                    Integer.parseInt(String.valueOf(tempDate.getYear())),
-                    new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
-                            String.valueOf(tempDate.getDayOfMonth())), movieDescriptionTextArea.getText(), "Checked In",
-                    movieProductionCompanyTextField.getText(), movieDistributorTextField.getText(), actors,
-                    movieType, movieRuntimeTextField.getText()+" Hours "+movieRuntimeTextFieldMin.getText()+" Minutes", movieGenreCombo.getEditor().getText());
-            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-            confirm.setHeaderText("Movie Added!");
-            confirm.setContentText(movieTitleTextField.getText()+" is now in the item inventory with a status of checked in. ID#: "+movieItemIDTextField.getText());
-            confirm.showAndWait();
+                            // create the Movie
+                            temp = new Movie(Integer.parseInt(movieItemIDTextField.getText()), movieTitleTextField.getText(),
+                                    Integer.parseInt(String.valueOf(tempDate.getYear())),
+                                    new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()),
+                                            String.valueOf(tempDate.getDayOfMonth())), movieDescriptionTextArea.getText(), "Checked In",
+                                    movieProductionCompanyTextField.getText(), movieDistributorTextField.getText(), actors,
+                                    movieType, movieRuntimeTextField.getText() + " Hours " + movieRuntimeTextFieldMin.getText() + " Minutes", movieGenreCombo.getEditor().getText());
+                            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+                            confirm.setHeaderText("Movie Added!");
+                            confirm.setContentText(movieTitleTextField.getText() + " is now in the item inventory with a status of checked in. ID#: " + movieItemIDTextField.getText());
+                            confirm.showAndWait();
 
-            // send to LoadMovie
-            itemList.LoadMovie(temp);
+                            // send to LoadMovie
+                            itemList.LoadMovie(temp);
 
-            stage.close();
+                            stage.close();
 
-        });}else { Alert confirm = new Alert(Alert.AlertType.ERROR);
+                        });
+                    } else
+                    {
+                        Alert confirm = new Alert(Alert.AlertType.ERROR);
                         confirm.setHeaderText("Missing Last Name");
                         confirm.setContentText("Authors or Narrators Text field is missing a last name.");
-                        confirm.showAndWait();}
-                }else {
-                    if((movieBluRayTypeRadioButton.isSelected() ==false &&movieDVDTypeRadioButton.isSelected()==false)){
-                        if(tempDate.isAfter(LocalDate.now())){
+                        confirm.showAndWait();
+                    }
+                } else
+                {
+                    if ((movieBluRayTypeRadioButton.isSelected() == false && movieDVDTypeRadioButton.isSelected() == false))
+                    {
+                        if (tempDate.isAfter(LocalDate.now()))
+                        {
                             Alert confirm = new Alert(Alert.AlertType.ERROR);
                             confirm.setHeaderText("Select Movie Type");
                             confirm.setContentText("Select Blu Ray or DVD");
-                            confirm.showAndWait();}
+                            confirm.showAndWait();
+                        }
                     }
-                    if(tempDate.isAfter(LocalDate.now())){
+                    if (tempDate.isAfter(LocalDate.now()))
+                    {
                         Alert confirm = new Alert(Alert.AlertType.ERROR);
                         confirm.setHeaderText("Future Date!");
                         confirm.setContentText("Mak sure the day equal to or before today.");
                         confirm.showAndWait();
 
                     }
-                    if(itemList.searchMovie(movieItemIDTextField.getText())==true){
+                    if (itemList.searchMovie(movieItemIDTextField.getText()) == true)
+                    {
                         Random randomBookID = new Random();
                         int n = 100000 + randomBookID.nextInt(900000);
                         movieItemIDTextField.setText(String.valueOf(n));
@@ -1123,7 +1151,8 @@ addItemContinueButton.setDisable(false);
                         confirm2.setHeaderText("Please Submit");
                         confirm2.setContentText("Please Resubmit, book ID already existed.");
                         confirm2.showAndWait();
-                    }}
+                    }
+                }
             }
         }
     }
@@ -1169,7 +1198,7 @@ addItemContinueButton.setDisable(false);
         archiveSubmitButton.setOnMouseClicked(mouseEvent ->
         {
 
-            if (itemList.searchAudio(archiveItemIDTextField.getText()) == true || itemList.searchMovie(archiveItemIDTextField.getText()) == true || itemList.searchBook(archiveItemIDTextField.getText()) == true)
+            if (itemList.searchAudioExact(archiveItemIDTextField.getText()) == true || itemList.searchMovieExact(archiveItemIDTextField.getText()) == true || itemList.searchBookExact(archiveItemIDTextField.getText()) == true)
             {
                 archiveItemIDTextField.setStyle("-fx-background-color: white");
                 itemList.archiveItem(archiveItemIDTextField.getText());
@@ -1188,130 +1217,130 @@ addItemContinueButton.setDisable(false);
     }
 
 
-public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent)
-        {
-        archiveSearchButton.setOnMouseClicked(mouseEvent->
-        {
-
-        Parent part=null;
-
-        try
+    public void handleArchiveSearchClick(javafx.event.ActionEvent actionEvent)
+    {
+        archiveSearchButton.setOnMouseClicked(mouseEvent ->
         {
 
-        part=FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
-        Stage stage=new Stage();
-        Scene scene=new Scene(part);
-        stage.setScene(scene);
-        stage.setTitle("Search Archive Items");
-        stage.show();
+            Parent part = null;
 
-        }catch(IOException e)
-        {
-        e.printStackTrace();
-        }
+            try
+            {
+
+                part = FXMLLoader.load(getClass().getResource("/View/RemoveSearchUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Search Archive Items");
+                stage.show();
+
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
 
         });
-        }
+    }
 
-public void removeItemVailidate()
+    public void removeItemVailidate()
+    {
+        searchRemoveTxt.setOnKeyReleased(KeyEvent ->
         {
-        searchRemoveTxt.setOnKeyReleased(KeyEvent->
-        {
-        if(!searchRemoveTxt.getText().isEmpty())
-        {
-        SearchRemoveItemBtn.setDisable(false);
-        }else
-        {
-        SearchRemoveItemBtn.setDisable(true);
-        }
+            if (!searchRemoveTxt.getText().isEmpty())
+            {
+                SearchRemoveItemBtn.setDisable(false);
+            } else
+            {
+                SearchRemoveItemBtn.setDisable(true);
+            }
 
 
         });
-        SearchRemoveItemBtn.setOnMouseClicked(mouseEvent->
+        SearchRemoveItemBtn.setOnMouseClicked(mouseEvent ->
         {
-        ObservableList<Item> items=FXCollections.observableArrayList();
-        if(itemList.searchBook(searchRemoveTxt.getText())==true||itemList.searchMovie(searchRemoveTxt.getText())==true||itemList.searchAudio(searchRemoveTxt.getText())==true)
-        {
-        if(itemList.searchBook(searchRemoveTxt.getText()))
-        {
-        searchRemoveTxt.setStyle("-fx-background-color: white");
-        itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+            ObservableList<Item> items = FXCollections.observableArrayList();
+            if (itemList.searchBook(searchRemoveTxt.getText()) == true || itemList.searchMovie(searchRemoveTxt.getText()) == true || itemList.searchAudio(searchRemoveTxt.getText()) == true)
+            {
+                if (itemList.searchBook(searchRemoveTxt.getText()))
+                {
+                    searchRemoveTxt.setStyle("-fx-background-color: white");
+                    itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                    titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
-        items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
-        }
-        if(itemList.searchMovie(searchRemoveTxt.getText())==true)
-        {
+                    items.addAll(itemList.bookArchiveReturn(searchRemoveTxt.getText()));
+                }
+                if (itemList.searchMovie(searchRemoveTxt.getText()) == true)
+                {
 
-        searchRemoveTxt.setStyle("-fx-background-color: white");
-        itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+                    searchRemoveTxt.setStyle("-fx-background-color: white");
+                    itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                    titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
-        items.addAll(itemList.movieArchiveReturn(searchRemoveTxt.getText()));
-        }
-        if(itemList.searchAudio(searchRemoveTxt.getText())==true)
-        {
+                    items.addAll(itemList.movieArchiveReturn(searchRemoveTxt.getText()));
+                }
+                if (itemList.searchAudio(searchRemoveTxt.getText()) == true)
+                {
 
-        searchRemoveTxt.setStyle("-fx-background-color: white");
-        itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
-        titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
+                    searchRemoveTxt.setStyle("-fx-background-color: white");
+                    itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
+                    titleCol.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
-        items.addAll(itemList.audioArchiveReturn(searchRemoveTxt.getText()));
+                    items.addAll(itemList.audioArchiveReturn(searchRemoveTxt.getText()));
 
-        }
-        searchRemoveTbl.setItems(items);
-        }else
-        {
-        searchRemoveTxt.setStyle("-fx-background-color: red");
-        }
+                }
+                searchRemoveTbl.setItems(items);
+            } else
+            {
+                searchRemoveTxt.setStyle("-fx-background-color: red");
+            }
         });
 
 
-        }
+    }
 
-public void searchArchiveVal()
-        {
+    public void searchArchiveVal()
+    {
         searchRemoveTxt.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
         {
-@Override
-public TextFormatter.Change apply(TextFormatter.Change change)
-        {
-        String value=change.getText();
-        if(change.getText().matches("\\d*")&&change.getControlNewText().length()< 10)
-        {
-        return change;
-        }
-        return null;
-        }
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() < 10)
+                {
+                    return change;
+                }
+                return null;
+            }
         }));
-        }
+    }
 
-public void archiveUIValidate()
-        {
+    public void archiveUIValidate()
+    {
 
-        archiveItemIDTextField.setOnKeyPressed(KeyEvent->
+        archiveItemIDTextField.setOnKeyPressed(KeyEvent ->
         {
-        if(!archiveItemIDTextField.getText().isEmpty())
-        {
-        archiveSubmitButton.setDisable(false);
-        }else
-        {
-        archiveSubmitButton.setDisable(true);
-        }
+            if (!archiveItemIDTextField.getText().isEmpty())
+            {
+                archiveSubmitButton.setDisable(false);
+            } else
+            {
+                archiveSubmitButton.setDisable(true);
+            }
         });
         archiveItemIDTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
         {
-@Override
-public TextFormatter.Change apply(TextFormatter.Change change)
-        {
-        String value=change.getText();
-        if(change.getText().matches("\\d*")&&change.getControlNewText().length()< 10)
-        {
-        return change;
-        }
-        return null;
-        }
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() < 10)
+                {
+                    return change;
+                }
+                return null;
+            }
         }));
-        }
-        }
+    }
+}
 

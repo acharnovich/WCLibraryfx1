@@ -251,7 +251,7 @@ public class PatronList
                 {
 
                     temp.addAll(users.get(i));
-                    System.out.println("EMAIL EXISTS!");
+
 
                 }
             }
@@ -267,7 +267,7 @@ public class PatronList
         return temp;
     }
     public ObservableList searchCard(String search){
-
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -286,9 +286,9 @@ public class PatronList
 
                 if (users.get(i).getPatronCardNum().contains(search))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
+
                     temp.addAll(users.get(i));
-                    return temp;
+
                 }
             }
             // close reader
@@ -298,10 +298,10 @@ public class PatronList
         {
             ex.printStackTrace();
         }
-        return null;
+        return temp;
     }
     public ObservableList searchPhone(String search){
-
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -319,9 +319,9 @@ public class PatronList
 
                     if (users.get(i).getPhoneNumber().contains(search))
                     {
-                        ObservableList temp = FXCollections.observableArrayList();
+
                         temp.addAll(users.get(i));
-                        return temp;
+
                     }
 
 
@@ -335,7 +335,7 @@ public class PatronList
         }
 
         System.out.println("No Result");
-        return null;
+        return temp;
     }
 
     public ObservableList searchCardExact(String search){

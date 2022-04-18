@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.function.UnaryOperator;
 
 public class CheckOutCtrl
 {
@@ -83,7 +84,46 @@ public class CheckOutCtrl
     private int itemOut;                        // the item ID number entered
     private AllCheckoutLists allCheckoutLists = new AllCheckoutLists();  // reference to AllCheckoutList object for json
                                                                          // file update method calls
+public void checkoutVal(){
+    libraryCardNumTextField.setOnKeyReleased(KeyEvent ->
+    {
+        if (!libraryCardNumTextField.getText().isEmpty())
+        {
+            beginCheckoutButton.setDisable(false);
+        } else
+        {
+            beginCheckoutButton.setDisable(true);
+        }
+    });
 
+    itemIDTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+    {
+        @Override
+        public TextFormatter.Change apply(TextFormatter.Change change)
+        {
+            String value = change.getText();
+            if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 12)
+            {
+                return change;
+            }
+            return null;
+        }
+    }));
+
+    libraryCardNumTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+    {
+        @Override
+        public TextFormatter.Change apply(TextFormatter.Change change)
+        {
+            String value = change.getText();
+            if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 12)
+            {
+                return change;
+            }
+            return null;
+        }
+    }));
+}
 
     public void handleBeginCheckoutClick(javafx.event.ActionEvent actionEvent)
     {
@@ -114,25 +154,14 @@ public class CheckOutCtrl
                 // if the card was not found...
                 if (result == false)
                 {
-                    // create a new Alert of the AlertType Error named noLibraryCard
-                    Alert noLibraryCard = new Alert(Alert.AlertType.ERROR);
-                    // set the window title
-                    noLibraryCard.setHeaderText("Error!");
-                    // set the text inside the window
-                    noLibraryCard.setContentText("No library card with that number exists. Please go back and enter a valid card number such as 12345678.");
-                    noLibraryCard.showAndWait();
+                   libraryCardNumTextField.setStyle("-fx-background-color: red");
                 }
                 // otherwise...
                 else
                 {
                     if (patrons.foundCardExact(libraryCardNumTextField.getText()) == true)
                     {
-                        Alert noLibraryCard = new Alert(Alert.AlertType.CONFIRMATION);
-                        // set the window title
-                        noLibraryCard.setHeaderText("Patron Found");
-                        // set the text inside the window
-                        noLibraryCard.setContentText("Patron Card Found. Please start adding item ID numbers to the checkout transaction");
-                        noLibraryCard.showAndWait();
+                        libraryCardNumTextField.setStyle("-fx-background-color: green");
                         itemIDTextField.setDisable(false);
                         checkOutItemButton.setDisable(false);
                     }
@@ -166,13 +195,13 @@ public class CheckOutCtrl
             {
                 ItemList iList = new ItemList();
 
-                if (iList.searchBook(itemIDTextField.getText()) == true || iList.searchMovie(itemIDTextField.getText()) == true || iList.searchAudio(itemIDTextField.getText()) == true)
+                if (iList.searchBookExact(itemIDTextField.getText()) == true || iList.searchMovieExact(itemIDTextField.getText()) == true || iList.searchAudioExact(itemIDTextField.getText()) == true)
                 {
                     finishAndPrintButton.setDisable(false);
                     finishCheckoutButton.setDisable(false);
                     itemOut = Integer.parseInt(itemIDTextField.getText());
 
-                    if (iList.bookReturn(itemIDTextField.getText()) != null)
+                    if (iList.bookReturnExact(itemIDTextField.getText()) != null && iList.searchBookExact(itemIDTextField.getText()) == true)
                     {
                         // get today's date
                         LocalDate today = LocalDate.now();
@@ -205,7 +234,7 @@ public class CheckOutCtrl
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
                         // search for the book and then add it to items
-                        items.addAll(iList.bookReturn(itemIDTextField.getText()));
+                        items.addAll(iList.bookReturnExact(itemIDTextField.getText()));
 
                         // display items in the checkout table
                         checkoutTable.setItems(items);
@@ -228,7 +257,7 @@ public class CheckOutCtrl
 
                     }
 
-                    if (iList.movieReturn(itemIDTextField.getText()) != null)
+                    if (iList.movieReturnExact(itemIDTextField.getText()) != null && iList.searchMovieExact(itemIDTextField.getText()) == true)
                     {
 
                         // get today's date
@@ -261,7 +290,7 @@ public class CheckOutCtrl
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
                         // search movie and add it to items
-                        items.addAll(iList.movieReturn(itemIDTextField.getText()));
+                        items.addAll(iList.movieReturnExact(itemIDTextField.getText()));
 
                         // add items to the checkout table
                         checkoutTable.setItems(items);
@@ -270,7 +299,7 @@ public class CheckOutCtrl
                         checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
 
                         // add all checkouts
-                        checkouts.addAll(checkoutTemp);
+                        checkouts.add(checkoutTemp);
 
                         // add the due dates
                         checkOutDueDateSeparate.setItems(checkouts);
@@ -283,7 +312,7 @@ public class CheckOutCtrl
 
 
                     }
-                    if (iList.audioReturn(itemIDTextField.getText()) != null)
+                    if (iList.audioReturnExact(itemIDTextField.getText()) != null && iList.searchAudioExact(itemIDTextField.getText())==true)
                     {
                         // get today's date
                         LocalDate today = LocalDate.now();
@@ -315,7 +344,7 @@ public class CheckOutCtrl
                         checkoutTableTitle.setCellValueFactory(new PropertyValueFactory<Item, String>("title"));
 
                         // search for audiobook and add to items
-                        items.addAll(iList.audioReturn(itemIDTextField.getText()));
+                        items.addAll(iList.audioReturnExact(itemIDTextField.getText()));
 
                         // add items to checkout table
                         checkoutTable.setItems(items);
@@ -338,10 +367,7 @@ public class CheckOutCtrl
                     }
                 } else
                 {
-                    Alert noItemID = new Alert(Alert.AlertType.ERROR);
-                    noItemID.setHeaderText("No Item Found");
-                    noItemID.setContentText("No Item found. Please enter a different Item ID Number.");
-                    noItemID.showAndWait();
+                   itemIDTextField.setStyle("-fx-background-color: red");
                 }
             }
 

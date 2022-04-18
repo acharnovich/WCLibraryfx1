@@ -263,17 +263,17 @@ public class ItemList {
 
 
 
-                if (books.get(i).getTitle().equals(itemToSearchFor))
+                if (books.get(i).getTitle().toLowerCase().contains(itemToSearchFor.toLowerCase()))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-                if (String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor))
+                if (String.valueOf(books.get(i).getItemID()).contains(itemToSearchFor))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-                if (String.valueOf(books.get(i).getItemID()).contains(itemToSearchFor) && books.get(i).getItemStatus().equals("Archived"))
+                if (String.valueOf(books.get(i).getItemID()).contains(itemToSearchFor) && books.get(i).getItemStatus().contains("Archived"))
                 {
                     System.out.println("Exists.");
                     return true;
@@ -311,17 +311,17 @@ public class ItemList {
 
 
 
-                if (movies.get(i).getTitle().equals(search))
+                if (movies.get(i).getTitle().toLowerCase().contains(search.toLowerCase()))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-                if (String.valueOf(movies.get(i).getItemID()).equals(search))
+                if (String.valueOf(movies.get(i).getItemID()).contains(search))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-                if (String.valueOf(movies.get(i).getItemID()).contains(search) && movies.get(i).getItemStatus().equals("Archived"))
+                if (String.valueOf(movies.get(i).getItemID()).equals(search) && movies.get(i).getItemStatus().equals("Archived"))
                 {
                     System.out.println("Exists.");
                     return true;
@@ -353,17 +353,17 @@ public class ItemList {
 
 
 
-                if (audios.get(i).getTitle().equals(search))
+                if (audios.get(i).getTitle().toLowerCase().contains(search.toLowerCase()))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-                if (String.valueOf(audios.get(i).getItemID()).equals(search))
+                if (String.valueOf(audios.get(i).getItemID()).contains(search))
                 {
                     System.out.println("Exists.");
                     return true;
                 }
-                if (String.valueOf(audios.get(i).getItemID()).contains(search) && audios.get(i).getItemStatus().equals("Archived"))
+                if (String.valueOf(audios.get(i).getItemID()).equals(search) && audios.get(i).getItemStatus().equals("Archived"))
                 {
                     System.out.println("Exists.");
                     return true;
@@ -377,9 +377,142 @@ public class ItemList {
         return false;
     }
 
+    public boolean searchBookExact(String itemToSearchFor)
+    {
 
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+
+
+                if (books.get(i).getTitle().equals(itemToSearchFor))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor) && books.get(i).getItemStatus().contains("Archived"))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Doesn't exist.");
+        return false;
+    }
+
+    public boolean searchMovieExact(String search){
+        // check through Movies
+        // create Gson instance
+        try
+        {
+            gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+
+
+                if (movies.get(i).getTitle().equals(search))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(movies.get(i).getItemID()).equals(search))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(movies.get(i).getItemID()).equals(search) && movies.get(i).getItemStatus().equals("Archived"))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+            }
+
+        } catch (IOException e)
+        {
+
+        }
+        return false;
+    }
+    public boolean searchAudioExact(String search){
+        // check through Movies
+        // create Gson instance
+        try
+        {
+            gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+
+
+                if (audios.get(i).getTitle().equals(search))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(audios.get(i).getItemID()).equals(search))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+                if (String.valueOf(audios.get(i).getItemID()).equals(search) && audios.get(i).getItemStatus().equals("Archived"))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+            }
+
+        } catch (IOException e)
+        {
+
+        }
+        return false;
+    }
     public ObservableList bookReturn(String search){
-
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -396,19 +529,19 @@ public class ItemList {
             {
 
 
-                if (books.get(i).getTitle().equals(search))
+                if (books.get(i).getTitle().toLowerCase().contains(search.toLowerCase()))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
+
                     temp.addAll(books.get(i));
-                    return temp;
+
                 }
 
-                if (String.valueOf(books.get(i).getItemID()).equals(search))
+                if (String.valueOf(books.get(i).getItemID()).contains(search))
                 {
 
-                    ObservableList temp = FXCollections.observableArrayList();
+
                     temp.addAll(books.get(i));
-                    return temp;
+
                 }
 
             }
@@ -423,10 +556,58 @@ public class ItemList {
         }
 
         System.out.println("No Result, Name");
-        return null;
+        return temp;
+    }
+
+    public ObservableList bookReturnExact(String search){
+        ObservableList temp = FXCollections.observableArrayList();
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+
+                if (books.get(i).getTitle().equals(search.toLowerCase()))
+                {
+
+                    temp.addAll(books.get(i));
+
+                }
+
+                if (String.valueOf(books.get(i).getItemID()).equals(search))
+                {
+
+
+                    temp.addAll(books.get(i));
+
+                }
+
+            }
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("No Result, Name");
+        return temp;
     }
     public ObservableList bookArchiveReturn(String search){
-
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -444,10 +625,10 @@ public class ItemList {
                 if (String.valueOf(books.get(i).getItemID()).contains(search) && books.get(i).getItemStatus().contains("Archived"))
                 {
 
-                   {
-                        ObservableList temp = FXCollections.observableArrayList();
+
+
                         temp.addAll(books.get(i));
-                        return temp;}}
+                        }
                 }
 
 
@@ -461,11 +642,11 @@ public class ItemList {
         }
 
         System.out.println("No Result, Name");
-        return null;
+        return temp;
     }
 
     public ObservableList movieArchiveReturn(String search){
-
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -483,10 +664,10 @@ public class ItemList {
                 if (String.valueOf(movies.get(i).getItemID()).contains(search) && movies.get(i).getItemStatus().contains("Archived"))
                 {
 
-                    {
-                        ObservableList temp = FXCollections.observableArrayList();
+
+
                         temp.addAll(movies.get(i));
-                        return temp;}}
+                        }
             }
 
 
@@ -500,11 +681,11 @@ public class ItemList {
         }
 
         System.out.println("No Result, Name");
-        return null;
+        return temp;
     }
 
     public ObservableList audioArchiveReturn(String search){
-
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -522,11 +703,11 @@ public class ItemList {
                 if (String.valueOf(audios.get(i).getItemID()).contains(search) && audios.get(i).getItemStatus().contains("Archived"))
                 {
 
-                    {
-                        ObservableList temp = FXCollections.observableArrayList();
+
+
                         temp.addAll(audios.get(i));
-                        return temp;}}
-            }
+
+            }}
 
 
 
@@ -539,10 +720,104 @@ public class ItemList {
         }
 
         System.out.println("No Result, Name");
-        return null;
+        return temp;
     }
     public ObservableList movieReturn(String search){
+        ObservableList temp = FXCollections.observableArrayList();
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
 
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+
+                if (String.valueOf(movies.get(i).getItemID()).contains(search))
+                {
+
+                    temp.addAll(movies.get(i));
+
+
+                }
+
+                if (movies.get(i).getTitle().toLowerCase().contains(search.toLowerCase()))
+                {
+
+                    temp.addAll(movies.get(i));
+
+
+                }
+            }
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return temp;
+    }
+
+    public ObservableList audioReturn(String search){
+        ObservableList temp = FXCollections.observableArrayList();
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of users
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+
+                if (String.valueOf(audios.get(i).getItemID()).contains(search))
+                {
+
+                  temp.addAll(audios.get(i));
+
+                }
+
+                if (audios.get(i).getTitle().toLowerCase().contains(search.toLowerCase()))
+                {
+
+                    temp.addAll(audios.get(i));
+
+
+                }
+            }
+
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return temp;
+    }
+    public ObservableList movieReturnExact(String search){
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -561,18 +836,18 @@ public class ItemList {
 
                 if (String.valueOf(movies.get(i).getItemID()).equals(search))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
-                    temp.add(movies.get(i));
 
-                    return temp;
+                    temp.addAll(movies.get(i));
+
+
                 }
 
-                if (movies.get(i).getTitle().equals(search))
+                if (movies.get(i).getTitle().equalsIgnoreCase(search))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
-                    temp.add(movies.get(i));
 
-                    return temp;
+                    temp.addAll(movies.get(i));
+
+
                 }
             }
 
@@ -585,12 +860,12 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
-        return null;
+
+        return temp;
     }
 
-    public ObservableList audioReturn(String search){
-
+    public ObservableList audioReturnExact(String search){
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -609,16 +884,16 @@ public class ItemList {
 
                 if (String.valueOf(audios.get(i).getItemID()).equals(search))
                 {
-                  ObservableList temp = FXCollections.observableArrayList();
-                  temp.add(audios.get(i));
-                    return temp;
+
+                    temp.addAll(audios.get(i));
+
                 }
 
-                if (audios.get(i).getTitle().equals(search))
+                if (audios.get(i).getTitle().equalsIgnoreCase(search))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
-                    temp.add(audios.get(i));
-                    return temp;
+
+                    temp.addAll(audios.get(i));
+
 
                 }
             }
@@ -632,9 +907,12 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
-        return null;
+
+        return temp;
     }
+
+
+
 
     public boolean archiveItem(String itemToSearchFor)
     {
@@ -770,7 +1048,7 @@ public class ItemList {
 
                 String tempID = Integer.toString(books.get(i).getItemID());
 
-                if (itemToSearchFor.contains(tempID))
+                if (itemToSearchFor.equals(tempID))
                 {
                     Book temp = new Book(books.get(i).getItemID(), books.get(i).getTitle(), books.get(i).getYearPublished(),
                             books.get(i).getDatePublished(), books.get(i).getDescription(), "Checked Out",
@@ -800,7 +1078,7 @@ public class ItemList {
 
                 String tempID = Integer.toString(movies.get(i).getItemID());
 
-                if (itemToSearchFor.contains(tempID))
+                if (itemToSearchFor.equals(tempID))
                 {
                     Movie temp = new Movie(movies.get(i).getItemID(), movies.get(i).getTitle(), movies.get(i).getYearPublished(),
                             movies.get(i).getDatePublished(), movies.get(i).getDescription(),
@@ -832,7 +1110,7 @@ public class ItemList {
 
                 String tempID = Integer.toString(audios.get(i).getItemID());
 
-                if (itemToSearchFor.contains(tempID))
+                if (itemToSearchFor.equals(tempID))
                 {
                     AudioBook temp = new AudioBook(audios.get(i).getItemID(), audios.get(i).getTitle(),
                             audios.get(i).getYearPublished(), audios.get(i).getDatePublished(),

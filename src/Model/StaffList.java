@@ -20,7 +20,7 @@ public class StaffList
     private ArrayList<LibraryStaff> staffimport;
     private JsonObject jsonObject;
     private Gson gson;
-    private LibraryStaff temp;
+
 
     public StaffList()
     {
@@ -306,8 +306,8 @@ public class StaffList
 
         return temp;
     }
-    public Person searchUserID(String search){
-
+    public ObservableList searchUserID(String search){
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -324,10 +324,10 @@ public class StaffList
             {
 
 
-                if (users.get(i).getStaffId().equalsIgnoreCase(search))
+                if (users.get(i).getStaffId().toLowerCase().contains(search.toLowerCase()))
                 {
+                    temp.addAll(users.get(i));
 
-                    return users.get(i);
                 }
             }
             // close reader
@@ -339,10 +339,10 @@ public class StaffList
         }
 
 
-        return null;
+        return temp;
     }
-    public Person searchPhone(String search){
-
+    public ObservableList searchPhone(String search){
+        ObservableList temp = FXCollections.observableArrayList();
         try
         {
             // create Gson instance
@@ -361,8 +361,8 @@ public class StaffList
 
                 if (users.get(i).getPhoneNumber().equals(search));
                 {
-                    System.out.println("Phone EXISTS!");
-                    return users.get(i);
+                  temp.addAll(users.get(i));
+
                 }}
 
             // close reader
@@ -374,7 +374,7 @@ public class StaffList
         }
 
 
-        return null;
+        return temp;
     }
 
     public ArrayList getStaffimport()

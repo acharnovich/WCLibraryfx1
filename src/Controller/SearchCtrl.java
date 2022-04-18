@@ -246,6 +246,7 @@ public class SearchCtrl {
                 people.addAll(pList.searchEmail(searchPersonTextField.getText()));
 
                 personContenTbl.setItems(people);
+                searchPersonTextField.setStyle("-fx-background-color: white");
             }
                 if(sList.foundEmail(searchPersonTextField.getText()) == true){
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
@@ -256,18 +257,17 @@ public class SearchCtrl {
 
                     people.addAll(sList.searchEmail(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
+                    searchPersonTextField.setStyle("-fx-background-color: white");
 
                 }if(pList.foundEmail(searchPersonTextField.getText()) == false && sList.foundEmail(searchPersonTextField.getText()) == false)
                 {
-                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
-                    loginFailed.setHeaderText("No Account Found");
-                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.try ajones or tsmith for ID");
-                    loginFailed.showAndWait();
+                    searchPersonTextField.setStyle("-fx-background-color: red");
                 }
             }{
 
         }
             if(searchPersonByNameRadioButton.isSelected() == true){
+                ObservableList<Person> people = FXCollections.observableArrayList();
                 if(pList.foundCard(searchPersonTextField.getText()) == true){
                     System.out.println("Person Found");
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
@@ -275,9 +275,10 @@ public class SearchCtrl {
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-                    ObservableList<Person> people = FXCollections.observableArrayList();
+
                     people.addAll(pList.searchCard(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
+                    searchPersonTextField.setStyle("-fx-background-color: white");
                 }
                 if(sList.foundUserID(searchPersonTextField.getText()) == true){
                     System.out.println("Person Found");
@@ -286,51 +287,49 @@ public class SearchCtrl {
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-                    ObservableList<Person> people = FXCollections.observableArrayList();
-                    people.add(sList.searchUserID(searchPersonTextField.getText()));
+
+                    people.addAll(sList.searchUserID(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
+                    searchPersonTextField.setStyle("-fx-background-color: white");
 
                 }if(pList.foundCard(searchPersonTextField.getText()) == false && sList.foundUserID(searchPersonTextField.getText()) == false)
-                {Alert loginFailed = new Alert(Alert.AlertType.ERROR);
-                    loginFailed.setHeaderText("No Account Found");
-                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
-                    loginFailed.showAndWait();}
+                {searchPersonTextField.setStyle("-fx-background-color: red");}
             }{
 
         }
             if(searchPersonByPhone.isSelected() == true){
+                ObservableList<Person> people = FXCollections.observableArrayList();
                 if(pList.foundPhone(searchPersonTextField.getText()) == true){
+
+                    searchPersonTextField.setStyle("-fx-background-color: white");
                     System.out.println("Person Found");
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
                     dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-                    ObservableList<Person> people = FXCollections.observableArrayList();
-                    for (int i = 0; i <= people.size()-1; i++)
-                    {
+
+
                         people.addAll(pList.searchPhone(searchPersonTextField.getText()));
                         personContenTbl.setItems(people);
                     }
 
-                }
+
                 if(sList.foundPhone(searchPersonTextField.getText()) == true){
+                    searchPersonTextField.setStyle("-fx-background-color: white");
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
                     dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-                    ObservableList<Person> people = FXCollections.observableArrayList();
-                    people.add(sList.searchPhone(searchPersonTextField.getText()));
+
+                    people.addAll(sList.searchPhone(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
 
                 }
                 if(pList.foundPhone(searchPersonTextField.getText()) == false && sList.foundPhone(searchPersonTextField.getText()) == false)
                 {
-                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
-                    loginFailed.setHeaderText("No Account Found");
-                    loginFailed.setContentText("No patron or staff found. Try a different search criteria or create new account.");
-                    loginFailed.showAndWait();
+                    searchPersonTextField.setStyle("-fx-background-color: red");
                 }}
 
         });
@@ -352,9 +351,10 @@ public class SearchCtrl {
             }
             ItemList iList = new ItemList();
             if(searchItemByIDRadioButton.isSelected() == true){
-
+                ObservableList<Item> items = FXCollections.observableArrayList();
                 if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
                     System.out.println("Item Found");
+                    searchItemTextField.setStyle("-fx-background-color: white");
                     if (iList.bookReturn(searchItemTextField.getText()) != null)
                     {
                         idCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
@@ -363,7 +363,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-                        ObservableList<Item> items = FXCollections.observableArrayList();
+
                         items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -376,7 +376,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-                        ObservableList<Item> items = FXCollections.observableArrayList();
+
                         items.addAll(iList.movieReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -388,17 +388,14 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-                        ObservableList<Item> items = FXCollections.observableArrayList();
+
                         items.addAll(iList.audioReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                 }
                 else
                 {
-                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
-                    loginFailed.setHeaderText("No Item Found");
-                    loginFailed.setContentText("No Item found. Try a different search criteria or add item to inventory.");
-                    loginFailed.showAndWait();
+                    searchItemTextField.setStyle("-fx-background-color: red");
                 }
             }
             if(searchItemByTitleRadioButton.isSelected() == true){
@@ -406,6 +403,8 @@ public class SearchCtrl {
 
                 if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
                     System.out.println("Item Found");
+                    ObservableList<Item> items = FXCollections.observableArrayList();
+                    searchItemTextField.setStyle("-fx-background-color: white");
                     if (iList.bookReturn(searchItemTextField.getText()) != null)
                     {
                         idCol.setCellValueFactory(new PropertyValueFactory<Item, Integer>("itemID"));
@@ -414,7 +413,6 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-                        ObservableList<Item> items = FXCollections.observableArrayList();
                         items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -426,7 +424,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-                        ObservableList<Item> items = FXCollections.observableArrayList();
+
                         items.addAll(iList.movieReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -438,17 +436,14 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-                        ObservableList<Item> items = FXCollections.observableArrayList();
+
                         items.addAll(iList.audioReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
                 }
                 else
                 {
-                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
-                    loginFailed.setHeaderText("No Item Found");
-                    loginFailed.setContentText("No Item found. Try a different search criteria or add item to inventory.");
-                    loginFailed.showAndWait();
+                 searchItemTextField.setStyle("-fx-background-color: red");
                 }
             }
 
