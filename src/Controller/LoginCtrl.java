@@ -71,7 +71,7 @@ public class LoginCtrl
                         Alert loginSuccess = new Alert(Alert.AlertType.CONFIRMATION);
                         loginSuccess.setHeaderText("Login Success: " + userid.getText());
                         loginSuccess.setContentText("Sprint 4 Updates:" +
-                                                    "\n- Check In is now completely functional" +
+                                                    "\n- Check In/Checkout is now completely functional" +
                                                     "\n- Newly created patrons accounts now have bill lists" +
                                                     "\n- Checkout lists and bill lists are updated upon check in" +
                                                     "\n- Library card numbers are now auto-generated");
