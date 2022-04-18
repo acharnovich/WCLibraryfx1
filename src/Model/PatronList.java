@@ -227,6 +227,8 @@ public class PatronList
     }
     public ObservableList searchEmail(String search){
 
+        ObservableList temp = FXCollections.observableArrayList();
+
         try
         {
             // create Gson instance
@@ -239,21 +241,21 @@ public class PatronList
             ArrayList<Patron> users = new Gson().fromJson(reader, new TypeToken<ArrayList<Patron>>()
             {
             }.getType());
+
+
             for (int i = 0; i < users.size(); i++)
             {
 
 
                 if (users.get(i).getEmail().toLowerCase().contains(search.toLowerCase()))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
-                    temp.addAll(users.get(i));
 
+                    temp.addAll(users.get(i));
                     System.out.println("EMAIL EXISTS!");
 
-
-                    return temp;
                 }
             }
+
             // close reader
             reader.close();
 
@@ -262,8 +264,7 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("No Result");
-        return null;
+        return temp;
     }
     public ObservableList searchCard(String search){
 

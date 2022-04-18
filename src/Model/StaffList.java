@@ -269,6 +269,8 @@ public class StaffList
     }
     public ObservableList searchEmail(String search){
 
+        ObservableList temp = FXCollections.observableArrayList();
+
         try
         {
             // create Gson instance
@@ -281,16 +283,17 @@ public class StaffList
             ArrayList<LibraryStaff> users = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
             {
             }.getType());
+
             for (int i = 0; i < users.size(); i++)
             {
 
 
                 if (users.get(i).getEmail().contains(search))
                 {
-                    ObservableList temp = FXCollections.observableArrayList();
+
                     System.out.println("EMAIL EXISTS!");
                     temp.addAll(users.get(i));
-                    return temp;
+
                 }
             }
             // close reader
@@ -301,8 +304,7 @@ public class StaffList
             ex.printStackTrace();
         }
 
-
-        return null;
+        return temp;
     }
     public Person searchUserID(String search){
 
