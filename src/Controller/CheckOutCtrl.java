@@ -85,7 +85,7 @@ public class CheckOutCtrl
     private AllCheckoutLists allCheckoutLists = new AllCheckoutLists();  // reference to AllCheckoutList object for json
                                                                          // file update method calls
 public void checkoutVal(){
-    libraryCardNumTextField.setOnKeyReleased(KeyEvent ->
+    libraryCardNumTextField.setOnKeyPressed(KeyEvent ->
     {
         if (!libraryCardNumTextField.getText().isEmpty())
         {
@@ -93,6 +93,17 @@ public void checkoutVal(){
         } else
         {
             beginCheckoutButton.setDisable(true);
+        }
+    });
+
+    itemIDTextField.setOnKeyPressed(KeyEvent ->
+    {
+        if (!libraryCardNumTextField.getText().isEmpty())
+        {
+            checkOutItemButton.setDisable(false);
+        } else
+        {
+           checkOutItemButton.setDisable(true);
         }
     });
 
@@ -163,7 +174,6 @@ public void checkoutVal(){
                     {
                         libraryCardNumTextField.setStyle("-fx-background-color: green");
                         itemIDTextField.setDisable(false);
-                        checkOutItemButton.setDisable(false);
                     }
                     // get the text from the library card number text field, parse to int, and assign to cardNumberEntered
                     cardNumberEntered = Integer.parseInt(libraryCardNumTextField.getText());
@@ -200,7 +210,7 @@ public void checkoutVal(){
                     finishAndPrintButton.setDisable(false);
                     finishCheckoutButton.setDisable(false);
                     itemOut = Integer.parseInt(itemIDTextField.getText());
-
+                    if(iList.checkBookCheckoutin(itemIDTextField.getText()) == false){
                     if (iList.bookReturnExact(itemIDTextField.getText()) != null && iList.searchBookExact(itemIDTextField.getText()) == true)
                     {
                         // get today's date
@@ -253,10 +263,17 @@ public void checkoutVal(){
                         bookAdded.setHeaderText("Book Added to Checkout");
                         bookAdded.setContentText("Success! Book has been added to Patron Account:" + libraryCardNumTextField.getText());
                         bookAdded.showAndWait();
+                        itemIDTextField.clear();
 
 
+                    }}else {
+                        Alert bookAdded = new Alert(Alert.AlertType.ERROR);
+                        bookAdded.setHeaderText("Book Already Out!");
+                        bookAdded.setContentText("Book has already been checked out or removed from inventory:" + itemIDTextField.getText());
+                        bookAdded.showAndWait();
+                        itemIDTextField.clear();
                     }
-
+if(iList.checkMovieCheckoutin(itemIDTextField.getText())==false){
                     if (iList.movieReturnExact(itemIDTextField.getText()) != null && iList.searchMovieExact(itemIDTextField.getText()) == true)
                     {
 
@@ -299,7 +316,7 @@ public void checkoutVal(){
                         checkoutTableDueDate.setCellValueFactory(new PropertyValueFactory<CheckOut, NormalDate>("dueDate"));
 
                         // add all checkouts
-                        checkouts.add(checkoutTemp);
+                        checkouts.addAll(checkoutTemp);
 
                         // add the due dates
                         checkOutDueDateSeparate.setItems(checkouts);
@@ -309,10 +326,18 @@ public void checkoutVal(){
                         movieAdded.setHeaderText("Movie Added to Checkout");
                         movieAdded.setContentText("Success! Movie has been added to Patron Account:" + libraryCardNumTextField.getText());
                         movieAdded.showAndWait();
+                        itemIDTextField.clear();
 
 
-                    }
-                    if (iList.audioReturnExact(itemIDTextField.getText()) != null && iList.searchAudioExact(itemIDTextField.getText())==true)
+                    }}else {
+    Alert bookAdded = new Alert(Alert.AlertType.ERROR);
+    bookAdded.setHeaderText("Movie Already Out!");
+    bookAdded.setContentText("Movie has already been checked out or removed from inventory:" + itemIDTextField.getText());
+    bookAdded.showAndWait();
+    itemIDTextField.clear();
+}
+if(iList.checkAudioCheckoutin(itemIDTextField.getText())==false){
+if (iList.audioReturnExact(itemIDTextField.getText()) != null && iList.searchAudioExact(itemIDTextField.getText())==true)
                     {
                         // get today's date
                         LocalDate today = LocalDate.now();
@@ -363,9 +388,15 @@ public void checkoutVal(){
                         audioAdded.setHeaderText("Audiobook Added to Checkout");
                         audioAdded.setContentText("Success! Audiobook has been added to Patron Account:" + libraryCardNumTextField.getText());
                         audioAdded.showAndWait();
+                        itemIDTextField.clear();
 
                     }
-                } else
+                } else {   Alert bookAdded = new Alert(Alert.AlertType.ERROR);
+    bookAdded.setHeaderText("AudioBook Already Out!");
+    bookAdded.setContentText("AudioBook has already been checked out or removed from inventory:" + itemIDTextField.getText());
+    bookAdded.showAndWait();
+    itemIDTextField.clear();}}
+else
                 {
                    itemIDTextField.setStyle("-fx-background-color: red");
                 }

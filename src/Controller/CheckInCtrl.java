@@ -116,6 +116,8 @@ public class CheckInCtrl {
                 // if the item exists somewhere in the inventory...
                 if (iList.searchBookExact(itemIDTextField.getText()) == true || iList.searchMovieExact(itemIDTextField.getText()) == true || iList.searchAudioExact(itemIDTextField.getText()) == true)
                 {
+
+                    itemIDTextField.setStyle("-fx-background-color: white");
                     // enable the finish check in button
                     finishCheckInButton.setDisable(false);
 
@@ -123,6 +125,7 @@ public class CheckInCtrl {
                     itemCheckIn = Integer.parseInt(itemIDTextField.getText());
 
                     // if the item is a book...
+if(iList.checkBookCheckoutinVerify(itemIDTextField.getText())==false){
                     if (iList.bookReturnExact(itemIDTextField.getText()) != null &&iList.searchBookExact(itemIDTextField.getText()) == true)
                     {
 
@@ -231,11 +234,20 @@ public class CheckInCtrl {
                             finesTable.setItems(fines);
                         }
 
+                        itemIDTextField.clear();
+                    }}else {
 
-                    }
+    Alert bookAdded = new Alert(Alert.AlertType.ERROR);
+    bookAdded.setHeaderText("Book Already In!");
+    bookAdded.setContentText("Book has already been checked in: " + itemIDTextField.getText());
+    bookAdded.showAndWait();
+    itemIDTextField.clear();
+}
 
                     // if the item is a movie...
-                    else if (iList.movieReturnExact(itemIDTextField.getText()) != null &&iList.searchMovieExact(itemIDTextField.getText()) == true)
+
+                        if (iList.checkMovieCheckoutinVerify(itemIDTextField.getText())==false){
+                        if (iList.movieReturnExact(itemIDTextField.getText()) != null &&iList.searchMovieExact(itemIDTextField.getText()) == true)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
@@ -345,10 +357,18 @@ public class CheckInCtrl {
                             finesTable.setItems(fines);
                         }
 
-                    }
+                    }}else {
+                            Alert bookAdded = new Alert(Alert.AlertType.ERROR);
+                            bookAdded.setHeaderText("Movie Already In!");
+                            bookAdded.setContentText("Movie has already been checked in: " + itemIDTextField.getText());
+                            bookAdded.showAndWait();
+
+                        }
 
                     // if the item is an audiobook...
-                    else if (iList.audioReturnExact(itemIDTextField.getText()) != null &&iList.searchAudioExact(itemIDTextField.getText()) == true)
+
+                        if (iList.checkAudioCheckoutinVerify(itemIDTextField.getText())==false){
+                        if (iList.audioReturnExact(itemIDTextField.getText()) != null &&iList.searchAudioExact(itemIDTextField.getText()) == true)
                     {
                         // pull the checkout from the json, then assign the value to the CheckOut object checkoutTransaction
                         checkoutTransaction = checkoutTransaction.searchCheckOut(itemIDTextField.getText());
@@ -460,23 +480,19 @@ public class CheckInCtrl {
                         }
 
 
-                    }
+                    }}else {
+                            Alert bookAdded = new Alert(Alert.AlertType.ERROR);
+                            bookAdded.setHeaderText("AudioBook Already In!");
+                            bookAdded.setContentText("AudioBook has already been checked in: " + itemIDTextField.getText());
+                            bookAdded.showAndWait();
+                        }
 
-                    // if the item is some other type - should be impossible to reach this
-                    else
-                    {
-                        Alert noItemID = new Alert(Alert.AlertType.ERROR);
-                        noItemID.setHeaderText("Fatal Error");
-                        noItemID.setContentText("It shouldn't be possible to reach this message, but if you do, congrats!");
-                        noItemID.showAndWait();
-                    }
+
+                    // if the item is some other type - should be impossible to reach th
                 }
                 else
                 {
-                    Alert noItemID = new Alert(Alert.AlertType.ERROR);
-                    noItemID.setHeaderText("No Item Found");
-                    noItemID.setContentText("No item found. Please enter a different Item ID Number.");
-                    noItemID.showAndWait();
+                    itemIDTextField.setStyle("-fx-background-color: red");
                 }
             }
 

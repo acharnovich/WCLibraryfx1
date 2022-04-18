@@ -936,6 +936,8 @@ public class AccountCtrl
                             confirm.setHeaderText("Account Added!");
                             confirm.setContentText("Account has been added");
                             confirm.showAndWait();
+                            patronFillable.getChildren().clear();
+
                         } else
                         {
                             if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11 && verifyCreatePatronAccount() == false && !tempDate.isAfter(LocalDate.now()) && Period.between(tempDate, LocalDate.now()).getYears() > 16)
@@ -950,6 +952,8 @@ public class AccountCtrl
                                 confirm.setHeaderText("Account Added!");
                                 confirm.setContentText("Account has been added");
                                 confirm.showAndWait();
+                                patronFillable.getChildren().clear();
+
                             }
                         }
                     }
@@ -1445,6 +1449,7 @@ public class AccountCtrl
                             confirm.setHeaderText("Staff Account Added!");
                             confirm.setContentText("Account has been added");
                             confirm.showAndWait();
+                            staffFillable.getChildren().clear();
                         }
                     }
                 });

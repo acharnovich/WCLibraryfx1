@@ -511,6 +511,233 @@ public class ItemList {
         }
         return false;
     }
+
+    public boolean checkBookCheckoutin(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+                if ((String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor) && books.get(i).getItemStatus().toLowerCase().contains("archived")) || ((String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor)) && books.get(i).getItemStatus().toLowerCase().contains("checked out")))
+                {
+                    System.out.println("Exists.");
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        System.out.println("Doesn't exist.");
+        return false;
+    }
+
+    public boolean checkMovieCheckoutin(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+                if ((String.valueOf(movies.get(i).getItemID()).equals(itemToSearchFor) && movies.get(i).getItemStatus().toLowerCase().contains("archived")) || ((String.valueOf(movies.get(i).getItemID()).equals(itemToSearchFor)) && movies.get(i).getItemStatus().toLowerCase().contains("checked out")))
+                {
+
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return false;
+    }
+
+    public boolean checkAudioCheckoutin(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+                if ((String.valueOf(audios.get(i).getItemID()).equals(itemToSearchFor) && audios.get(i).getItemStatus().toLowerCase().contains("archived")) || ((String.valueOf(audios.get(i).getItemID()).equals(itemToSearchFor)) && audios.get(i).getItemStatus().toLowerCase().contains("checked out")))
+                {
+
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return false;
+    }
+
+    public boolean checkBookCheckoutinVerify(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Book> books = new Gson().fromJson(reader, new TypeToken<ArrayList<Book>>()
+            {
+            }.getType());
+            for (int i = 0; i < books.size(); i++)
+            {
+
+                if ((String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor) && books.get(i).getItemStatus().toLowerCase().contains("archived")) || ((String.valueOf(books.get(i).getItemID()).equals(itemToSearchFor)) && books.get(i).getItemStatus().toLowerCase().contains("checked in")))
+                {
+
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return false;
+    }
+    public boolean checkMovieCheckoutinVerify(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("movieInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<Movie> movies = new Gson().fromJson(reader, new TypeToken<ArrayList<Movie>>()
+            {
+            }.getType());
+            for (int i = 0; i < movies.size(); i++)
+            {
+
+                if ((String.valueOf(movies.get(i).getItemID()).equals(itemToSearchFor) && movies.get(i).getItemStatus().toLowerCase().contains("archived")) || ((String.valueOf(movies.get(i).getItemID()).equals(itemToSearchFor)) && movies.get(i).getItemStatus().toLowerCase().contains("checked in")))
+                {
+
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return false;
+    }
+    public boolean checkAudioCheckoutinVerify(String itemToSearchFor)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("audioBookInventory.json"));
+
+            // convert JSON array to list of items
+            ArrayList<AudioBook> audios = new Gson().fromJson(reader, new TypeToken<ArrayList<AudioBook>>()
+            {
+            }.getType());
+            for (int i = 0; i < audios.size(); i++)
+            {
+
+                if ((String.valueOf(audios.get(i).getItemID()).equals(itemToSearchFor) && audios.get(i).getItemStatus().toLowerCase().contains("archived")) || ((String.valueOf(audios.get(i).getItemID()).equals(itemToSearchFor)) && audios.get(i).getItemStatus().toLowerCase().contains("checked in")))
+                {
+
+                    return true;
+                }
+
+            }
+
+
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+
+        return false;
+    }
+
     public ObservableList bookReturn(String search){
         ObservableList temp = FXCollections.observableArrayList();
         try
@@ -577,18 +804,9 @@ public class ItemList {
             {
 
 
-                if (books.get(i).getTitle().equals(search.toLowerCase()))
-                {
-
-                    temp.addAll(books.get(i));
-
-                }
-
                 if (String.valueOf(books.get(i).getItemID()).equals(search))
                 {
-
-
-                    temp.addAll(books.get(i));
+                    temp.add(books.get(i));
 
                 }
 
