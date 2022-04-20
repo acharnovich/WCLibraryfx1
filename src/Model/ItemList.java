@@ -821,7 +821,7 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
+
         return temp;
     }
     public ObservableList bookArchiveReturn(String search){
@@ -859,7 +859,7 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
+
         return temp;
     }
 
@@ -898,7 +898,7 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
+
         return temp;
     }
 
@@ -937,7 +937,6 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
         return temp;
     }
     public ObservableList movieReturn(String search){
@@ -1162,7 +1161,7 @@ public class ItemList {
                     books.remove(i);
                     books.add(temp);
                     saveToFileBookInventory(books);
-                    System.out.println("Archived.");
+
                     return true;
                 }
             }
@@ -1193,7 +1192,7 @@ public class ItemList {
                     movies.remove(i);
                     movies.add(temp);
                     saveToFileMovieInventory(movies);
-                    System.out.println("Archived.");
+
 
                     return true;
                 }
@@ -1226,7 +1225,6 @@ public class ItemList {
                     audios.remove(i);
                     audios.add(temp);
                     saveToFileAudioBookInventory(audios);
-                    System.out.println("Archived.");
                     return true;
                 }
             }
@@ -1239,7 +1237,6 @@ public class ItemList {
             ex.printStackTrace();
         }
 
-        System.out.println("Doesn't exist.");
         return false;
     }
 
@@ -1275,7 +1272,6 @@ public class ItemList {
                     books.remove(i);
                     books.add(temp);
                     saveToFileBookInventory(books);
-                    System.out.println("Checked out.");
                     return true;
                 }
             }
@@ -1306,7 +1302,6 @@ public class ItemList {
                     movies.remove(i);
                     movies.add(temp);
                     saveToFileMovieInventory(movies);
-                    System.out.println("Checked out.");
 
                     return true;
                 }
@@ -1339,7 +1334,6 @@ public class ItemList {
                     audios.remove(i);
                     audios.add(temp);
                     saveToFileAudioBookInventory(audios);
-                    System.out.println("Checked out.");
                     return true;
                 }
             }

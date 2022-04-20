@@ -359,11 +359,13 @@ public class StaffList
             {
 
 
-                if (users.get(i).getPhoneNumber().equals(search));
-                {
-                  temp.addAll(users.get(i));
+                for (int x = 0; x == 0; x++){
+                    if (users.get(i).getPhoneNumber().get(x).toString().contains(search))
+                    {
 
-                }}
+                        temp.addAll(users.get(i));
+
+                    }}}
 
             // close reader
             reader.close();

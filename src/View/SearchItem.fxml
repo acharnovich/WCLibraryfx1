@@ -39,12 +39,7 @@
             <TableColumn fx:id="statusCol" prefWidth="85.0" text="Status" />
         </columns>
       </TableView>
-      <Button fx:id="editItemBtn" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" onAction="#underDevEditItem" prefHeight="20.0" prefWidth="104.0" text="Edit Item">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
-      <Button fx:id="removeItemBtn" layoutX="127.0" layoutY="79.0" mnemonicParsing="false" onAction="#underDevRemoveitem" prefHeight="20.0" prefWidth="104.0" text="Remove Item">
+      <Button fx:id="removeItemBtn" layoutX="23.0" layoutY="80.0" mnemonicParsing="false" onAction="#underDevRemoveitem" prefHeight="20.0" prefWidth="104.0" text="Remove Item">
          <font>
             <Font size="10.0" />
          </font>

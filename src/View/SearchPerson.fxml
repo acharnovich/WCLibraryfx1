@@ -38,11 +38,6 @@
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="editBtn" layoutX="236.0" layoutY="77.0" mnemonicParsing="false" onAction="#underDevEdit" prefHeight="20.0" prefWidth="116.0" text="Edit/View Details">
-         <font>
-            <Font size="10.0" />
-         </font>
-      </Button>
       <RadioButton fx:id="searchPersonByNameRadioButton" layoutX="17.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonNameRadioClick" text="Search by Card # or ID" />
       <RadioButton fx:id="searchPersonByPhone" layoutX="174.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonPhoneRadioClick" text="Search by Phone" />
       <RadioButton fx:id="searchPersonByEmailRadioButton" layoutX="297.0" layoutY="49.0" mnemonicParsing="false" onAction="#handleSearchPersonEmailRadioClick" text="Search by Email Address" />

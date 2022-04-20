@@ -103,7 +103,7 @@ public class PatronList
 
                 if (users.get(i).getEmail().equalsIgnoreCase(email))
                 {
-                    System.out.println("EMAIL EXISTS!");
+
                     return true;
                 }
             }
@@ -115,7 +115,6 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("Email Does Not Exist!");
         return false;
     }
 
@@ -150,7 +149,7 @@ public class PatronList
            ex.printStackTrace();
        }
 
-       System.out.println("Email Does Not Exist!");
+
        return false;
    }
 
@@ -173,7 +172,7 @@ public class PatronList
 
                 if (users.get(i).getPatronCardNum().contains(search))
                 {
-                    System.out.println("Card Exists EXISTS!");
+
                     return true;
                 }
             }
@@ -185,7 +184,7 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("Name Does Not Exist!");
+
         return false;
     }
 
@@ -209,7 +208,7 @@ public class PatronList
 
                     if (users.get(i).getPhoneNumber().toString().contains(search))
                     {
-                        System.out.println("Phone EXISTS!");
+
                         return true;
                     }
                 }
@@ -222,7 +221,6 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("Phone Does Not Exist!");
         return false;
     }
     public ObservableList searchEmail(String search){
@@ -316,13 +314,13 @@ public class PatronList
             }.getType());
             for (int i = 0; i < users.size(); i++)
             {
-
-                    if (users.get(i).getPhoneNumber().contains(search))
+                for (int x = 0; x == 0; x++){
+                    if (users.get(i).getPhoneNumber().get(x).toString().contains(search))
                     {
 
                         temp.addAll(users.get(i));
 
-                    }
+                    }}
 
 
             }
@@ -334,7 +332,6 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("No Result");
         return temp;
     }
 
@@ -370,7 +367,7 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("No Result, Name");
+
         return null;
     }
 
@@ -393,7 +390,7 @@ public class PatronList
 
                 if (users.get(i).getPatronCardNum().equals(search))
                 {
-                    System.out.println("Card Exists EXISTS!");
+
                     return true;
                 }
             }
@@ -405,7 +402,7 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        System.out.println("Name Does Not Exist!");
+
         return false;
     }
 

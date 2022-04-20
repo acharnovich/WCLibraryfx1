@@ -5,12 +5,18 @@ import View.FxLoader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 
 public class SearchCtrl {
@@ -555,10 +561,18 @@ editBtn.setOnMouseClicked(mouseEvent -> {
     {
         removeItemBtn.setOnMouseClicked(mouseEvent ->
         {
-            Alert indev = new Alert(Alert.AlertType.ERROR);
-            indev.setHeaderText("Under Development");
-            indev.setContentText("Will be finished in sprint 5");
-            indev.showAndWait();
+            AddOrRemoveItemCtrl remove = new AddOrRemoveItemCtrl();
+            Parent part = null;
+            try {
+                part = FXMLLoader.load(getClass().getResource("/View/ArchiveItemUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Remove Item");
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
     public void underDevBills(javafx.event.ActionEvent actionEvent)
