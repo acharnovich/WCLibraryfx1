@@ -7,15 +7,19 @@ package Controller;
 
 import Model.*;
 import com.sun.javafx.charts.Legend;
+import javafx.print.PageLayout;
+import javafx.print.PrinterJob;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -264,6 +268,10 @@ public void checkoutVal(){
                         bookAdded.setContentText("Success! Book has been added to Patron Account:" + libraryCardNumTextField.getText());
                         bookAdded.showAndWait();
                         itemIDTextField.clear();
+                        itemIDTextField.clear();
+                        if(!checkoutTable.equals(null)){
+                            finishAndPrintButton.setDisable(false);
+                        }
 
 
                     }}else {
@@ -327,6 +335,10 @@ if(iList.checkMovieCheckoutin(itemIDTextField.getText())==false){
                         movieAdded.setContentText("Success! Movie has been added to Patron Account:" + libraryCardNumTextField.getText());
                         movieAdded.showAndWait();
                         itemIDTextField.clear();
+                        itemIDTextField.clear();
+                        if(!checkoutTable.equals(null)){
+                            finishAndPrintButton.setDisable(false);
+                        }
 
 
                     }}else {
@@ -335,6 +347,7 @@ if(iList.checkMovieCheckoutin(itemIDTextField.getText())==false){
     bookAdded.setContentText("Movie has already been checked out or removed from inventory:" + itemIDTextField.getText());
     bookAdded.showAndWait();
     itemIDTextField.clear();
+
 }
 if(iList.checkAudioCheckoutin(itemIDTextField.getText())==false){
 if (iList.audioReturnExact(itemIDTextField.getText()) != null && iList.searchAudioExact(itemIDTextField.getText())==true)
@@ -389,6 +402,9 @@ if (iList.audioReturnExact(itemIDTextField.getText()) != null && iList.searchAud
                         audioAdded.setContentText("Success! Audiobook has been added to Patron Account:" + libraryCardNumTextField.getText());
                         audioAdded.showAndWait();
                         itemIDTextField.clear();
+                        if(!checkoutTable.equals(null)){
+                            finishAndPrintButton.setDisable(false);
+                        }
 
                     }
                 } else {   Alert bookAdded = new Alert(Alert.AlertType.ERROR);
@@ -464,6 +480,32 @@ else
         {
             backToNavButton.getScene().getWindow().hide();
         });
+    }
+
+    public void handlePrintReceipt()
+    {
+        ArrayList test = new ArrayList();
+        test.addAll(checkouts);
+
+        Text printtext = new Text();
+
+        for (int i = 0; i < test.size(); i++)
+        {
+printtext.setText(test.get(i).toString());
+
+        }
+
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null)
+        {
+            PageLayout pageLayout = job.getPrinter().getDefaultPageLayout();
+            boolean p = job.showPrintDialog(null);
+            boolean success = job.printPage(printtext);
+            if(success){
+                job.endJob();
+            }
+        }
     }
 
 }
