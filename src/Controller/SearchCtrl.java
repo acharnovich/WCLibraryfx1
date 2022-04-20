@@ -253,6 +253,9 @@ public class SearchCtrl {
 
                 personContenTbl.setItems(people);
                 searchPersonTextField.setStyle("-fx-background-color: white");
+
+
+
             }
                 if(sList.foundEmail(searchPersonTextField.getText()) == true){
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
@@ -421,6 +424,7 @@ public class SearchCtrl {
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
                         items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
+
                     }
                     if (iList.movieReturn(searchItemTextField.getText()) != null)
                     {
@@ -594,5 +598,58 @@ editBtn.setOnMouseClicked(mouseEvent -> {
             indev.setContentText("Will be finished in sprint 5");
             indev.showAndWait();
         });
+    }
+
+    public void viewtest(){
+        personContenTbl.setOnMouseClicked(mouseEvent -> {
+            if (!personContenTbl.getSelectionModel().equals(null)){
+                viewBillsBtn.setDisable(false);
+            }else {viewBillsBtn.setDisable(true);}
+        });
+    }
+    public void viewSelected(){
+
+        viewBillsBtn.setOnMouseClicked(mouseEvent -> {
+         {
+            personContenTbl.getSelectionModel().getSelectedItem();
+            Person test = personContenTbl.getSelectionModel().getSelectedItem();
+            Alert indev = new Alert(Alert.AlertType.INFORMATION);
+            indev.setHeaderText("Person Details");
+            indev.setContentText(test.toString());
+            indev.showAndWait();}
+        });
+
+    }
+
+    public void viewtestCheckout(){
+        personContenTbl.setOnMouseClicked(mouseEvent -> {
+            if (!personContenTbl.getSelectionModel().equals(null)){
+                viewBillsBtn.setDisable(false);
+            }else {viewBillsBtn.setDisable(true);}
+        });
+    }
+    public void viewSelectedCheckout(){
+PatronList patronList = new PatronList();
+        checkoutsBtn.setOnMouseClicked(mouseEvent -> {
+            {
+                AllCheckoutLists all = new AllCheckoutLists();
+                personContenTbl.getSelectionModel().getSelectedItem();
+                Person test = personContenTbl.getSelectionModel().getSelectedItem();
+
+if (patronList.verifyEmail(test.getEmail())){
+                Alert indev = new Alert(Alert.AlertType.INFORMATION);
+                indev.setHeaderText("Checkouts");
+                indev.setContentText(all.searchChecouts(((Patron)test).getPatronCardNum()));
+                indev.showAndWait();}
+else {
+    Alert indev = new Alert(Alert.AlertType.ERROR);
+    indev.setHeaderText("Not a Patron");
+    indev.setContentText("Selected person is not a Patron.");
+    indev.showAndWait();
+}
+
+            }
+        });
+
     }
 }

@@ -216,7 +216,7 @@ public class StaffList
             {
 
 
-                if (users.get(i).getStaffId().equalsIgnoreCase(search))
+                if (users.get(i).getStaffId().toLowerCase().contains(search.toLowerCase()))
                 {
                     System.out.println("Name EXISTS!");
                     return true;

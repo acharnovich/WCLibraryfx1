@@ -12,6 +12,8 @@ package Model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.Reader;
 import java.io.Writer;
@@ -233,4 +235,53 @@ public class AllCheckoutLists
 
         return false;
     }
+
+    public String searchChecouts(String search){
+
+        ObservableList temp = FXCollections.observableArrayList();
+        String send = null;
+
+
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronCheckoutLists.json"));
+
+            // convert JSON array to list of users
+            ArrayList<PatronCheckoutList> users = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronCheckoutList>>()
+            {
+            }.getType());
+
+
+            for (int i = 0; i < users.size(); i++)
+            {
+
+
+                if (users.get(i).getPatronCardNum().equals(search))
+                {
+
+                   send =users.get(i).getCheckouts().toString();
+
+
+                }
+            }
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        if (send.equals("[]")){
+            send = "No Items Checked Out";
+        }
+
+        return send;
+    }
+
 }
