@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
 
 public class SearchCtrl {
@@ -571,15 +572,56 @@ editBtn.setOnMouseClicked(mouseEvent -> {
 
 
     public void viewtest(){
+
+
 searchPersonAnchorPane.setOnMouseMoved(mouseEvent -> {
     if(searchPersonByNameRadioButton.isSelected() == true|| searchPersonByEmailRadioButton.isSelected() == true||searchPersonByPhone.isSelected() == true){
     if(searchPersonByNameRadioButton.isSelected()){
+        searchPersonTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9a-zA-Z]*$") && change.getControlNewText().length() <= 9)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
         searchPersonTextField.setDisable(false);
     }
     if(searchPersonByPhone.isSelected()){
+        searchPersonTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9-]*$") && change.getControlNewText().length() <= 15)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
         searchPersonTextField.setDisable(false);
     }
     if(searchPersonByEmailRadioButton.isSelected()){
+        searchPersonTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9a-zA-Z'@#!%^&*?'.$]*$") && change.getControlNewText().length() <= 30)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
         searchPersonTextField.setDisable(false);
     }}else {searchPersonTextField.setDisable(true);}
 
@@ -725,14 +767,42 @@ else {
        searchItemAnchorPane.setOnMouseMoved(mouseEvent -> {
             if(searchItemByIDRadioButton.isSelected() == true|| searchItemByTitleRadioButton.isSelected() == true){
                 if(searchItemByTitleRadioButton.isSelected()){
+                    searchItemTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+                    {
+                        @Override
+                        public TextFormatter.Change apply(TextFormatter.Change change)
+                        {
+                            String value = change.getText();
+                            if (change.getText().matches("[/0-9a-zA-Z' !#%^&*()+=@'.$?:;]*") && change.getControlNewText().length() <= 30)
+                            {
+                                return change;
+                            }
+                            return null;
+                        }
+                    }));
                     searchItemTextField.setDisable(false);
                 }
                 if(searchItemByIDRadioButton.isSelected()){
+                    searchItemTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+                    {
+                        @Override
+                        public TextFormatter.Change apply(TextFormatter.Change change)
+                        {
+                            String value = change.getText();
+                            if (change.getText().matches("^[0-9]*$") && change.getControlNewText().length() <= 10)
+                            {
+                                return change;
+                            }
+                            return null;
+                        }
+                    }));
                     searchItemTextField.setDisable(false);
                 }
                 }else {searchItemTextField.setDisable(true);}
 
         });
+
+
 
         searchItemByIDRadioButton.setOnMouseReleased(mouseEvent -> {
             if(searchItemByIDRadioButton.isSelected() == true|| searchItemByTitleRadioButton.isSelected() == true){
