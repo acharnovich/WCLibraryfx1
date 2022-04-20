@@ -53,8 +53,8 @@ public class Patron extends Person
     public String toString()
     {
         return super.toString() + "Patron Account Information:\n" +
-                "patronCardNum='" + patronCardNum + '\'' +
-                ", age=" + age +
+                "Patron Card Number'" + patronCardNum + '\'' +
+                ", Age:" + age +
                 '}';
     }
 

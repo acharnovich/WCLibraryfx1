@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 
@@ -26,7 +27,8 @@ public class SearchCtrl {
 
     @FXML
     private TableColumn<Item, NormalDate> dateCol;
-
+    @FXML
+    private Button itemDetailsBtn;
     @FXML
     private Button editItemBtn;
 
@@ -226,6 +228,7 @@ public class SearchCtrl {
     @FXML
     public void handleSearchPersonClick(javafx.event.ActionEvent actionEvent)
     {
+        personContenTbl.setTableMenuButtonVisible(false);
         searchPersonSearchButton.setOnMouseClicked(mouseEvent ->
         {
             if(searchPersonByNameRadioButton.isSelected() == false && searchPersonByEmailRadioButton.isSelected() == false && searchPersonByPhone.isSelected() == false){Alert loginFailed = new Alert(Alert.AlertType.ERROR);
@@ -250,7 +253,7 @@ public class SearchCtrl {
 
 
                 people.addAll(pList.searchEmail(searchPersonTextField.getText()));
-
+                personContenTbl.setDisable(false);
                 personContenTbl.setItems(people);
                 searchPersonTextField.setStyle("-fx-background-color: white");
 
@@ -263,7 +266,7 @@ public class SearchCtrl {
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-
+personContenTbl.setDisable(false);
                     people.addAll(sList.searchEmail(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
                     searchPersonTextField.setStyle("-fx-background-color: white");
@@ -284,7 +287,7 @@ public class SearchCtrl {
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-
+                    personContenTbl.setDisable(false);
                     people.addAll(pList.searchCard(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
                     searchPersonTextField.setStyle("-fx-background-color: white");
@@ -296,7 +299,7 @@ public class SearchCtrl {
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-
+                    personContenTbl.setDisable(false);
                     people.addAll(sList.searchUserID(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
                     searchPersonTextField.setStyle("-fx-background-color: white");
@@ -318,7 +321,7 @@ public class SearchCtrl {
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
 
-
+                    personContenTbl.setDisable(false);
                         people.addAll(pList.searchPhone(searchPersonTextField.getText()));
                         personContenTbl.setItems(people);
                     }
@@ -331,7 +334,7 @@ public class SearchCtrl {
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
                     phoneCol.setCellValueFactory(new PropertyValueFactory<Person,PhoneNumber>("phoneNumber"));
                     emailCol.setCellValueFactory(new PropertyValueFactory<Person, String>("email"));
-
+                    personContenTbl.setDisable(false);
                     people.addAll(sList.searchPhone(searchPersonTextField.getText()));
                     personContenTbl.setItems(people);
 
@@ -372,7 +375,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-
+                        itemTbl.setDisable(false);
                         items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -385,7 +388,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-
+                        itemTbl.setDisable(false);
                         items.addAll(iList.movieReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -397,7 +400,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-
+                        itemTbl.setDisable(false);
                         items.addAll(iList.audioReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -405,6 +408,7 @@ public class SearchCtrl {
                 else
                 {
                     searchItemTextField.setStyle("-fx-background-color: red");
+                            itemTbl.setDisable(true);
                 }
             }
             if(searchItemByTitleRadioButton.isSelected() == true){
@@ -422,6 +426,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
+                        itemTbl.setDisable(false);
                         items.addAll(iList.bookReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
 
@@ -434,7 +439,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-
+                        itemTbl.setDisable(false);
                         items.addAll(iList.movieReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -446,7 +451,7 @@ public class SearchCtrl {
                         dateCol.setCellValueFactory(new PropertyValueFactory<Item, NormalDate>("datePublished"));
                         DescripCol.setCellValueFactory(new PropertyValueFactory<Item,String>("description"));
                         statusCol.setCellValueFactory(new PropertyValueFactory<Item, String>("itemStatus"));
-
+                        itemTbl.setDisable(false);
                         items.addAll(iList.audioReturn(searchItemTextField.getText()));
                         itemTbl.setItems(items);
                     }
@@ -454,6 +459,7 @@ public class SearchCtrl {
                 else
                 {
                  searchItemTextField.setStyle("-fx-background-color: red");
+                    itemTbl.setDisable(true);
                 }
             }
 
@@ -541,26 +547,8 @@ editBtn.setOnMouseClicked(mouseEvent -> {
 });
 
     }
-    public void underDevEdit(javafx.event.ActionEvent actionEvent)
-    {
-        editBtn.setOnMouseClicked(mouseEvent ->
-        {
-            Alert indev = new Alert(Alert.AlertType.ERROR);
-            indev.setHeaderText("Under Development");
-            indev.setContentText("Will be finished in sprint 5");
-            indev.showAndWait();
-        });
-    }
-    public void underDevEditItem(javafx.event.ActionEvent actionEvent)
-    {
-        editItemBtn.setOnMouseClicked(mouseEvent ->
-        {
-            Alert indev = new Alert(Alert.AlertType.ERROR);
-            indev.setHeaderText("Under Development");
-            indev.setContentText("Will be finished in sprint 5");
-            indev.showAndWait();
-        });
-    }
+
+
     public void underDevRemoveitem(javafx.event.ActionEvent actionEvent)
     {
         removeItemBtn.setOnMouseClicked(mouseEvent ->
@@ -579,35 +567,102 @@ editBtn.setOnMouseClicked(mouseEvent -> {
             }
         });
     }
-    public void underDevBills(javafx.event.ActionEvent actionEvent)
-    {
-        viewBillsBtn.setOnMouseClicked(mouseEvent ->
-        {
-            Alert indev = new Alert(Alert.AlertType.ERROR);
-            indev.setHeaderText("Under Development");
-            indev.setContentText("Will be finished in sprint 5");
-            indev.showAndWait();
-        });
-    }
-    public void underDevCheckouts(javafx.event.ActionEvent actionEvent)
-    {
-        checkoutsBtn.setOnMouseClicked(mouseEvent ->
-        {
-            Alert indev = new Alert(Alert.AlertType.ERROR);
-            indev.setHeaderText("Under Development");
-            indev.setContentText("Will be finished in sprint 5");
-            indev.showAndWait();
-        });
-    }
+
+
 
     public void viewtest(){
-        personContenTbl.setOnMouseClicked(mouseEvent -> {
-            if (!personContenTbl.getSelectionModel().equals(null)){
-                viewBillsBtn.setDisable(false);
-            }else {viewBillsBtn.setDisable(true);}
-        });
+searchPersonAnchorPane.setOnMouseMoved(mouseEvent -> {
+    if(searchPersonByNameRadioButton.isSelected() == true|| searchPersonByEmailRadioButton.isSelected() == true||searchPersonByPhone.isSelected() == true){
+    if(searchPersonByNameRadioButton.isSelected()){
+        searchPersonTextField.setDisable(false);
     }
+    if(searchPersonByPhone.isSelected()){
+        searchPersonTextField.setDisable(false);
+    }
+    if(searchPersonByEmailRadioButton.isSelected()){
+        searchPersonTextField.setDisable(false);
+    }}else {searchPersonTextField.setDisable(true);}
+
+});
+
+        searchPersonByPhone.setOnMouseReleased(mouseEvent -> {
+            if(searchPersonByNameRadioButton.isSelected() == true|| searchPersonByEmailRadioButton.isSelected() == true||searchPersonByPhone.isSelected() == true){
+                if(searchPersonByNameRadioButton.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }
+                if(searchPersonByPhone.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }
+                if(searchPersonByEmailRadioButton.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }}else {searchPersonTextField.setDisable(true);}
+
+        });
+
+        searchPersonByNameRadioButton.setOnMouseReleased(mouseEvent -> {
+            if(searchPersonByNameRadioButton.isSelected() == true|| searchPersonByEmailRadioButton.isSelected() == true||searchPersonByPhone.isSelected() == true){
+                if(searchPersonByNameRadioButton.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }
+                if(searchPersonByPhone.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }
+                if(searchPersonByEmailRadioButton.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }}else {searchPersonTextField.setDisable(true);}
+
+        });
+        searchPersonByEmailRadioButton.setOnMouseReleased(mouseEvent -> {
+            if(searchPersonByNameRadioButton.isSelected() == true|| searchPersonByEmailRadioButton.isSelected() == true||searchPersonByPhone.isSelected() == true){
+                if(searchPersonByNameRadioButton.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }
+                if(searchPersonByPhone.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }
+                if(searchPersonByEmailRadioButton.isSelected()){
+                    searchPersonTextField.setDisable(false);
+                }}else {searchPersonTextField.setDisable(true);}
+
+        });
+        personContenTbl.setOnMouseClicked(mouseEvent -> {
+            try{
+                if(!personContenTbl.getSelectionModel().getSelectedItem().equals(null)){
+                    viewBillsBtn.setDisable(false);
+                    checkoutsBtn.setDisable(false);
+                }else {viewBillsBtn.setDisable(true);
+                    checkoutsBtn.setDisable(true);}
+
+            } catch (Exception e)
+            {
+                Alert indev = new Alert(Alert.AlertType.ERROR);
+                indev.setHeaderText("Select a row");
+                indev.setContentText("Please select a row.");
+                indev.showAndWait();
+
+            }
+
+        });
+
+    searchPersonTextField.setOnKeyPressed(KeyEvent->{
+        if (!searchPersonTextField.getText().isEmpty()){
+            searchPersonSearchButton.setDisable(false);
+
+        }else {
+            searchPersonSearchButton.setDisable(true);}
+
+    });
+        searchPersonTextField.setOnKeyReleased(KeyEvent->{
+            if (!searchPersonTextField.getText().isEmpty()){
+                searchPersonSearchButton.setDisable(false);
+
+            }else {
+                searchPersonSearchButton.setDisable(true);}
+
+        });}
+
     public void viewSelected(){
+
 
         viewBillsBtn.setOnMouseClicked(mouseEvent -> {
          {
@@ -619,14 +674,6 @@ editBtn.setOnMouseClicked(mouseEvent -> {
             indev.showAndWait();}
         });
 
-    }
-
-    public void viewtestCheckout(){
-        personContenTbl.setOnMouseClicked(mouseEvent -> {
-            if (!personContenTbl.getSelectionModel().equals(null)){
-                viewBillsBtn.setDisable(false);
-            }else {viewBillsBtn.setDisable(true);}
-        });
     }
     public void viewSelectedCheckout(){
 PatronList patronList = new PatronList();
@@ -652,4 +699,100 @@ else {
         });
 
     }
+
+    public void viewSelectedItem(){
+      ItemList item = new ItemList();
+        itemDetailsBtn.setOnMouseClicked(mouseEvent -> {
+            {
+                itemTbl.getSelectionModel().getSelectedItem();
+                Item test = itemTbl.getSelectionModel().getSelectedItem();
+                Alert indev = new Alert(Alert.AlertType.INFORMATION);
+                indev.setHeaderText("Item Details");
+                indev.setContentText("Item ID: "+ test.getItemID() +"\n"+"Title: "+
+                        test.getTitle() + '\n' +
+                        "yearPublished " + test.getYearPublished()+"\n" +
+                        "datePublished: " + test.getDatePublished() +"\n"+"\n"+
+                        "description: " + test.getDescription() + '\n' +"\n"+
+                        "itemStatus: " + test.getItemStatus() + '\n');
+                indev.showAndWait();
+
+            }
+        });
+
+    }
+
+    public void viewtestItem(){
+       searchItemAnchorPane.setOnMouseMoved(mouseEvent -> {
+            if(searchItemByIDRadioButton.isSelected() == true|| searchItemByTitleRadioButton.isSelected() == true){
+                if(searchItemByTitleRadioButton.isSelected()){
+                    searchItemTextField.setDisable(false);
+                }
+                if(searchItemByIDRadioButton.isSelected()){
+                    searchItemTextField.setDisable(false);
+                }
+                }else {searchItemTextField.setDisable(true);}
+
+        });
+
+        searchItemByIDRadioButton.setOnMouseReleased(mouseEvent -> {
+            if(searchItemByIDRadioButton.isSelected() == true|| searchItemByTitleRadioButton.isSelected() == true){
+                if(searchItemByTitleRadioButton.isSelected()){
+                    searchItemTextField.setDisable(false);
+                }
+                if(searchItemByIDRadioButton.isSelected()){
+                    searchItemTextField.setDisable(false);
+                }
+            }else {searchItemTextField.setDisable(true);}
+
+        });
+
+        searchItemByTitleRadioButton.setOnMouseReleased(mouseEvent -> {
+            if(searchItemByIDRadioButton.isSelected() == true|| searchItemByTitleRadioButton.isSelected() == true){
+                if(searchItemByTitleRadioButton.isSelected()){
+                    searchItemTextField.setDisable(false);
+                }
+                if(searchItemByIDRadioButton.isSelected()){
+                    searchItemTextField.setDisable(false);
+                }
+            }else {searchItemTextField.setDisable(true);}
+
+        });
+
+        itemTbl.setOnMouseClicked(mouseEvent -> {
+            try{
+                if(!itemTbl.getSelectionModel().getSelectedItem().equals(null)){
+                    removeItemBtn.setDisable(false);
+                    itemDetailsBtn.setDisable(false);
+
+                }else {
+                    removeItemBtn.setDisable(true);
+                    itemDetailsBtn.setDisable(true);
+
+            }} catch (Exception e)
+            {
+                Alert indev = new Alert(Alert.AlertType.ERROR);
+                indev.setHeaderText("Select a row");
+                indev.setContentText("Please select a row.");
+                indev.showAndWait();
+
+            }
+
+        });
+
+        searchItemTextField.setOnKeyPressed(KeyEvent->{
+            if (!searchItemTextField.getText().isEmpty()){
+                searchItemSearchButton.setDisable(false);
+
+            }else {
+                searchItemSearchButton.setDisable(true);}
+
+        });
+        searchItemTextField.setOnKeyReleased(KeyEvent->{
+            if (!searchItemTextField.getText().isEmpty()){
+                searchItemSearchButton.setDisable(false);
+
+            }else {
+                searchItemSearchButton.setDisable(true);}
+
+        });}
 }
