@@ -203,6 +203,30 @@ public class NavigationCtrl {
         });
     }
 
+    public void handleAddBillClick(javafx.event.ActionEvent actionEvent)
+    {
+        addBillBtn.setOnMouseClicked(mouseEvent -> {
+
+            Parent part = null;
+
+            try
+            {
+                part = FXMLLoader.load(getClass().getResource("/View/AddBillUI.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Add a Bill Manually");
+                stage.show();
+            }
+            catch (IOException e)
+
+            {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
     public void logout(javafx.event.ActionEvent actionEvent)
     {
         logoutBtn.setOnMouseClicked(mouseEvent ->
