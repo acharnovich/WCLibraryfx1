@@ -70,8 +70,8 @@ public class PatronList
             ex.printStackTrace();
         }
 
-        this.patronimport.add(new Patron(temp.getName(), new NormalDate(temp.getDateofBirth().getYear(), temp.getDateofBirth().getMonth(), temp.getDateofBirth().getDay()), new Address(temp.getAddress().getNumber(), temp.getAddress().getName(), temp.getAddress().getType(), temp.getAddress().getCity(), temp.getAddress().getState(),
-                temp.getAddress().getZip(), temp.getAddress().getSecondAdd()), new ArrayList<PhoneNumber>(
+        this.patronimport.add(new Patron(temp.getName(), new NormalDate(temp.getDateofBirth().getYear(), temp.getDateofBirth().getMonth(), temp.getDateofBirth().getDay()), new Address(temp.getAddress().getNumber(), temp.getAddress().getName(), temp.getAddress().getType(), temp.getAddress().getSecondAdd(), temp.getAddress().getCity(), temp.getAddress().getState(),
+                temp.getAddress().getZip()), new ArrayList<PhoneNumber>(
                         temp.getPhoneNumber()), temp.getEmail(),
                 temp.getPatronCardNum(), temp.getAge()));
 

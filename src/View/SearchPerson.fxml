@@ -45,7 +45,7 @@
       <TableView fx:id="personContenTbl" disable="true" layoutY="102.0" onMouseClicked="#viewtest" onMouseEntered="#viewtest" prefHeight="288.0" prefWidth="627.0">
         <columns>
           <TableColumn fx:id="nameCol" prefWidth="120.0" sortable="false" text="Name" />
-          <TableColumn fx:id="dobCol" prefWidth="122.0" sortable="false" text="ID or Card Number" />
+          <TableColumn fx:id="dobCol" prefWidth="122.0" sortable="false" text="Birthdate" />
             <TableColumn fx:id="addCol" prefWidth="137.0" sortable="false" text="Address" />
             <TableColumn fx:id="phoneCol" prefWidth="127.0" sortable="false" text="Phone Number" />
             <TableColumn fx:id="emailCol" minWidth="2.0" prefWidth="120.0" sortable="false" text="Email" />

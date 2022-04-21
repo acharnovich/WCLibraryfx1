@@ -50,7 +50,7 @@ public class Address
      * @param zip The ZIP code of the Person.
      * @param state The state the Person lives in.
      */
-    public Address(String number, String name, String type, String secondAdd, String city, String zip, String state)
+    public Address(String number, String name, String type, String secondAdd, String city, String state, String zip)
     {
         this.city = city;
         setNumber(number);
@@ -214,15 +214,8 @@ public class Address
     @Override
     public String toString()
     {
-        return "Address{" +
-                "number='" + number + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
-                ", secondAdd='" + secondAdd + '\'' +
-                '}';
+        return number + '\'' + name + '\'' + city + '\''
+       + state + '\'';
     }
 
     /**

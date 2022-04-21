@@ -925,7 +925,7 @@ public class AccountCtrl
                         if (verifyCreatePatronAccount() == false && !tempDate.isAfter(LocalDate.now()))
                         {
                             Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()), String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), aptTxt.getText(), cityTxt.getText(),
-                                    zipTxt.getText(), stateTxt.getValue()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                                    stateTxt.getValue(), zipTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())))), emailText.getText(), cardTxt.getText(), 0);
                             patronList.LoadPatron(tempPatron);
                             PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
                             AllCheckoutLists allLists = new AllCheckoutLists();
@@ -934,7 +934,7 @@ public class AccountCtrl
                             tempBillList.LoadBillLists(tempBillList);
                             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                             confirm.setHeaderText("Account Added!");
-                            confirm.setContentText("Account has been added");
+                            confirm.setContentText("Patron Added: "+tempPatron.toString());
                             confirm.showAndWait();
                             patronFillable.getChildren().clear();
 
@@ -943,14 +943,14 @@ public class AccountCtrl
                             if (countryTxt2.isVisible() == true && countryTxt2.getText().length() + areaTxt2.getText().length() + localTxt2.getText().length() + lastFourTxt2.getText().length() == 11 && verifyCreatePatronAccount() == false && !tempDate.isAfter(LocalDate.now()) && Period.between(tempDate, LocalDate.now()).getYears() > 16)
                             {
                                 Patron tempPatron = new Patron(nameTxt.getText(), new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()), String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxt.getText(), streetNameTxt.getText(), typeTxt.getText(), aptTxt.getText(), cityTxt.getText(),
-                                        zipTxt.getText(), stateTxt.getValue()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
+                                        stateTxt.getValue(), zipTxt.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxt.getText()), Integer.valueOf(areaTxt.getText()), Integer.valueOf(localTxt.getText()), Integer.valueOf(lastFourTxt.getText())), new PhoneNumber(Integer.valueOf(countryTxt2.getText()), Integer.valueOf(areaTxt2.getText()), Integer.valueOf(localTxt2.getText()), Integer.valueOf(lastFourTxt2.getText())))), emailText.getText(), cardTxt.getText(), 0);
                                 patronList.LoadPatron(tempPatron);
                                 PatronCheckoutList tempList = new PatronCheckoutList(cardTxt.getText(), new ArrayList<CheckOut>());
                                 AllCheckoutLists allLists = new AllCheckoutLists();
                                 allLists.LoadList(tempList);
                                 Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                                 confirm.setHeaderText("Account Added!");
-                                confirm.setContentText("Account has been added");
+                                confirm.setContentText("Patron Added: "+tempPatron.toString());
                                 confirm.showAndWait();
                                 patronFillable.getChildren().clear();
 
@@ -1234,7 +1234,7 @@ public class AccountCtrl
         startPickerStaff.setValue(tempDateFormattedStart);
         LocalDate tempDateStart = startPickerStaff.getValue();
         staffList = new StaffList();
-        if (staffList.foundUserID(staffIDTxt.getText()) == true || (!birthPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!birthPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!birthPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!birthPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")) || birthPickerStaff.getEditor().getText().equals(null) || (!startPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!startPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!startPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!startPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")) || startPickerStaff.getEditor().getText().equals(null) || staffList.verifyEmail(emailTextStaff.getText()) == true || countryTxtStaff.getText().length() + areaTxtStaff.getText().length() + localTxtStaff.getText().length() + lastFourTxtStaf.getText().length() != 11 || !emailTextStaff.getText().contains("@wclibrary.com") || zipTxtStaff.getText().length() != 5 || tempDateStart.isAfter(LocalDate.now()) || tempDate.isAfter(LocalDate.now()))))
+        if (staffList.foundUserID(staffIDTxt.getText()) == true || Period.between(tempDate, tempDateStart).getYears() < 18|| (!birthPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!birthPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!birthPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!birthPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")) || birthPickerStaff.getEditor().getText().equals(null) || (!startPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") && (!startPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{2})/([0-9]{4})")) && (!startPickerStaff.getEditor().getText().matches("([0-9]{2})/([0-9]{1})/([0-9]{4})")) && (!startPickerStaff.getEditor().getText().matches("([0-9]{1})/([0-9]{1})/([0-9]{4})")) || startPickerStaff.getEditor().getText().equals(null) || staffList.verifyEmail(emailTextStaff.getText()) == true || countryTxtStaff.getText().length() + areaTxtStaff.getText().length() + localTxtStaff.getText().length() + lastFourTxtStaf.getText().length() != 11 || !emailTextStaff.getText().contains("@wclibrary.com") || zipTxtStaff.getText().length() != 5 || tempDateStart.isAfter(LocalDate.now()) || tempDate.isAfter(LocalDate.now()))))
         {
             return true;
         } else
@@ -1263,6 +1263,7 @@ public class AccountCtrl
             try
             {
                 LocalDate tempDateFormatted = LocalDate.parse(datePickText, df);
+                LocalDate tempDateFormattedStart = LocalDate.parse(datePickTextStart, df);
                 birthPickerStaff.setValue(tempDateFormatted);
                 if (tempDateFormatted.getDayOfMonth() > 31)
                 {
@@ -1276,8 +1277,8 @@ public class AccountCtrl
                 {
                     thrown = true;
                 }
-                LocalDate tempDateFormattedStart = LocalDate.parse(datePickTextStart, df);
-                startPickerStaff.setValue(tempDateFormatted);
+
+                startPickerStaff.setValue(tempDateFormattedStart);
                 if (tempDateFormattedStart.getDayOfMonth() > 31)
                 {
                     thrown = true;
@@ -1295,7 +1296,7 @@ public class AccountCtrl
             {
 
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
-                confirm.setHeaderText("Numbers too hgireg");
+                confirm.setHeaderText("Numbers too high");
                 confirm.setContentText("Fix the Date. m/d/yyyy");
                 confirm.showAndWait();
                 thrown = true;
@@ -1412,6 +1413,15 @@ public class AccountCtrl
 
                         }
 
+                        if (Period.between(tempDate, tempDateStart).getYears() < 18)
+                        {
+                            Alert confirm = new Alert(Alert.AlertType.ERROR);
+                            confirm.setHeaderText("Start Date!");
+                            confirm.setContentText("Start sate must be 18 years after birth date.");
+                            confirm.showAndWait();
+
+                        }
+
                         if (typeTxtStaff.getText().equals(null))
                         {
                             Alert confirm = new Alert(Alert.AlertType.ERROR);
@@ -1441,13 +1451,13 @@ public class AccountCtrl
                         if (verifyCreateStaffAccount() == false && !tempDate.isAfter(LocalDate.now()) && !tempDateStart.isAfter(LocalDate.now()))
                         {
 
-                            LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()), String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), cityTxtStaff.getText(), stateTxtStaff.getValue(),
-                                    zipTxtStaff.getText(), aptTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
+                            LibraryStaff tempStaff = new LibraryStaff(nameTxtStaff.getText(), new NormalDate(String.valueOf(tempDate.getYear()), String.valueOf(tempDate.getMonth().getValue()), String.valueOf(tempDate.getDayOfMonth())), new Address(streetNumTxtStaff.getText(), streetNameTxtStaff.getText(), typeTxtStaff.getText(), aptTxtStaff.getText(), cityTxtStaff.getText(),
+                                    stateTxtStaff.getValue(), zipTxtStaff.getText()), new ArrayList<>(Arrays.asList(new PhoneNumber(Integer.valueOf(countryTxtStaff.getText()), Integer.valueOf(areaTxtStaff.getText()), Integer.valueOf(localTxtStaff.getText()), Integer.valueOf(lastFourTxtStaf.getText())))), emailTextStaff.getText(),
                                     staffIDTxt.getText(), pinTxt.getText(), positionBx.getValue(), statusBx.getValue(), new NormalDate(String.valueOf(tempDateStart.getYear()), String.valueOf(tempDateStart.getMonth().getValue()), String.valueOf(tempDateStart.getDayOfMonth())), 0);
                             staffList.LoadStaff(tempStaff);
                             Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
                             confirm.setHeaderText("Staff Account Added!");
-                            confirm.setContentText("Account has been added");
+                            confirm.setContentText("Account has been added: "+tempStaff.toString());
                             confirm.showAndWait();
                             staffFillable.getChildren().clear();
                         }
