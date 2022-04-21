@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="208.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddBillCtrl">
    <children>
       <ToolBar fx:id="addBillToolBar" prefHeight="40.0" prefWidth="402.0">
@@ -16,6 +15,6 @@
       </ToolBar>
       <Label fx:id="addBillLabel" layoutX="17.0" layoutY="75.0" prefHeight="26.0" prefWidth="152.0" text="Enter Library Card Number:" />
       <TextField fx:id="addBillCardNumTextField" layoutX="16.0" layoutY="106.0" prefHeight="26.0" prefWidth="372.0" promptText="#######" />
-      <Button fx:id="addBillSubmitButton" layoutX="175.0" layoutY="159.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="addBillSubmitButton" layoutX="175.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleSubmitClick" text="Submit" />
    </children>
 </AnchorPane>
