@@ -82,7 +82,7 @@ public class LoginCtrl
                 }else {
                     Alert loginFailed = new Alert(Alert.AlertType.ERROR);
                     loginFailed.setHeaderText("Login Failed");
-                    loginFailed.setContentText("Wrong user ID or Pin. For testing, try\n\nUser: ajones\nPIN:1234");
+                    loginFailed.setContentText("Wrong user ID or Pin. For testing, try\n\nUser: ajones\nPIN:1234\n If you forgot your password, please contact a system administrator.");
                     loginFailed.showAndWait();
                 }
             }
