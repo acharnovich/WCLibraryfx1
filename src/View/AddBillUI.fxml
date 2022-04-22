@@ -2,19 +2,21 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="208.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddBillCtrl">
+<AnchorPane prefHeight="256.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddBillCtrl">
    <children>
-      <ToolBar fx:id="addBillToolBar" prefHeight="40.0" prefWidth="402.0">
-        <items>
-          <Button fx:id="addBillSearchButton" mnemonicParsing="false" text="Search" />
-        </items>
-      </ToolBar>
-      <Label fx:id="addBillLabel" layoutX="17.0" layoutY="75.0" prefHeight="26.0" prefWidth="152.0" text="Enter Library Card Number:" />
-      <TextField fx:id="addBillCardNumTextField" layoutX="16.0" layoutY="106.0" prefHeight="26.0" prefWidth="372.0" promptText="#######" />
-      <Button fx:id="addBillSubmitButton" layoutX="175.0" layoutY="159.0" mnemonicParsing="false" onAction="#handleSubmitClick" text="Submit" />
+      <Label fx:id="addBillLabel" layoutX="14.0" layoutY="18.0" prefHeight="26.0" prefWidth="152.0" text="Library Card Number:" />
+      <TextField fx:id="addBillCardNumTextField" layoutX="140.0" layoutY="18.0" prefHeight="26.0" prefWidth="243.0" promptText="#######" />
+      <Button fx:id="addBillSubmitButton" layoutX="394.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleSubmitClick" prefHeight="26.0" prefWidth="60.0" text="Verify" />
+      <Label fx:id="billDetailsAmountLabel" layoutX="15.0" layoutY="65.0" text="Bill Amount:" />
+      <TextField fx:id="billDetailsAmountTextField" disable="true" layoutX="111.0" layoutY="62.0" prefHeight="26.0" prefWidth="342.0" promptText="0.00" />
+      <Label fx:id="billDetailsDescriptionLabel" layoutX="15.0" layoutY="110.0" text="Description:" />
+      <TextField fx:id="billDetailsIDTextField" disable="true" layoutX="112.0" layoutY="181.0" prefHeight="26.0" prefWidth="342.0" promptText="(Optional)" />
+      <Label fx:id="billDetailsIDLabel" layoutX="15.0" layoutY="185.0" text="Item ID Number:" />
+      <TextArea fx:id="billDetailsDescriptionTextArea" disable="true" layoutX="112.0" layoutY="109.0" prefHeight="54.0" prefWidth="342.0" wrapText="true" />
+      <Button fx:id="billDetailsAddBillButton" layoutX="207.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleAddBillDetailsClick" text="Add Bill" />
    </children>
 </AnchorPane>
