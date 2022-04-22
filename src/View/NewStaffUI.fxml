@@ -46,8 +46,8 @@
       <Label fx:id="startLbl" layoutX="14.0" layoutY="146.0" text="Start Date:" />
       <ChoiceBox fx:id="statusBx" layoutX="321.0" layoutY="142.0" prefHeight="26.0" prefWidth="107.0" />
       <ChoiceBox fx:id="positionBx" layoutX="483.0" layoutY="142.0" prefHeight="26.0" prefWidth="78.0" />
-      <DatePicker fx:id="birthPickerStaff" layoutX="78.0" layoutY="63.0" prefHeight="26.0" prefWidth="160.0" />
-      <DatePicker fx:id="startPickerStaff" layoutX="78.0" layoutY="142.0" prefHeight="26.0" prefWidth="160.0" />
+      <DatePicker fx:id="birthPickerStaff" layoutX="78.0" layoutY="63.0" prefHeight="26.0" prefWidth="160.0" promptText="m/d/yyyy" />
+      <DatePicker fx:id="startPickerStaff" layoutX="78.0" layoutY="142.0" prefHeight="26.0" prefWidth="160.0" promptText="m/d/yyyy" />
       <ChoiceBox fx:id="stateTxtStaff" layoutX="429.0" layoutY="235.0" prefHeight="26.0" prefWidth="43.0" />
    </children>
 </AnchorPane>
