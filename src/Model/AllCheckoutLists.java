@@ -236,7 +236,7 @@ public class AllCheckoutLists
         return false;
     }
 
-    public String searchChecouts(String search){
+    public String searchCheckouts(String search){
 
         ObservableList temp = FXCollections.observableArrayList();
         String send = null;

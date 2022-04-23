@@ -728,7 +728,7 @@ PatronList patronList = new PatronList();
 if (patronList.verifyEmail(test.getEmail())){
                 Alert indev = new Alert(Alert.AlertType.INFORMATION);
                 indev.setHeaderText("Checkouts");
-                indev.setContentText(all.searchChecouts(((Patron)test).getPatronCardNum()));
+                indev.setContentText(all.searchCheckouts(((Patron)test).getPatronCardNum()));
                 indev.showAndWait();}
 else {
     Alert indev = new Alert(Alert.AlertType.ERROR);

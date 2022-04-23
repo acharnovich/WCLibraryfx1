@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -406,7 +407,46 @@ public class PatronList
         return false;
     }
 
+    public Patron getFromJson(String patronToSearchFor)
+    {
+        Patron patronToReturn = new Patron();
 
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronimport.json"));
+
+            // convert JSON array to list of patrons
+            ArrayList<Patron> patrons = new Gson().fromJson(reader, new TypeToken<ArrayList<Patron>>()
+            {
+            }.getType());
+
+            // step through the patrons array
+            for (int i = 0; i < patrons.size(); i++)
+            {
+                // get the patron ID from the current index and assign to String id
+                String id = patrons.get(i).getPatronCardNum();
+
+                // if id is the same as patronToSearchFor, return the patron object
+                if (id.equals(patronToSearchFor))
+                {
+                    patronToReturn = patrons.get(i);
+                }
+
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+
+        }
+
+        return patronToReturn;
+
+    }
 
 
 

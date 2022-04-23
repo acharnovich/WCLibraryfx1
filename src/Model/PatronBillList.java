@@ -12,6 +12,7 @@ package Model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -173,4 +174,68 @@ public class PatronBillList
         System.out.println("Something went wrong.");
         return false;
     }
+
+    public PatronBillList getFromJson(String patronToSearchFor)
+    {
+        PatronBillList billListToReturn = new PatronBillList();
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronBillLists.json"));
+
+            // convert JSON array to list of bill lists
+            ArrayList<PatronBillList> billLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronBillList>>()
+            {
+            }.getType());
+
+            // step through the bill lists array
+            for (int i = 0; i < billLists.size(); i++)
+            {
+                // get the patron ID from the current index and assign to String id
+                String id = billLists.get(i).getPatronCardNum();
+
+                // if id is the same as patronToSearchFor, return the PatronBillList object
+                if (id.equals(patronToSearchFor))
+                {
+                    billListToReturn = billLists.get(i);
+                }
+
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+
+        }
+
+        return billListToReturn;
+
+    }
+
+    public Double getAccountBalance()
+    {
+        // create a temporary variable to hold the total account balance called accountBalance
+        double accountBalance = 0.00;
+        // create a variable to hold the amount for a specific bill in the arraylist
+        double thisBill;
+
+        // step through the bills ArrayList
+        for (int i = 0; bills.size() > i; i++)
+        {
+            // take the amount billed for this specific bill in the array, and minus the amount currently paid
+            // assign the resulting value to thisBill
+            thisBill = bills.get(i).getAmtBilled() - bills.get(i).getAmtCurrentlyPaid();
+
+            // add accountBalance and thisBill
+            // assign the new value to accountBalance
+            accountBalance = accountBalance + thisBill;
+        }
+
+        return accountBalance;
+    }
+
 }
