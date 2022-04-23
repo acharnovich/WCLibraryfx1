@@ -130,9 +130,10 @@ public class PayBillCtrl
                 payBillsDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("description"));
 
                 // this is wrong
-                // billsToDisplay.addAll(bill.getPatronCardNum().equals(libraryCardNumTextField.getText()));
+                billsToDisplay.addAll(billListTemp.getBills());
+
+                payBillsTable.setItems(billsToDisplay);
                 payBillsTable.setDisable(false);
-                // payBillsTable.setItems(billsToDisplay);
 
             } else {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
