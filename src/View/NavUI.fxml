@@ -22,6 +22,7 @@
                   <Button fx:id="addBillBtn" mnemonicParsing="false" onAction="#handleAddBillClick" text="Add Bill" />
                   <ButtonBar fx:id="logoutBar" prefHeight="40.0" prefWidth="200.0">
                     <buttons>
+                        <Button fx:id="changePin" mnemonicParsing="false" onAction="#changePinClick" text="Change Pin" />
                       <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logout" text="Logout" textFill="#ee0202" />
                     </buttons>
                   </ButtonBar>

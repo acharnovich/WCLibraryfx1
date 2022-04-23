@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class NavigationCtrl {
+    @FXML
+    private Button changePin;
 
     @FXML
     private Button addBillBtn;
@@ -224,6 +226,27 @@ public class NavigationCtrl {
                 e.printStackTrace();
             }
 
+        });
+    }
+
+    public void changePinClick(){
+        changePin.setOnMouseClicked(mouseEvent -> {
+            Parent part = null;
+
+            try
+            {
+                part = FXMLLoader.load(getClass().getResource("/View/ChangePin.fxml"));
+                Stage stage = new Stage();
+                Scene scene = new Scene(part);
+                stage.setScene(scene);
+                stage.setTitle("Change Pin");
+                stage.show();
+            }
+            catch (IOException e)
+
+            {
+                e.printStackTrace();
+            }
         });
     }
 

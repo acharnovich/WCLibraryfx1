@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -113,7 +114,6 @@ public class StaffList
 
                 if (userstring.toString().equalsIgnoreCase(users.get(i).getStaffId()) && userpin.toString().equals(users.get(i).getPin()))
                 {
-                    System.out.println("Works");
                     return true;
                 }
             }
@@ -377,6 +377,45 @@ public class StaffList
 
 
         return temp;
+    }
+
+    public boolean changePin(String userid, String pin)
+    {
+
+        try
+        {
+            // check through Books
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("staffimport.json"));
+
+            // convert JSON array to list of items
+            ArrayList<LibraryStaff> staff = new Gson().fromJson(reader, new TypeToken<ArrayList<LibraryStaff>>()
+            {
+            }.getType());
+            for (int i = 0; i < staff.size(); i++)
+            {
+
+                String tempID = staff.get(i).getStaffId();
+
+                if (userid.equals(tempID))
+                {
+                    staff.get(i).setPin(pin);
+
+
+                    saveToFileStaff(staff);
+
+                    return true;
+                }
+
+            }
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+         }
+        return false;
     }
 
     public ArrayList getStaffimport()

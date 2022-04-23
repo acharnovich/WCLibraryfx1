@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="changePinPanel" prefHeight="275.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginCtrl">
+   <children>
+      <Label fx:id="changeUserLbl" layoutX="176.0" layoutY="14.0" text="UserID:" />
+      <TextField fx:id="changeUserTxt" layoutX="116.0" layoutY="31.0" />
+      <Label fx:id="oldPinLbl" layoutX="175.0" layoutY="67.0" text="Old Pin:" />
+      <TextField fx:id="oldPinTxt" layoutX="116.0" layoutY="91.0" />
+      <Label fx:id="newPinLbl" layoutX="168.0" layoutY="132.0" text="New Pin:" />
+      <TextField fx:id="newPinTxt" layoutX="116.0" layoutY="149.0" />
+      <Label fx:id="retypePinLbl" layoutX="152.0" layoutY="185.0" text="Retype New Pin:" />
+      <TextField fx:id="retypePinTxt" layoutX="117.0" layoutY="209.0" />
+      <Button fx:id="changeSubmitBtn" layoutX="170.0" layoutY="242.0" mnemonicParsing="false" onAction="#changePin" text="Submit" />
+   </children>
+</AnchorPane>

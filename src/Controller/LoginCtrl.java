@@ -7,12 +7,39 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class LoginCtrl
 {
+    @FXML
+    private Label changeUserLbl;
+    @FXML
+    private Button changeSubmitBtn;
+
+    @FXML
+    private TextField changeUserTxt;
+
+    @FXML
+    private Label newPinLbl;
+
+    @FXML
+    private TextField newPinTxt;
+
+    @FXML
+    private Label oldPinLbl;
+
+    @FXML
+    private TextField oldPinTxt;
+
+    @FXML
+    private Label retypePinLbl;
+
+    @FXML
+    private TextField retypePinTxt;
     private final StaffList stafflist;
     @FXML
     private Label idLbl;
@@ -35,6 +62,10 @@ public class LoginCtrl
     @FXML
     private ImageView wcLogo;
 
+    @FXML
+    private AnchorPane changePinPanel;
+
+
     private Stage stage;
 
 
@@ -55,7 +86,6 @@ public class LoginCtrl
                 // attempt to authenticate user credentials
                 if (stafflist.authenticate(userid.getText(), pin.getText()) == true)
                 {
-
                     // if credentials are correct...
                     submitBtn.getScene().getWindow().hide();
                     try
@@ -92,6 +122,45 @@ public class LoginCtrl
         });
         // get the submit button from loginUI and add a mouse listener to it
         //loginUI.getSubmitButton().addMouseListener(new MouseAdapter()
+
+    }
+
+    public void changePin(javafx.event.ActionEvent actionEvent){
+        changeSubmitBtn.setOnMouseClicked(mouseEvent -> {
+            if(stafflist.authenticate(changeUserTxt.getText(),oldPinTxt.getText()) == true && newPinTxt.getText().length() >=4 &&newPinTxt.getText().equals(retypePinTxt.getText())){
+            stafflist.changePin(changeUserTxt.getText(), newPinTxt.getText());
+                Alert loginFailed = new Alert(Alert.AlertType.CONFIRMATION);
+                loginFailed.setHeaderText("Success!");
+                loginFailed.setContentText("Pin Changed.");
+                loginFailed.showAndWait();
+                changeUserTxt.clear();
+                newPinTxt.clear();
+                oldPinTxt.clear();
+                retypePinTxt.clear();
+
+            }
+            else {if (stafflist.authenticate(changeUserTxt.getText(),oldPinTxt.getText()) == false){
+                Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                loginFailed.setHeaderText("Wrong Old Pin or User ID");
+                loginFailed.setContentText("Wrong user ID or Pin. If you forgot your pin, please contact a system administrator.");
+                loginFailed.showAndWait();
+            }
+            if(!newPinTxt.getText().equals(retypePinTxt.getText())){
+                Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                loginFailed.setHeaderText("New Pin does not match!");
+                loginFailed.setContentText("Please retype your new pin to make sure they match and is at least 4 characters long.");
+                loginFailed.showAndWait();
+
+            }
+                if(newPinTxt.getText().length()<4){
+                    Alert loginFailed = new Alert(Alert.AlertType.ERROR);
+                    loginFailed.setHeaderText("Pin Length!");
+                    loginFailed.setContentText("Please retype your new pin to make sure they match and is at least 4 characters long.");
+                    loginFailed.showAndWait();
+                }
+            }
+        });
+
 
     }
 
