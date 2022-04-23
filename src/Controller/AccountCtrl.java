@@ -374,11 +374,11 @@ public class AccountCtrl
             patronList = new PatronList();
             if (patronList.verifyEmail(emailText.getText()) == false)
             {
-                emailText.setStyle("-fx-text-fill: green; -fx-font-size: 16px;");
+                emailText.setStyle("-fx-background-color: green;");
 
             } else
             {
-                emailText.setStyle("-fx-text-fill: red; -fx-font-size: 16px;");
+                emailText.setStyle("-fx-background-color: red;");
             }
 
         });
