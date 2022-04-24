@@ -171,4 +171,50 @@ public class Bill
 
 
     }
+
+    public boolean removeAllBills(String patronToSearchFor){
+
+        try
+        {
+            // check through bills
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bills.json"));
+
+            // convert JSON arraylist of Bill objects
+            ArrayList<Bill> bills = new Gson().fromJson(reader, new TypeToken<ArrayList<Bill>>()
+            {
+            }.getType());
+            for (int i = 0; i < bills.size(); i++)
+            {
+                // get the patron ID at current index in the json, and assign the value to String tempID
+                String tempID = String.valueOf(bills.get(i).getPatronCardNum());
+
+                // if the patron id you are searching for matches tempID...
+                if (patronToSearchFor.equals(tempID))
+                {
+                    // remove the record
+                    bills.remove(i);
+
+
+                }
+            }
+
+            // send the newly updated ArrayList of records to the json to be serialized
+            saveToFileBills(bills);
+
+            // close reader
+            reader.close();
+
+            return true;
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
 }

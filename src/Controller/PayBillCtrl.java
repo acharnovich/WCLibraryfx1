@@ -127,7 +127,6 @@ public class PayBillCtrl
                 payBillsCurrentBalanceColumn.setCellValueFactory(new PropertyValueFactory<Bill, Double>("amtBilled"));
                 payBillsDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("description"));
 
-                // this is wrong
                 billsToDisplay.addAll(billListTemp.getBills());
 
                 payBillsTable.setItems(billsToDisplay);
@@ -198,25 +197,33 @@ public class PayBillCtrl
     {
         payBillsButton.setOnMouseClicked(mouseEvent ->
         {
+            patrons = new PatronList();
+            bill = new Bill();
+            PatronBillList patronBills = new PatronBillList();
+
             // if the payment in full radio button is selected...
             if (paymentTypeInFullRadioButton.isSelected())
             {
-                
+                // create a temporary String and assign the value of the patron's card number from the text field
+                String patronTemp = libraryCardNumTextField.getText();
+
+                // remove the bills from the bills json
+                bill.removeAllBills(patronTemp);
             }
             // else if the waive radio button is selected...
             else if (paymentTypeWaiveRadioButton.isSelected())
             {
-
+                System.out.println("Nothing yet.");
             }
             // else if partial pay is selected, but no amount in the text field
             else if (paymentTypePartialPayRadioButton.isSelected() && paymentTypePartialPayTextField.getText() == null)
             {
-
+                System.out.println("Nothing yet.");
             }
             // else if partial pay is selected, with an amount in the text field
             else
             {
-
+                System.out.println("Nothing yet.");
             }
 
         });
