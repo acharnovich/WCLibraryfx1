@@ -9,14 +9,14 @@
 <AnchorPane prefHeight="256.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddBillCtrl">
    <children>
       <Label fx:id="addBillLabel" layoutX="14.0" layoutY="18.0" prefHeight="26.0" prefWidth="152.0" text="Library Card Number:" />
-      <TextField fx:id="addBillCardNumTextField" layoutX="140.0" layoutY="18.0" prefHeight="26.0" prefWidth="243.0" promptText="#######" />
-      <Button fx:id="addBillSubmitButton" layoutX="394.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleSubmitClick" prefHeight="26.0" prefWidth="60.0" text="Verify" />
+      <TextField fx:id="addBillCardNumTextField" layoutX="140.0" layoutY="18.0" onKeyPressed="#addBillValidation" onKeyReleased="#addBillValidation" prefHeight="26.0" prefWidth="243.0" promptText="#######" />
+      <Button fx:id="addBillSubmitButton" disable="true" layoutX="394.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleSubmitClick" prefHeight="26.0" prefWidth="60.0" text="Verify" />
       <Label fx:id="billDetailsAmountLabel" layoutX="15.0" layoutY="65.0" text="Bill Amount:" />
-      <TextField fx:id="billDetailsAmountTextField" disable="true" layoutX="111.0" layoutY="62.0" prefHeight="26.0" prefWidth="342.0" promptText="0.00" />
+      <TextField fx:id="billDetailsAmountTextField" disable="true" layoutX="111.0" layoutY="62.0" onKeyPressed="#addBillValidation" onKeyReleased="#addBillValidation" prefHeight="26.0" prefWidth="342.0" promptText="0.00" />
       <Label fx:id="billDetailsDescriptionLabel" layoutX="15.0" layoutY="110.0" text="Description:" />
       <TextField fx:id="billDetailsIDTextField" disable="true" layoutX="112.0" layoutY="181.0" prefHeight="26.0" prefWidth="342.0" promptText="(Optional)" />
       <Label fx:id="billDetailsIDLabel" layoutX="15.0" layoutY="185.0" text="Item ID Number:" />
-      <TextArea fx:id="billDetailsDescriptionTextArea" disable="true" layoutX="112.0" layoutY="109.0" prefHeight="54.0" prefWidth="342.0" wrapText="true" />
-      <Button fx:id="billDetailsAddBillButton" layoutX="207.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleAddBillDetailsClick" text="Add Bill" />
+      <TextArea fx:id="billDetailsDescriptionTextArea" disable="true" layoutX="112.0" layoutY="109.0" onKeyPressed="#addBillValidation" onKeyReleased="#addBillValidation" prefHeight="54.0" prefWidth="342.0" wrapText="true" />
+      <Button fx:id="billDetailsAddBillButton" disable="true" layoutX="207.0" layoutY="218.0" mnemonicParsing="false" onAction="#handleAddBillDetailsClick" text="Add Bill" />
    </children>
 </AnchorPane>

@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.function.UnaryOperator;
 
 public class AddBillCtrl {
 
@@ -65,7 +66,7 @@ public class AddBillCtrl {
             patrons = new PatronList();
 
             // if the patron's is found in the database
-            if (addBillCardNumTextField.getText().isEmpty() == false && patrons.foundCard(addBillCardNumTextField.getText()) == true) {
+            if (addBillCardNumTextField.getText().isEmpty() == false && patrons.foundCardExact(addBillCardNumTextField.getText()) == true) {
 
                 // enable text fields
                 billDetailsAmountTextField.setDisable(false);
@@ -175,6 +176,62 @@ public class AddBillCtrl {
             }
 
         });
-    }
 
+    }
+    public void addBillValidation(){
+        boolean disabled = (addBillCardNumTextField.getText().isEmpty());
+        boolean disabled2 = (billDetailsDescriptionTextArea.getText().isEmpty() || billDetailsAmountTextField.getText().isEmpty());
+        addBillCardNumTextField.setOnKeyReleased(keyEvent ->
+        {
+            if (!disabled)
+            {
+                addBillSubmitButton.setDisable(false);
+            } else
+            {
+                addBillSubmitButton.setDisable(disabled);
+            }
+
+        });
+
+        billDetailsDescriptionTextArea.setOnKeyReleased(keyEvent ->
+        {
+            if (!disabled2)
+            {
+                billDetailsAddBillButton.setDisable(false);
+            } else
+            {
+                billDetailsAddBillButton.setDisable(disabled2);
+            }
+
+        });
+
+        billDetailsAmountTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9.]*$") && change.getControlNewText().length() <= 6)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        addBillCardNumTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 10)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+    }
 }

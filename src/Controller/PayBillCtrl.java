@@ -12,6 +12,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.function.UnaryOperator;
 
 public class PayBillCtrl
 {
@@ -85,14 +86,17 @@ public class PayBillCtrl
 
     public void handleSearchClick(javafx.event.ActionEvent actionEvent)
     {
-        payBillsSearchButton.setOnMouseClicked(mouseEvent -> {
+        payBillsSearchButton.setOnMouseClicked(mouseEvent ->
+        {
 
             patrons = new PatronList();
             billLists = new PatronBillList();
             checkoutLists = new AllCheckoutLists();
 
             // if the patron's is found in the database
-            if (libraryCardNumTextField.getText().isEmpty() == false && patrons.foundCard(libraryCardNumTextField.getText()) == true) {
+            if (libraryCardNumTextField.getText().isEmpty() == false && patrons.foundCardExact(libraryCardNumTextField.getText()) == true)
+            {
+
 
                 // create a temporary Patron object and copy the patron from the json patronlist so information about patron can be displayed
                 Patron patronTemp = patrons.getFromJson(libraryCardNumTextField.getText());
@@ -125,18 +129,25 @@ public class PayBillCtrl
                 payBillsItemIDColumn.setCellValueFactory(new PropertyValueFactory<Bill, String>("itemID"));
                 payBillsDateBilledColumn.setCellValueFactory(new PropertyValueFactory<Bill, NormalDate>("dateBilled"));
                 payBillsCurrentBalanceColumn.setCellValueFactory(new PropertyValueFactory<Bill, Double>("amtBilled"));
-                payBillsDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Bill,String>("description"));
+                payBillsDescriptionColumn.setCellValueFactory(new PropertyValueFactory<Bill, String>("description"));
 
                 billsToDisplay.addAll(billListTemp.getBills());
-
+if(!billListTemp.getBills().isEmpty()){
                 payBillsTable.setItems(billsToDisplay);
-                payBillsTable.setDisable(false);
+              payBillsTable.setDisable(false);}else {
+    Alert confirm = new Alert(Alert.AlertType.ERROR);
+    confirm.setHeaderText("No Bills!");
+    confirm.setContentText("Currently, this patron has no bills to pay.");
+    confirm.showAndWait();
+}
 
-            } else {
+        }else {
                 Alert confirm = new Alert(Alert.AlertType.ERROR);
                 confirm.setHeaderText("Error! Invalid Card Number");
                 confirm.setContentText("Invalid card number. Please enter a valid 7-digit library card number.");
                 confirm.showAndWait();
+
+
             }
 
         });
@@ -274,6 +285,37 @@ public class PayBillCtrl
             }
 
         });
+    }
+
+    public void payBillValidation(){
+        boolean disabled = (libraryCardNumTextField.getText().isEmpty());
+        libraryCardNumTextField.setOnKeyReleased(keyEvent ->
+        {
+            if (!disabled)
+            {
+                payBillsSearchButton.setDisable(false);
+            } else
+            {
+                payBillsSearchButton.setDisable(disabled);
+            }
+
+        });
+
+        libraryCardNumTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 10)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+
     }
 
 }
