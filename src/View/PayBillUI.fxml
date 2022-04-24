@@ -38,10 +38,10 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <RadioButton fx:id="paymentTypeInFullRadioButton" disable="true" layoutX="127.0" layoutY="75.0" mnemonicParsing="false" text="PAY IN FULL" />
+      <RadioButton fx:id="paymentTypeInFullRadioButton" disable="true" layoutX="127.0" layoutY="75.0" mnemonicParsing="false" onAction="#handlePayInFullRadioClick" text="PAY IN FULL" />
       <Label fx:id="paymentTypeLabel" layoutX="27.0" layoutY="75.0" prefHeight="18.0" prefWidth="114.0" text="Payment Type:" />
-      <RadioButton fx:id="paymentTypePartialPayRadioButton" disable="true" layoutX="312.0" layoutY="75.0" mnemonicParsing="false" text="PARTIAL PAY:" />
-      <RadioButton fx:id="paymentTypeWaiveRadioButton" disable="true" layoutX="232.0" layoutY="75.0" mnemonicParsing="false" text="WAIVE" />
+      <RadioButton fx:id="paymentTypePartialPayRadioButton" disable="true" layoutX="312.0" layoutY="75.0" mnemonicParsing="false" onAction="#handlePartialPayRadioClick" text="PARTIAL PAY:" />
+      <RadioButton fx:id="paymentTypeWaiveRadioButton" disable="true" layoutX="232.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleWaiveRadioClick" text="WAIVE" />
       <TextField fx:id="paymentTypePartialPayTextField" disable="true" layoutX="422.0" layoutY="70.0" prefHeight="26.0" prefWidth="273.0" promptText="\$0.00" />
    </children>
 </AnchorPane>

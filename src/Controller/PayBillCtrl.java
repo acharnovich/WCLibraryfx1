@@ -142,4 +142,57 @@ public class PayBillCtrl
 
         });
     }
+
+    public void handlePayInFullRadioClick(javafx.event.ActionEvent actionEvent)
+    {
+        paymentTypeInFullRadioButton.setOnMouseClicked(mouseEvent ->
+        {
+            // deselect other radio buttons
+            paymentTypeWaiveRadioButton.setSelected(false);
+            paymentTypePartialPayRadioButton.setSelected(false);
+
+            // set paymentTypePartialPayTextField to disabled
+            paymentTypePartialPayTextField.setDisable(true);
+
+            // enable Pay Bills button
+            payBillsButton.setDisable(false);
+
+        });
+    }
+
+    public void handleWaiveRadioClick(javafx.event.ActionEvent actionEvent)
+    {
+        paymentTypeWaiveRadioButton.setOnMouseClicked(mouseEvent ->
+        {
+            // deselect other radio buttons
+            paymentTypeInFullRadioButton.setSelected(false);
+            paymentTypePartialPayRadioButton.setSelected(false);
+
+            // set paymentTypePartialPayTextField to disabled
+            paymentTypePartialPayTextField.setDisable(true);
+
+            // enable Pay Bills button
+            payBillsButton.setDisable(false);
+
+        });
+    }
+
+    public void handlePartialPayRadioClick(javafx.event.ActionEvent actionEvent)
+    {
+        paymentTypePartialPayRadioButton.setOnMouseClicked(mouseEvent ->
+        {
+            // deselect other radio buttons
+            paymentTypeInFullRadioButton.setSelected(false);
+            paymentTypeWaiveRadioButton.setSelected(false);
+
+            // set paymentTypePartialPayTextField to enabled
+            paymentTypePartialPayTextField.setDisable(false);
+
+            // enable Pay Bills button
+            payBillsButton.setDisable(false);
+
+        });
+    }
+
+    
 }
