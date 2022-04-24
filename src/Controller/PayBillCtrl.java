@@ -240,7 +240,10 @@ public class PayBillCtrl
             // else if partial pay is selected, but no amount in the text field
             else if (paymentTypePartialPayRadioButton.isSelected() && paymentTypePartialPayTextField.getText() == null)
             {
-                System.out.println("Nothing yet.");
+                Alert noAmount = new Alert(Alert.AlertType.ERROR);
+                noAmount.setHeaderText("Error! No Payment Amount Entered");
+                noAmount.setContentText("Please enter an amount to be paid to continue with partial payment.");
+                noAmount.showAndWait();
             }
             // else if partial pay is selected, with an amount in the text field
             else
