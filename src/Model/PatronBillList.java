@@ -284,4 +284,107 @@ public class PatronBillList
         return true;
     }
 
+
+    public boolean partialPay(String patronToSearchFor, double amountToBePaid)
+    {
+
+        try
+        {
+            // check through bill lists
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronBillLists.json"));
+
+            // convert JSON arraylist of PatronBillList objects
+            ArrayList<PatronBillList> billLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronBillList>>() {
+            }.getType());
+
+            // while there is still an amount to be paid
+            while (amountToBePaid > 0)
+            {
+
+                // step through the billLists arrayList
+                for (int i = 0; i < billLists.size(); i++)
+                {
+
+                    // get the patron ID at current index in the json, and assign the value to String tempID
+                    String tempID = String.valueOf(billLists.get(i).getPatronCardNum());
+
+                    // if the patron id you are searching for matches tempID...
+                    if (patronToSearchFor.equals(tempID))
+                    {
+
+                        // step through bills arraylist inside the PatronBillList arrayList
+                        for (int j = 0; j < billLists.get(i).getBills().size(); j++)
+                        {
+
+                            // take the amount billed for this bill, minus the amount currently paid, and assign the value to billAmountLeft
+                            double billAmountLeft = billLists.get(i).getBills().get(j).getAmtBilled() -
+                                    billLists.get(i).getBills().get(j).getAmtCurrentlyPaid();
+
+                            // if the bill amount is less than or equal to the amountToBePaid
+                            if (billAmountLeft <= amountToBePaid)
+                            {
+                                // remove the bill from the patron's bills arraylist
+                                billLists.get(i).getBills().remove(j);
+
+                                // create a newly updated PatronBillList object
+                                PatronBillList newlyUpdatedBillList = new PatronBillList(billLists.get(i).getPatronCardNum(),
+                                        billLists.get(i).getBills());
+
+                                // remove old PatronBillList from billLists arraylist
+                                billLists.remove(i);
+
+                                // add the new PatronBillList
+                                billLists.add(newlyUpdatedBillList);
+
+                                // take amountToBePaid, minus the bill amount, and assign the new value to amountToBePaid
+                                amountToBePaid = amountToBePaid - billAmountLeft;
+                            }
+
+                            // if the bill amount is more than the amountToBePaid
+                            else
+                            {
+                                // create a new Bill object with amtCurrentlyPaid updated
+                                Bill updatedBill = new Bill(billLists.get(i).getBills().get(j).getPatronCardNum(),
+                                                            billLists.get(i).getBills().get(j).getItemID(),
+                                                            billLists.get(i).getBills().get(j).getDateBilled(),
+                                                            billLists.get(i).getBills().get(j).getAmtBilled(), amountToBePaid,
+                                                            billLists.get(i).getBills().get(j).getDescription());
+
+                                // remove the old bill from patron's bill list
+                                billLists.get(i).getBills().remove(j);
+
+                                // add the new bill to the Patron's Bill List
+                                billLists.get(i).getBills().add(updatedBill);
+
+                                // set amountToBePaid to 0 to end the while loop
+                                amountToBePaid = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            // send the newly updated ArrayList of records to the json to be serialized
+            saveToFilePatronBillLists(billLists);
+
+            // close reader
+            reader.close();
+
+            return true;
+
+
+        }
+            catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return false;
+
+   }
 }

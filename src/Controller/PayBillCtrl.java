@@ -240,6 +240,7 @@ public class PayBillCtrl
             // else if partial pay is selected, but no amount in the text field
             else if (paymentTypePartialPayRadioButton.isSelected() && paymentTypePartialPayTextField.getText() == null)
             {
+                // display error
                 Alert noAmount = new Alert(Alert.AlertType.ERROR);
                 noAmount.setHeaderText("Error! No Payment Amount Entered");
                 noAmount.setContentText("Please enter an amount to be paid to continue with partial payment.");
@@ -248,7 +249,28 @@ public class PayBillCtrl
             // else if partial pay is selected, with an amount in the text field
             else
             {
-                System.out.println("Nothing yet.");
+                // create a temporary String and assign the value of the patron's card number from the text field
+                String patronTemp = libraryCardNumTextField.getText();
+
+                // create a Double called amountToBePaid
+                // convert the value of paymentTypePartialPayTextField to a Double and assign this value to amountToBePaid
+                double amountToBePaid = Double.parseDouble(paymentTypePartialPayTextField.getText());
+
+                // call the Bill object partialPay method and send patronTemp and amountToBePaid as parameters
+                bill.partialPay(patronTemp, amountToBePaid);
+
+                billLists.partialPay(patronTemp, amountToBePaid);
+
+                // create a temporary billList object and copy the patron's bill list from the json so information about patron's account balance
+                // can be displayed
+                PatronBillList billListTemp = billLists.getFromJson(libraryCardNumTextField.getText());
+
+                // display confirmation
+                Alert partialPay = new Alert(Alert.AlertType.CONFIRMATION);
+                partialPay.setHeaderText("Bills Paid Partially");
+                partialPay.setContentText("Partial pay complete. New account balance is " + billListTemp.getAccountBalance());
+                partialPay.showAndWait();
+
             }
 
         });

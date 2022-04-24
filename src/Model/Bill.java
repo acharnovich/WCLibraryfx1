@@ -217,4 +217,82 @@ public class Bill
 
         return false;
     }
+
+    public boolean partialPay(String patronToSearchFor, double amountToBePaid){
+
+        try
+        {
+            // check through bills
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("bills.json"));
+
+            // convert JSON arraylist of Bill objects
+            ArrayList<Bill> bills = new Gson().fromJson(reader, new TypeToken<ArrayList<Bill>>()
+            {
+            }.getType());
+
+            double amt = amountToBePaid;
+
+            // while there is still an amount to be paid
+            while (amountToBePaid > 0)
+            {
+                // step through the bills arrayList
+                for (int i = 0; i < bills.size(); i++)
+                {
+                    // get the patron ID at current index in the json, and assign the value to String tempID
+                    String tempID = String.valueOf(bills.get(i).getPatronCardNum());
+
+                    // if the patron id you are searching for matches tempID...
+                    if (patronToSearchFor.equals(tempID))
+                    {
+                        // take the amount billed for this bill, minus the amount currently paid, and assign the value to billAmountLeft
+                        double billAmountLeft = bills.get(i).getAmtBilled() - bills.get(i).getAmtCurrentlyPaid();
+
+                        // if the bill amount is less than or equal to the amountToBePaid
+                        if (billAmountLeft <= amountToBePaid)
+                        {
+                            // remove the bill from the bills arraylist
+                            bills.remove(i);
+
+                            // take amountToBePaid, minus the bill amount, and assign the new value to amountToBePaid
+                            amountToBePaid = amountToBePaid - billAmountLeft;
+                            amt = amountToBePaid;
+                        }
+                        // if the bill amount is more than the amountToBePaid
+                        else
+                        {
+                            // create a new Bill object with amtCurrentlyPaid updated
+                            Bill updatedBill = new Bill(bills.get(i).getPatronCardNum(), bills.get(i).getItemID(), bills.get(i).getDateBilled(),
+                                                        bills.get(i).getAmtBilled(), amt, bills.get(i).getDescription());
+                            // remove the old bill
+                            bills.remove(i);
+
+                            // add the new bill
+                            bills.add(updatedBill);
+
+                            // set amountToBePaid to 0 to end the while loop
+                            amountToBePaid = 0;
+                        }
+                    }
+                }
+            }
+
+            // send the newly updated ArrayList of records to the json to be serialized
+            saveToFileBills(bills);
+
+            // close reader
+            reader.close();
+
+            return true;
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
 }
