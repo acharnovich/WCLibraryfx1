@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
@@ -282,6 +283,47 @@ public class AllCheckoutLists
         }
 
         return send;
+    }
+
+    public PatronCheckoutList getFromJson(String patronToSearchFor)
+    {
+        PatronCheckoutList checkoutListToReturn = new PatronCheckoutList();
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronCheckoutLists.json"));
+
+            // convert JSON array to list of checkout lists
+            ArrayList<PatronCheckoutList> checkoutLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronCheckoutList>>()
+            {
+            }.getType());
+
+            // step through the checkoutLists array list
+            for (int i = 0; i < checkoutLists.size(); i++)
+            {
+                // get the patron ID from the current index and assign to String id
+                String id = checkoutLists.get(i).getPatronCardNum();
+
+                // if id is the same as patronToSearchFor, return the PatronBillList object
+                if (id.equals(patronToSearchFor))
+                {
+                    checkoutListToReturn = checkoutLists.get(i);
+                }
+
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+
+        }
+
+        return checkoutListToReturn;
+
     }
 
 }

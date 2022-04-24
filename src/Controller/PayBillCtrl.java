@@ -101,12 +101,9 @@ public class PayBillCtrl
                 // can be displayed
                 PatronBillList billListTemp = billLists.getFromJson(libraryCardNumTextField.getText());
 
-                /**
-                 * To do
-                 */
                 // create a temporary checkout list object and copy the patron's checkout list from the json so information about patron's number
                 // of checkouts can be displayed
-                //PatronCheckoutList checkoutListTemp = checkoutLists.getFromJson(libraryCardNumTextField.getText());
+                PatronCheckoutList checkoutListTemp = checkoutLists.getFromJson(libraryCardNumTextField.getText());
 
                 // set text of patronNameLabel to the name of the patron currently being viewed
                 patronNameLabel.setText(patronTemp.getName());
@@ -114,7 +111,8 @@ public class PayBillCtrl
                 // call billListTemp's getAccountBalance method and turn the value into a string representing the account balance of the patron
                 accountBalanceAmountLabel.setText("$" + billListTemp.getAccountBalance());
 
-
+                // call checkoutListTemp's getNumCheckouts method and set the itemsCheckedOutNumberLabel to the String equivalent
+                itemsCheckedOutNumberLabel.setText(Integer.toString(checkoutListTemp.getNumOfCheckouts()));
 
 
                 // enable payment type radio buttons

@@ -64,6 +64,10 @@ public class PatronCheckoutList
         checkouts = checkoutsInput;
     }
 
-
+    public int getNumOfCheckouts()
+    {
+        int size = checkouts.size();
+        return size;
+    }
 
 }
