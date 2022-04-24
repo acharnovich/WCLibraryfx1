@@ -206,6 +206,8 @@ public class PatronBillList
 
             }
 
+        reader.close();
+
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -236,6 +238,50 @@ public class PatronBillList
         }
 
         return accountBalance;
+    }
+
+    public boolean removeAllBills(String patronToSearchFor){
+
+        try
+        {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+            Reader reader = Files.newBufferedReader(Paths.get("patronBillLists.json"));
+
+            // convert JSON array to list of bill lists
+            ArrayList<PatronBillList> billLists = new Gson().fromJson(reader, new TypeToken<ArrayList<PatronBillList>>()
+            {
+            }.getType());
+
+            // step through the bill lists array
+            for (int i = 0; i < billLists.size(); i++)
+            {
+                // get the patron ID from the current index and assign to String id
+                String id = billLists.get(i).getPatronCardNum();
+
+                // if id is the same as patronToSearchFor, return the PatronBillList object
+                if (id.equals(patronToSearchFor))
+                {
+                    billLists.remove(i);
+                }
+
+            }
+
+            billLists.add(new PatronBillList(patronToSearchFor, new ArrayList<Bill>()));
+
+            saveToFilePatronBillLists(billLists);
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        return true;
     }
 
 }

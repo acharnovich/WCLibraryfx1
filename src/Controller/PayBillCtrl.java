@@ -209,11 +209,33 @@ public class PayBillCtrl
 
                 // remove the bills from the bills json
                 bill.removeAllBills(patronTemp);
+
+                // remove the bills from the patronBillLists json
+                patronBills.removeAllBills(patronTemp);
+
+                // display confirmation
+                Alert paidInFull = new Alert(Alert.AlertType.CONFIRMATION);
+                paidInFull.setHeaderText("Bills Paid");
+                paidInFull.setContentText("All bills have been paid in full.");
+                paidInFull.showAndWait();
             }
             // else if the waive radio button is selected...
             else if (paymentTypeWaiveRadioButton.isSelected())
             {
-                System.out.println("Nothing yet.");
+                // create a temporary String and assign the value of the patron's card number from the text field
+                String patronTemp = libraryCardNumTextField.getText();
+
+                // remove the bills from the bills json
+                bill.removeAllBills(patronTemp);
+
+                // remove the bills from the patronBillLists json
+                patronBills.removeAllBills(patronTemp);
+
+                // display confirmation
+                Alert paidInFull = new Alert(Alert.AlertType.CONFIRMATION);
+                paidInFull.setHeaderText("Bills Waived");
+                paidInFull.setContentText("All bills have been waived from patron's account.");
+                paidInFull.showAndWait();
             }
             // else if partial pay is selected, but no amount in the text field
             else if (paymentTypePartialPayRadioButton.isSelected() && paymentTypePartialPayTextField.getText() == null)
