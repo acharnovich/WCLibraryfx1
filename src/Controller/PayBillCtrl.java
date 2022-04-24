@@ -194,5 +194,32 @@ public class PayBillCtrl
         });
     }
 
-    
+    public void handlePayBillsClick(javafx.event.ActionEvent actionEvent)
+    {
+        payBillsButton.setOnMouseClicked(mouseEvent ->
+        {
+            // if the payment in full radio button is selected...
+            if (paymentTypeInFullRadioButton.isSelected())
+            {
+                
+            }
+            // else if the waive radio button is selected...
+            else if (paymentTypeWaiveRadioButton.isSelected())
+            {
+
+            }
+            // else if partial pay is selected, but no amount in the text field
+            else if (paymentTypePartialPayRadioButton.isSelected() && paymentTypePartialPayTextField.getText() == null)
+            {
+
+            }
+            // else if partial pay is selected, with an amount in the text field
+            else
+            {
+
+            }
+
+        });
+    }
+
 }
