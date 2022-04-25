@@ -100,11 +100,10 @@ public class LoginCtrl
 
                         Alert loginSuccess = new Alert(Alert.AlertType.CONFIRMATION);
                         loginSuccess.setHeaderText("Login Success: " + userid.getText());
-                        loginSuccess.setContentText("Sprint 4 Updates:" +
-                                                    "\n- Check In/Checkout is now completely functional" +
-                                                    "\n- Newly created patrons accounts now have bill lists" +
-                                                    "\n- Checkout lists and bill lists are updated upon check in" +
-                                                    "\n- Library card numbers are now auto-generated");
+                        loginSuccess.setContentText("Sprint 5 Updates:" +
+                                                    "\n- Paybill/AddBill is what's new in sprint 5" +
+                                                    "\n- Change pin is now a feature for staff to change pins" +
+                                                    "\n- Updated Validation across the app.");
                         loginSuccess.showAndWait();
                     } catch (IOException e)
                     {}
