@@ -229,6 +229,9 @@ if(!billListTemp.getBills().isEmpty()){
                 paidInFull.setHeaderText("Bills Paid");
                 paidInFull.setContentText("All bills have been paid in full.");
                 paidInFull.showAndWait();
+                payBillsTable.getItems().clear();
+                libraryCardNumTextField.clear();
+                paymentTypeInFullRadioButton.setSelected(false);
             }
             // else if the waive radio button is selected...
             else if (paymentTypeWaiveRadioButton.isSelected())
@@ -247,6 +250,9 @@ if(!billListTemp.getBills().isEmpty()){
                 paidInFull.setHeaderText("Bills Waived");
                 paidInFull.setContentText("All bills have been waived from patron's account.");
                 paidInFull.showAndWait();
+                payBillsTable.getItems().clear();
+                libraryCardNumTextField.clear();
+                paymentTypeWaiveRadioButton.setSelected(false);
             }
             // else if partial pay is selected, but no amount in the text field
             else if (paymentTypePartialPayRadioButton.isSelected() && paymentTypePartialPayTextField.getText() == null)
@@ -281,6 +287,10 @@ if(!billListTemp.getBills().isEmpty()){
                 partialPay.setHeaderText("Bills Paid Partially");
                 partialPay.setContentText("Partial pay complete. New account balance is " + billListTemp.getAccountBalance());
                 partialPay.showAndWait();
+                payBillsTable.getItems().clear();
+                libraryCardNumTextField.clear();
+                paymentTypePartialPayRadioButton.setSelected(false);
+                paymentTypePartialPayTextField.clear();
 
             }
 
@@ -308,6 +318,20 @@ if(!billListTemp.getBills().isEmpty()){
             {
                 String value = change.getText();
                 if (change.getText().matches("\\d*") && change.getControlNewText().length() <= 10)
+                {
+                    return change;
+                }
+                return null;
+            }
+        }));
+
+        paymentTypePartialPayTextField.setTextFormatter(new TextFormatter<String>(new UnaryOperator<TextFormatter.Change>()
+        {
+            @Override
+            public TextFormatter.Change apply(TextFormatter.Change change)
+            {
+                String value = change.getText();
+                if (change.getText().matches("^[0-9.]*$") && change.getControlNewText().length() <= 6)
                 {
                     return change;
                 }

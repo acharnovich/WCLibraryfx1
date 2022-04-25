@@ -244,7 +244,7 @@ public class SearchCtrl {
                 ObservableList<Person> people = FXCollections.observableArrayList();
 
             if(pList.foundEmail(searchPersonTextField.getText()) == true){
-                System.out.println("Person Found");
+
 
                 nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
                 dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
@@ -282,7 +282,7 @@ personContenTbl.setDisable(false);
             if(searchPersonByNameRadioButton.isSelected() == true){
                 ObservableList<Person> people = FXCollections.observableArrayList();
                 if(pList.foundCard(searchPersonTextField.getText()) == true){
-                    System.out.println("Person Found");
+
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
                     dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
@@ -315,7 +315,7 @@ personContenTbl.setDisable(false);
                 if(pList.foundPhone(searchPersonTextField.getText()) == true){
 
                     searchPersonTextField.setStyle("-fx-background-color: white");
-                    System.out.println("Person Found");
+
                     nameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
                     dobCol.setCellValueFactory(new PropertyValueFactory<Person, NormalDate>("dateofBirth"));
                     addCol.setCellValueFactory(new PropertyValueFactory<Person, Address>("address"));
@@ -416,7 +416,6 @@ personContenTbl.setDisable(false);
 
 
                 if(iList.searchBook(searchItemTextField.getText()) == true || iList.searchMovie(searchItemTextField.getText()) == true || iList.searchAudio(searchItemTextField.getText()) == true){
-                    System.out.println("Item Found");
                     ObservableList<Item> items = FXCollections.observableArrayList();
                     searchItemTextField.setStyle("-fx-background-color: white");
                     if (iList.bookReturn(searchItemTextField.getText()) != null)
@@ -478,7 +477,6 @@ personContenTbl.setDisable(false);
             searchPersonByPhone.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By Name";
-            System.out.println("Selected search person by name.");
         });
     }
 
@@ -492,7 +490,7 @@ personContenTbl.setDisable(false);
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByEmailRadioButton.setSelected(false);
             searchPersonType = "By ID";
-            System.out.println("Selected search person by ID number.");
+
         });
     }
 
@@ -506,7 +504,7 @@ personContenTbl.setDisable(false);
             searchPersonByNameRadioButton.setSelected(false);
             searchPersonByPhone.setSelected(false);
             searchPersonType = "By Email";
-            System.out.println("Selected search person by email.");
+
         });
     }
 
@@ -520,7 +518,6 @@ personContenTbl.setDisable(false);
             searchItemTextField.setPromptText("Raiders of the Lost Ark");
             searchItemByIDRadioButton.setSelected(false);
             searchItemType = "By Title";
-            System.out.println("Selected search item by title.");
         });
     }
 
@@ -534,7 +531,7 @@ personContenTbl.setDisable(false);
             searchItemTextField.setPromptText("1234567");
             searchItemByTitleRadioButton.setSelected(false);
             searchItemType = "By ID";
-            System.out.println("Selected search item by ID number.");
+
         });
     }
     @FXML
