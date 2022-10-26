@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Log Ant version info') {
+    stage('Log Maven version info') {
       steps {
         sh 'mvn -version'
       }
@@ -9,7 +9,7 @@ pipeline {
     stage('GitHub Jenkins Maven Build') {
       steps {
         git 'https://github.com/acharnovich/WCLibraryfx1.git'
-        sh 'mvn clean compile test package war'
+        sh 'mvn clean compile test package'
       }
     }
   }
