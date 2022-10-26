@@ -3,13 +3,13 @@ pipeline {
   stages {
     stage('Log Ant version info') {
       steps {
-        sh 'ant -version'
+        sh 'mvn -version'
       }
     }
-    stage('GitHub Jenkins Ant Build') {
+    stage('GitHub Jenkins Maven Build') {
       steps {
         git 'https://github.com/acharnovich/WCLibraryfx1.git'
-        sh 'ant clean compile test package war'
+        sh 'mvn clean compile test package war'
       }
     }
   }
