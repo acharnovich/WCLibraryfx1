@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="patronFillable" onKeyPressed="#enablePatron" onKeyReleased="#enablePatron" onKeyTyped="#enablePatron" onMouseClicked="#enablePatron" onMouseExited="#enablePatron" onMouseMoved="#enablePatron" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountCtrl">
+   <children>
+      <TextField fx:id="countryTxt" layoutX="261.0" layoutY="27.0" onMouseExited="#enablePatron" prefHeight="26.0" prefWidth="25.0" promptText="1" />
+      <TextField fx:id="nameTxt" layoutX="58.0" layoutY="27.0" onKeyReleased="#generateCard" />
+      <Label fx:id="nameLbl" layoutX="20.0" layoutY="31.0" text="Name:" />
+      <TextField fx:id="cardTxt" disable="true" editable="false" layoutX="66.0" layoutY="106.0" onAction="#generateCard" onMouseMoved="#generateCard" />
+      <TextField fx:id="streetNumTxt" layoutX="58.0" layoutY="200.0" onKeyReleased="#enablePatron" onMouseExited="#enablePatron" />
+      <TextField fx:id="emailText" layoutX="58.0" layoutY="143.0" promptText="\@gmail.com" />
+      <Label fx:id="birthLbl" layoutX="1.0" layoutY="76.0" text="Birth Date:" />
+      <Label fx:id="emailLbl" layoutX="22.0" layoutY="148.0" text="Email:" />
+      <Label fx:id="phoneNumLbl" layoutX="221.0" layoutY="31.0" text="Phone:" />
+      <Label fx:id="cardLbl" layoutX="29.0" layoutY="111.0" text="Card#:" />
+      <Label fx:id="addressLbl" layoutX="14.0" layoutY="175.0" text="Address:" />
+      <Label fx:id="streetNumLbl" layoutX="6.0" layoutY="205.0" text="Street #:" />
+      <Button fx:id="secAddressBtn" layoutX="438.0" layoutY="27.0" mnemonicParsing="false" onAction="#patronAddPhoneNumber" onMouseClicked="#enablePatron" text="+" />
+      <TextField fx:id="typeTxt" layoutX="483.0" layoutY="201.0" prefHeight="26.0" prefWidth="107.0" promptText="Ave, St, Rd" />
+      <Label fx:id="typeLBL" layoutX="450.0" layoutY="205.0" text="Type:" />
+      <Label fx:id="cityLbl" layoutX="227.0" layoutY="240.0" text="City:" />
+      <TextField fx:id="cityTxt" layoutX="260.0" layoutY="235.0" prefHeight="26.0" prefWidth="129.0" />
+      <TextField fx:id="aptTxt" layoutX="58.0" layoutY="235.0" />
+      <Label fx:id="aptLbl" layoutX="8.0" layoutY="240.0" text="Apt/PO:" />
+      <Label fx:id="stateLbl" layoutX="393.0" layoutY="240.0" text="State:" />
+      <Label fx:id="zipLbl" layoutX="491.0" layoutY="241.0" text="Zip:" />
+      <TextField fx:id="zipTxt" layoutX="523.0" layoutY="237.0" onKeyReleased="#enablePatron" prefHeight="26.0" prefWidth="69.0" />
+      <Button fx:id="secondAddressBtn" layoutX="113.0" layoutY="266.0" mnemonicParsing="false" text="+" visible="false" />
+      <Label fx:id="secondAddressLbl" layoutX="10.0" layoutY="270.0" text="Second Address:" visible="false" />
+      <Button fx:id="createAccountBtn" disable="true" layoutX="223.0" layoutY="292.0" mnemonicParsing="false" onAction="#createPatronAccount" prefHeight="43.0" prefWidth="151.0" text="Create Patron Account" />
+      <TextField fx:id="streetNameTxt" layoutX="287.0" layoutY="201.0" />
+      <Label fx:id="streetNameLbl" layoutX="225.0" layoutY="205.0" text="St. Name:" />
+      <TextField fx:id="areaTxt" layoutX="287.0" layoutY="27.0" onMouseExited="#enablePatron" prefHeight="26.0" prefWidth="43.0" promptText="111" />
+      <TextField fx:id="localTxt" layoutX="330.0" layoutY="27.0" onMouseExited="#enablePatron" prefHeight="26.0" prefWidth="43.0" promptText="111" />
+      <TextField fx:id="lastFourTxt" layoutX="373.0" layoutY="27.0" onMouseExited="#enablePatron" prefHeight="26.0" prefWidth="61.0" promptText="1111" />
+      <TextField fx:id="countryTxt2" layoutX="261.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="25.0" promptText="1" visible="false" />
+      <TextField fx:id="areaTxt2" layoutX="287.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="43.0" promptText="111" visible="false" />
+      <TextField fx:id="localTxt2" layoutX="330.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="43.0" promptText="111" visible="false" />
+      <TextField fx:id="lastFourTxt2" layoutX="373.0" layoutY="57.0" onAction="#patronAddPhoneNumber" prefHeight="26.0" prefWidth="61.0" promptText="1111" visible="false" />
+      <Button fx:id="verifyBtn" layoutX="224.0" layoutY="144.0" mnemonicParsing="false" onAction="#verifyEmail" text="Verify" />
+      <DatePicker fx:id="birthPicker" layoutX="63.0" layoutY="72.0" onKeyReleased="#enablePatron" onMouseMoved="#enablePatron" promptText="m/d/yyyy" />
+      <ChoiceBox fx:id="stateTxt" layoutX="434.0" layoutY="237.0" prefHeight="26.0" prefWidth="53.0" />
+   </children>
+</AnchorPane>

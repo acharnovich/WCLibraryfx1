@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="99.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CheckOutCtrl">
+   <children>
+      <Label fx:id="confirmationLabel" layoutX="19.0" layoutY="16.0" prefHeight="22.0" prefWidth="393.0" text="Checkout complete. Would you like to check out items to another patron?" />
+      <Button fx:id="anotherPatronButton" layoutX="29.0" layoutY="51.0" mnemonicParsing="false" onAction="#handleAnotherPatronClick" text="Check Out to Another Patron" />
+      <Button fx:id="backToNavButton" layoutX="231.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleBackToNavClick" prefHeight="26.0" prefWidth="170.0" text="Return to Navigation" />
+   </children>
+</AnchorPane>

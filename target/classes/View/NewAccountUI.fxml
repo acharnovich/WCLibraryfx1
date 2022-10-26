@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+
+<BorderPane fx:id="radioBPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountCtrl">
+   <left>
+      <AnchorPane fx:id="areePane" prefHeight="566.0" prefWidth="66.0" BorderPane.alignment="CENTER">
+         <children>
+            <RadioButton fx:id="staffRBtn" layoutX="33.0" layoutY="35.0" mnemonicParsing="false" onAction="#staffCreateAccount" prefHeight="50.0" prefWidth="92.0" text="Staff" />
+            <RadioButton fx:id="patronRBtn" layoutX="33.0" layoutY="102.0" mnemonicParsing="false" onAction="#patronCreateAccount" prefHeight="29.0" prefWidth="111.0" text="Patron" />
+            <Line fx:id="rdLine" endX="100.5" endY="-219.0" layoutX="56.0" layoutY="219.0" startX="100.5" startY="346.0" />
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

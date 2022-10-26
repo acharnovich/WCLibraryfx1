@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="staffFillable" onKeyPressed="#enableStaff" onKeyReleased="#enableStaff" onMouseMoved="#enableStaff" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountCtrl">
+   <children>
+      <TextField fx:id="countryTxtStaff" layoutX="301.0" layoutY="27.0" onMouseExited="#enableStaff" prefHeight="26.0" prefWidth="25.0" />
+      <TextField fx:id="nameTxtStaff" layoutX="78.0" layoutY="27.0" onKeyReleased="#generateStaffEmailAndUserID" />
+      <Label fx:id="nameLblStaff" layoutX="20.0" layoutY="31.0" text="Name:" />
+      <TextField fx:id="streetNumTxtStaff" layoutX="58.0" layoutY="200.0" />
+      <TextField fx:id="emailTextStaff" disable="true" layoutX="78.0" layoutY="99.0" promptText="staffid@wcibrary.com" />
+      <Label fx:id="birthLblStaff" layoutX="2.0" layoutY="68.0" text="BirthDate:" />
+      <Label fx:id="emailLblStaff" layoutX="22.0" layoutY="100.0" text="Email:" />
+      <Label fx:id="phoneNumLblStaff" layoutX="259.0" layoutY="31.0" text="Phone:" />
+      <Label fx:id="addressLblStaff" layoutX="14.0" layoutY="175.0" text="Address:" />
+      <Label fx:id="streetNumLblStaff" layoutX="6.0" layoutY="205.0" text="Street #:" />
+      <Button fx:id="secAddressBtnStaff" layoutX="438.0" layoutY="27.0" mnemonicParsing="false" text="+" visible="false" />
+      <TextField fx:id="typeTxtStaff" layoutX="483.0" layoutY="201.0" prefHeight="26.0" prefWidth="107.0" promptText="Ave, St, Rd" />
+      <Label fx:id="typeLBLStaff" layoutX="450.0" layoutY="205.0" text="Type:" />
+      <Label fx:id="cityLblStaff" layoutX="227.0" layoutY="240.0" text="City:" />
+      <TextField fx:id="cityTxtStaff" layoutX="260.0" layoutY="235.0" prefHeight="26.0" prefWidth="129.0" />
+      <TextField fx:id="aptTxtStaff" layoutX="58.0" layoutY="235.0" />
+      <Label fx:id="aptLblStaff" layoutX="8.0" layoutY="240.0" text="Apt/PO:" />
+      <Label fx:id="stateLblStaff" layoutX="393.0" layoutY="240.0" text="State:" />
+      <Label fx:id="zipLblStaff" layoutX="473.0" layoutY="240.0" text="Zip:" />
+      <TextField fx:id="zipTxtStaff" layoutX="502.0" layoutY="238.0" prefHeight="26.0" prefWidth="69.0" />
+      <Button fx:id="secondAddressBtnStaff" layoutX="113.0" layoutY="266.0" mnemonicParsing="false" text="+" visible="false" />
+      <Label fx:id="secondAddressLblStaff" layoutX="10.0" layoutY="270.0" text="Second Address:" visible="false" />
+      <Button fx:id="createAccountBtnStaff" disable="true" layoutX="223.0" layoutY="292.0" mnemonicParsing="false" onAction="#createStaffAccount" prefHeight="43.0" prefWidth="151.0" text="Create Staff Account" />
+      <TextField fx:id="streetNameTxtStaff" layoutX="287.0" layoutY="201.0" />
+      <Label fx:id="streetNameLblStaff" layoutX="225.0" layoutY="205.0" text="St. Name:" />
+      <TextField fx:id="areaTxtStaff" layoutX="331.0" layoutY="27.0" onMouseExited="#enableStaff" prefHeight="26.0" prefWidth="43.0" />
+      <TextField fx:id="localTxtStaff" layoutX="374.0" layoutY="27.0" onMouseExited="#enableStaff" prefHeight="26.0" prefWidth="43.0" />
+      <TextField fx:id="lastFourTxtStaf" layoutX="416.0" layoutY="27.0" onMouseExited="#enableStaff" prefHeight="26.0" prefWidth="61.0" />
+      <TextField fx:id="staffIDTxt" disable="true" layoutX="301.0" layoutY="54.0" promptText="first initial and last name." />
+      <Label fx:id="staffIDLbl" layoutX="256.0" layoutY="59.0" text="Staff ID:" />
+      <Label fx:id="pinLbl" layoutX="277.0" layoutY="87.0" text="Pin:" />
+      <TextField fx:id="pinTxt" layoutX="301.0" layoutY="82.0" />
+      <Label fx:id="positionLbl" layoutX="437.0" layoutY="146.0" text="Position:" />
+      <Label fx:id="statusLbl" layoutX="278.0" layoutY="146.0" text="Status:" />
+      <Label fx:id="startLbl" layoutX="14.0" layoutY="146.0" text="Start Date:" />
+      <ChoiceBox fx:id="statusBx" layoutX="321.0" layoutY="142.0" prefHeight="26.0" prefWidth="107.0" />
+      <ChoiceBox fx:id="positionBx" layoutX="483.0" layoutY="142.0" prefHeight="26.0" prefWidth="78.0" />
+      <DatePicker fx:id="birthPickerStaff" layoutX="78.0" layoutY="63.0" prefHeight="26.0" prefWidth="160.0" promptText="m/d/yyyy" />
+      <DatePicker fx:id="startPickerStaff" layoutX="78.0" layoutY="142.0" prefHeight="26.0" prefWidth="160.0" promptText="m/d/yyyy" />
+      <ChoiceBox fx:id="stateTxtStaff" layoutX="429.0" layoutY="235.0" prefHeight="26.0" prefWidth="43.0" />
+   </children>
+</AnchorPane>
