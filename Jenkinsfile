@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Post') {
           steps {
-            emailext attachLog: true, body: 'Email test', subject: 'Email test', to: 'charnovich@gmail.com'
+            emailext attachLog: true, body: 'Email test', subject: 'Email test', to: 'andyholmes8@hotmail.com'
           }
     }
   }
