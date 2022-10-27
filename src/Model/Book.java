@@ -14,7 +14,7 @@ package Model;
 
 import java.util.ArrayList;
 
-public class Book extends Itemggbrb
+public class Book extends Item
 {
     String publisher;                    // publishing company for the Book
     ArrayList<Collaborator> authors;     // author or authors of book
