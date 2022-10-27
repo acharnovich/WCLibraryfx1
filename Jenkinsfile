@@ -11,7 +11,7 @@ pipeline {
         git 'https://github.com/acharnovich/WCLibraryfx1.git'
         sh 'mvn clean compile test package'
       }
-    }
+    }}
     post {
           always {
             emailext to: "charnovich@gmail.com",
@@ -21,4 +21,3 @@ pipeline {
           }
     }
   }
-}
