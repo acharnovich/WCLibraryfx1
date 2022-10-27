@@ -12,9 +12,12 @@ pipeline {
         sh 'mvn clean compile test package'
       }
     }
-    stage('Post') {
-          steps {
-            emailext attachLog: true, body: 'Email test', subject: 'Email test', to: 'andyholmes8@hotmail.com'
+    post {
+          always {
+            emailext to: "charnovich@gmail.com",
+            subject: 'Email test',
+            body: 'Email test',
+            attachLog: true
           }
     }
   }
